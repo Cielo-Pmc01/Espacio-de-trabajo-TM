@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="es" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capacitación Vendedores</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; }
+    .font-display { font-family: 'Playfair Display', serif; }
+    .card { transition: all 0.3s ease; }
+    .card:hover { transform: translateY(-2px); }
+    .tab-btn.active { background: #0ea5e9 !important; color: white !important; }
+    .tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+    .detail-row { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .detail-row:last-child { border-bottom: none; }
+    .price-box { background: linear-gradient(135deg, #1a2a3a 0%, #2d4a5e 100%); color: white; border-radius: 12px; padding: 16px; }
+    .search-input:focus { outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.4s ease forwards; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; display: none; align-items: center; justify-content: center; padding: 16px; }
+    .modal-overlay.open { display: flex; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full bg-slate-50 overflow-auto">
+   <!-- Header -->
+   <header style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);" class="text-white px-4 py-8 md:py-12">
+    <div class="max-w-5xl mx-auto">
+     <div class="flex items-center gap-3 mb-2 text-sky-300 text-sm font-semibold tracking-wider uppercase">
+      <i data-lucide="snowflake" style="width:18px;height:18px"></i> <span>Temporada Invierno 2025</span>
+     </div>
+     <h1 id="pageTitle" class="font-display text-3xl md:text-5xl font-extrabold mb-3">Capacitación Vendedores</h1>
+     <p class="text-sky-200 text-lg max-w-2xl">Guía completa de excursiones y traslados. Consultá rápidamente precios, horarios e información clave para cada producto.</p>
+    </div>
+   </header><!-- Search & Filters -->
+   <div class="max-w-5xl mx-auto px-4 -mt-6 relative z-10 mb-6">
+    <div class="bg-white rounded-2xl shadow-lg p-4 flex flex-col md:flex-row gap-3">
+     <div class="relative flex-1">
+      <i data-lucide="search" style="width:18px;height:18px" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i> <input id="searchInput" type="text" placeholder="Buscar excursión o traslado..." class="search-input w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm">
+     </div>
+     <div class="flex gap-2 flex-wrap" id="filterTabs">
+      <button class="tab-btn active px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-600 transition" data-filter="all">Todos</button> <button class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-600 transition" data-filter="excursion">Excursiones</button> <button class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-600 transition" data-filter="traslado">Traslados</button> <button id="providersBtn" class="px-4 py-2 rounded-xl text-sm font-semibold bg-purple-100 text-purple-600 hover:bg-purple-200 transition flex items-center gap-1.5"> <i data-lucide="building-2" style="width:16px;height:16px"></i> Proveedores </button>
+     </div>
+    </div>
+   </div><!-- Cards -->
+   <main class="max-w-5xl mx-auto px-4 pb-12">
+    <div id="viewContainer">
+     <div id="productsView">
+      <div id="cardsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+      <p id="noResults" class="hidden text-center text-slate-400 py-12 text-lg">No se encontraron resultados.</p>
+     </div>
+     <div id="providersView" class="hidden">
+      <div id="providersContainer" class="space-y-4"></div>
+     </div>
+    </div>
+   </main><!-- Modal -->
+   <div id="modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90%] overflow-auto shadow-2xl" id="modalContent"></div>
+   </div>
+  </div>
+  <script>
+const products = [
+  {
+    id: 1, name: "Villa La Angostura y Cerro Bayo", type: "excursion", emoji: "🏔️", provider: "Adventure Center",
+    schedule: "Lunes, miércoles, viernes y domingo — 08:30 a 18:00 hs aprox.",
+    duration: "9,5 horas",
+    description: "Paseo terrestre por la zona norte del Parque Nacional Nahuel Huapi visitando el centro invernal de Cerro Bayo y el pueblo de Villa La Angostura. Recorrido escénico con paradas panorámicas.",
+    season: "Invierno (junio, julio, agosto, septiembre)",
+    meetingPoint: "Desde km 8 de Av. Bustillo o Av. Pioneros hasta zona céntrica, centro de Bariloche, zona Las Victorias y Dina Huapi. Otros puntos a consultar.",
+    itinerary: "08:30 hs - Recogida en hospedajes | 09:00 hs - Inicio del recorrido por Ruta de los Siete Lagos | 10:30 hs - Llegada a Cerro Bayo, tiempo libre | 12:00 hs - Traslado a Villa La Angostura | 12:30-15:30 hs - Tiempo libre para recorrer el centro, tiendas y restaurantes | 16:00 hs - Regreso a Bariloche | 18:00 hs - Llegada a hospedajes",
+    includes: ["Traslado ida y vuelta", "Recorrido escénico por Ruta de los Siete Lagos (tramo inicial)", "Visita al Cerro Bayo", "Tiempo libre para actividades opcionales en la nieve", "Llegada a Villa La Angostura para recorrer el centro", "Paradas panorámicas durante el recorrido"],
+    notIncludes: ["Comidas (paradores gastronómicos disponibles en el recorrido)", "Ticket de ascenso en Cerro Bayo"],
+    additional: ["Equipamiento de nieve recomendado", "Cámara fotográfica", "Llevar dinero para compras y comidas"],
+    prices: [
+      { method: "Efectivo / Transferencia", price: "Consulta" },
+      { method: "Tarjeta 1 y 3 cuotas", price: "Consulta" }
+    ],
+    freeAge: "0 a 2 años liberados",
+    tags: ["Terrestre", "Día completo"]
+  },
+  {
+    id: 2, name: "Traslado Cerro Catedral", type: "traslado", emoji: "⛷️", provider: "Adventure Center",
+    schedule: "Diarias — 08:00 a 16:00 hs / 10:00 a 14:00 hs / 13:00 a 18:00 hs",
+    duration: "Flexible según horario elegido",
+    description: "Traslado al centro de esquí más importante de Latinoamérica. Es posible combinar con Circuito Chico. Tiempo libre para disfrutar de las pistas.",
+    season: "Todo el año (especialmente invierno)",
+    meetingPoint: "Desde el centro de Bariloche hacia Av. Bustillo o Av. Pioneros hasta Cerro Catedral. Otros puntos a consultar.",
+    itinerary: "Horario 08:00 hs: Recogida en hospedajes | Traslado a Cerro Catedral | Tiempo libre en pistas | Regreso a las 16:00 hs\n\nHorario 10:00 hs: Recogida en hospedajes | Traslado a Cerro Catedral | Tiempo libre en pistas | Regreso a las 14:00 hs\n\nHorario 13:00 hs: Recogida en hospedajes | Traslado a Cerro Catedral | Tiempo libre en pistas | Regreso a las 18:00 hs",
+    includes: ["Traslado ida y vuelta"],
+    notIncludes: ["Ticket de ascenso a aerosillas", "Comidas"],
+    additional: ["Equipo de ski/snowboard disponible en el centro", "Escuelas de esquí en el lugar", "Restaurantes y servicios en la base"],
+    prices: [
+      { method: "Efectivo / Transferencia", price: "Consulta" },
+      { method: "Tarjeta 1-3 cuotas", price: "Consulta" }
+    ],
+    freeAge: "0 a 2 años liberados",
+    tags: ["Traslado", "Medio día"]
+  },
+  {
+    id: 3, name: "Traslado Cerro Bayo", type: "traslado", emoji: "🚡", provider: "Adventure Center",
+    schedule: "Diarias — 08:00 a 16:00 hs / 10:00 a 14:00 hs / 13:00 a 18:00 hs",
+    duration: "Flexible según horario elegido",
+    description: "Traslado al centro de esquí Cerro Bayo ubicado en Villa La Angostura. Tiempo libre para disfrutar de las pistas.",
+    season: "Invierno",
+    meetingPoint: "Desde el centro de Bariloche hacia Av. Bustillo o Av. Pioneros. Otros puntos a consultar.",
+    itinerary: "08:00 hs: Recogida | Traslado 1,5 horas a Villa La Angostura | Tiempo libre en Cerro Bayo | Regreso a las 16:00 hs\n\n10:00 hs: Recogida | Traslado | Tiempo libre | Regreso a las 14:00 hs\n\n13:00 hs: Recogida | Traslado | Tiempo libre | Regreso a las 18:00 hs",
+    includes: ["Traslado ida y vuelta"],
+    notIncludes: ["Ticket de ascenso a aerosillas", "Comidas"],
+    additional: ["Parada en Villa La Angostura para tiendas y restaurantes", "Equipo disponible en el centro", "Vistas panorámicas del lago Nahuel Huapi"],
+    prices: [
+      { method: "Efectivo / Transferencia", price: "Consulta" },
+      { method: "Tarjeta 1-3 cuotas", price: "Consulta" }
+    ],
+    freeAge: "0 a 2 años liberados",
+    tags: ["Traslado", "Medio día"]
+  },
+  {
+    id: 4, name: "Traslado Villa La Angostura", type: "traslado", emoji: "🏘️", provider: "Adventure Center",
+    schedule: "Diarias — 08:00 a 16:00 hs / 10:00 a 14:00 hs / 13:00 a 18:00 hs",
+    duration: "Flexible según horario elegido",
+    description: "Traslado al pintoresco pueblo de Villa La Angostura. Tiempo libre para recorrer el centro.",
+    season: "Invierno",
+    meetingPoint: "Desde el centro de Bariloche hacia Av. Bustillo o Av. Pioneros. Otros puntos a consultar.",
+    itinerary: "08:00 hs: Recogida en hospedajes | Traslado 1,5 horas | Tiempo libre en Villa La Angostura | Regreso a las 16:00 hs\n\n10:00 hs: Recogida | Traslado | Tiempo libre | Regreso a las 14:00 hs\n\n13:00 hs: Recogida | Traslado | Tiempo libre | Regreso a las 18:00 hs",
+    includes: ["Traslado ida y vuelta"],
+    notIncludes: ["Comidas"],
+    additional: ["Tiendas de artesanías y souvenirs", "Restaurantes y cafeterías", "Iglesia histórica y plaza central", "Centro de esquí Cerro Bayo (opcional)"],
+    prices: [
+      { method: "Efectivo / Transferencia", price: "Consulta" },
+      { method: "Tarjeta 1-3 cuotas", price: "Consulta" }
+    ],
+    freeAge: "0 a 2 años liberados",
+    tags: ["Traslado", "Medio día"]
+  },
+  {
+    id: 5, name: "Clase Bautismo Ski / Snow — Cerro Catedral (Pase no incluido)", type: "clase", emoji: "🎿", provider: "Epic",
+    schedule: "Diarias — 08:00 a 16:00 hs aprox.",
+    duration: "Día completo (aprox. 8 hs)",
+    description: "Actividad ideal para la primera experiencia en deportes de nieve. Incluye traslado, equipamiento completo y clase grupal de 2 horas. Edad mínima: 12 años.",
+    season: "Invierno (junio, julio, agosto, septiembre)",
+    meetingPoint: "Centro de San Carlos de Bariloche + Av. Bustillo o Av. De Los Pioneros hasta km 8.",
+    itinerary: "1. Salida desde el centro de Bariloche\n2. Traslado hacia la base del Cerro Catedral\n3. Llegada y asignación de equipamiento (ski o snowboard)\n4. Encuentro con instructores\n5. Clase grupal de 2 horas en modalidad elegida\n6. Tiempo libre en el cerro para práctica o recreación\n7. Devolución del equipamiento\n8. Regreso a Bariloche",
+    includes: ["Traslado incluido", "Equipamiento completo (ski: tablas, botas y bastones / snowboard: tabla y botas)", "Clase grupal de 2 horas"],
+    notIncludes: ["Almuerzo", "Ropa de nieve", "Pases a pistas (PACK PASS)", "Medios de elevación", "Pick up por alojamiento"],
+    additional: ["Actividad ideal para principiantes", "Recomendaciones para actividades de ski y snowboard"],
+    prices: [
+      { method: "Efectivo / Transferencia", price: "Consulta" },
+      { method: "Tarjeta 1-3 cuotas", price: "Consulta" }
+    ],
+    freeAge: "Edad mínima 12 años",
+    tags: ["Clase", "Día completo", "Principiantes"]
+  },
+  {
+    id: 6, name: "Escuelita Ski / Snow — Día Completo (Menores)", type: "clase", emoji: "👧", provider: "Interno",
+    schedule: "Diarias — 09:00 a 16:30 hs",
+    duration: "Día completo (7,5 horas)",
+    description: "Día completo para menores de 4 a 11 años con traslado a Cerro Catedral, equipamiento técnico, clase grupal adaptada a edad y nivel, almuerzo incluido y supervisión especializada.",
+    season: "Invierno",
+    meetingPoint: "Centro de San Carlos de Bariloche.",
+    itinerary: "1. Pick up y traslado hacia Cerro Catedral\n2. Llegada y asignación de equipamiento técnico\n3. Organización de grupos por edad y nivel\n4. Clase grupal de ski o snowboard (2 hs)\n5. Almuerzo incluido\n6. Tiempo de práctica supervisada y actividades recreativas en la nieve\n7. Finalización de la jornada\n8. Regreso a Bariloche",
+    includes: ["Traslado ida y vuelta hacia Cerro Catedral", "Equipamiento técnico completo (ski/snowboard, botas, bastones o tabla)", "Clase grupal de 2 horas adaptada a edad y nivel", "Almuerzo completo incluido", "Supervisión especializada durante toda la jornada", "Programa adaptado para menores con cuidado e instrucción personalizada"],
+    notIncludes: ["Ropa de nieve (se recomienda llevar)"],
+    additional: ["Grupos organizados por edad y nivel de experiencia", "Instructores especializados en menores", "Guardería y supervisión continua", "Seguro de accidentes incluido", "Snacks y bebidas incluidas durante la jornada", "Fotos del día disponibles", "Recomendación: Llevar abrigo invernal y acceso a pases de ascenso Cerro Catedral"],
+    prices: [
+      { method: "Efectivo / Transferencia", price: "Consulta" },
+      { method: "Tarjeta 1-3 cuotas (20%)", price: "Consulta" }
+    ],
+    freeAge: "Edades 4 a 11 años",
+    tags: ["Clase", "Menores", "Almuerzo incluido", "Día completo"]
+  },
+  {
+    id: 7, name: "Clase Bautismo Ski / Snow — Semi Exclusiva", type: "clase", emoji: "🎿", provider: "Epic",
+    schedule: "Diarias (sujeto a disponibilidad) — 08:00 a 16:30 hs aprox.",
+    duration: "Día completo (08:00 a 16:30 hs aprox.)",
+    description: "Modalidad semi exclusiva para vos y tu grupo. Clase personalizada de Ski o Snowboard con instructor exclusivo para el grupo. Edad mínima: 4 años. Mínimo 4 pasajeros.",
+    season: "Invierno (junio, julio, agosto, septiembre)",
+    meetingPoint: "Centro de San Carlos de Bariloche",
+    itinerary: "1. Salida desde el centro de Bariloche\n2. Traslado hacia la base del Cerro Catedral\n3. Llegada y asignación de equipamiento técnico\n4. Encuentro con instructor exclusivo para el grupo\n5. Clase de ski o snowboard en modalidad semi exclusiva\n6. Tiempo libre para práctica en pistas\n7. Devolución del equipamiento\n8. Regreso a Bariloche",
+    includes: ["Traslado incluido", "Equipamiento completo (ski o snowboard)", "Clase personalizada para el grupo"],
+    notIncludes: ["Ropa de nieve"],
+    additional: ["Incluye equipamiento completo (ski o snowboard)", "Incluye clase personalizada para el grupo", "No incluye ropa de nieve", "Recomendaciones: Mensaje invierno + Tarifas ascenso Cerro Catedral"],
+    prices: [
+      { method: "Efectivo / Transferencia (por persona)", price: "Consulta" },
+      { method: "Tarjeta 1-3 cuotas (20%)", price: "Consulta" }
+    ],
+    freeAge: "Edad mínima 4 años — Modalidad semi exclusiva (mínimo 4 pasajeros)",
+    tags: ["Clase", "Semi exclusiva", "Día completo"]
+  },
+
+  {
+    id: 9, name: "Roca Negra", type: "excursion", emoji: "🏔️", provider: "Roca Negra",
+    schedule: "Lunes a sábados — 09:00 a 16:00 hs / 14:00 a 20:00 hs aprox.",
+    duration: "7 horas (turno mañana) / 6 horas (turno tarde)",
+    description: "Ascenso en 4x4 por camino de montaña dentro del Parque Nacional. Caminata guiada con raquetas por la nieve hasta el refugio Roca Negra. Almuerzo o merienda patagónica según horario.",
+    season: "Invierno",
+    meetingPoint: "Centro de Bariloche por Av. Bustillo o Av. Pioneros hasta la base del Cerro López. Otros puntos a consultar.",
+    itinerary: "Turno Mañana: 09:00 hs - Recogida | 09:30-10:30 hs - Ascenso en 4x4 | 10:30-12:00 hs - Caminata con raquetas | 12:00-14:00 hs - Almuerzo (fondue) | 14:00-15:30 hs - Retorno\n\nTurno Tarde: 14:00 hs - Recogida | 14:30-15:30 hs - Ascenso en 4x4 | 15:30-17:00 hs - Caminata | 17:00-19:00 hs - Merienda (chocolate) | 19:00-20:00 hs - Retorno",
+    includes: ["Traslado del hotel a la base del Cerro López", "Ascenso en 4x4 por camino de montaña", "Guías especializados", "Caminata guiada con raquetas", "Almuerzo (fondue de queso, pan y postre) o merienda (fondue de chocolate)"],
+    notIncludes: ["Ropa de nieve", "Bebidas"],
+    additional: ["Vistas panorámicas de Bariloche", "Equipamiento de seguridad completo", "Fotos profesionales del grupo", "Raquetas de nieve incluidas", "Ambiente de refugio cálido y acogedor"],
+    prices: [
+      { method: "Adultos - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Adultos - Tarjeta 1-3 cuotas (20%)", price: "Consulta" },
+      { method: "Menores 4-12 - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Menores 4-12 - Tarjeta 1-3 cuotas (20%)", price: "Consulta" }
+    ],
+    freeAge: null,
+    tags: ["Montaña", "Raquetas", "Día completo"]
+  },
+  {
+    id: 10, name: "Noche Encantada", type: "excursion", emoji: "🌙", provider: "Interno",
+    schedule: "Diarias — 18:30 a 23:30 hs aprox.",
+    duration: "5 horas",
+    description: "Ascenso nocturno en 4x4 atravesando bosques patagónicos bajo el cielo estrellado. Vistas panorámicas de Bariloche iluminada. Cena con fondue de queso en refugio de montaña.",
+    season: "Invierno",
+    meetingPoint: "Centro de Bariloche hasta km 8 de Av. Bustillo o Av. Pioneros. Hospedajes en dirección a Colonia Suiza. Otros puntos a consultar.",
+    itinerary: "18:30 hs - Pick up en hospedajes acordados | 19:00 hs - Salida hacia base del Cerro López | 19:15-20:00 hs - Ascenso nocturno en 4x4 por bosque patagónico | 20:00-20:30 hs - Paradas panorámicas con vistas de Bariloche iluminada | 20:30-23:00 hs - Cena en refugio de montaña | 23:00-23:30 hs - Regreso a hospedajes",
+    includes: ["Traslado ida y vuelta", "Ascenso en 4x4 nocturno", "Cena (empanadas de carne, fondue de queso y strudel con crema)", "Vistas nocturnas de Bariloche"],
+    notIncludes: ["Ropa de nieve", "Bebidas alcohólicas (no incluidas en cena)", "Fotografías profesionales"],
+    additional: ["Experiencia nocturna única con cielo estrellado", "Refugio calefaccionado y acogedor", "Paradas para fotos en miradores nocturnos", "Ambiente íntimo y romántico", "Menores de 0 a 3 años liberados", "Tarifa diferencial para menores 4-12 años"],
+    prices: [
+      { method: "Adultos - Efectivo", price: "Consulta" },
+      { method: "Adultos - Tarjeta 3 cuotas (25%)", price: "Consulta" },
+      { method: "Menores 4-12 - Efectivo", price: "Consulta" },
+      { method: "Menores 4-12 - Tarjeta 3 cuotas (25%)", price: "Consulta" }
+    ],
+    freeAge: "0 a 3 años liberados",
+    tags: ["Nocturna", "Cena", "Premium"]
+  },
+  {
+    id: 11, name: "Nieve Encantada", type: "excursion", emoji: "❄️", provider: "Interno",
+    schedule: "Diarias — 09:00 a 15:00 hs / 13:00 a 18:00 hs aprox.",
+    duration: "6 horas (turno mañana) / 5 horas (turno tarde)",
+    description: "Ascenso en 4x4 al refugio atravesando bosques patagónicos. Tiempo libre para disfrutar en la nieve, caminata con raquetas guiada y fondue en montaña. Con música en vivo.",
+    season: "Invierno",
+    meetingPoint: "Centro de Bariloche por Av. Bustillo o Av. Pioneros hasta la base del Cerro López. Otros puntos a consultar.",
+    itinerary: "Turno Mañana: 09:00 hs - Pick up | 09:30 hs - Traslado y ascenso en 4x4 | 10:00-11:00 hs - Tiempo libre en la nieve | 11:00-12:30 hs - Caminata guiada con raquetas | 12:30-14:30 hs - Almuerzo (empanadas, fondue de queso, strudel) y música en vivo | 14:30-15:00 hs - Regreso\n\nTurno Tarde: 13:00 hs - Pick up | 13:30 hs - Traslado y ascenso en 4x4 | 14:00-15:00 hs - Tiempo libre en la nieve | 15:00-16:30 hs - Caminata guiada con raquetas | 16:30-17:45 hs - Merienda (torta frita, fondue de chocolate, infusiones) | 17:45-18:00 hs - Regreso",
+    includes: ["Traslado ida y vuelta", "Ascenso en 4x4", "Tiempo libre para actividades en la nieve", "Caminata guiada con raquetas", "Almuerzo (turno mañana) o merienda (turno tarde)", "Música en vivo en el refugio"],
+    notIncludes: ["Ropa de nieve", "Bebidas adicionales"],
+    additional: ["Raquetas de nieve incluidas para la caminata", "Ambiente de refugio cálido y acogedor", "Vistas panorámicas del Cerro López", "Menores de 0 a 4 años liberados", "Tarifa diferencial para menores 4-12 años", "Actividades opcionales en la nieve (culipatín disponible)"],
+    prices: [
+      { method: "Adultos - Efectivo", price: "Consulta" },
+      { method: "Adultos - Tarjeta 3 cuotas (25%)", price: "Consulta" },
+      { method: "Menores 4-12 - Efectivo", price: "Consulta" },
+      { method: "Menores 4-12 - Tarjeta 3 cuotas (25%)", price: "Consulta" }
+    ],
+    freeAge: "0 a 4 años liberados",
+    tags: ["Aventura", "Familia", "Música en vivo"]
+  },
+  {
+    id: 12, name: "Caminata Laguna Congelada y Almuerzo — Refugio Neumeyer", type: "excursion", emoji: "❄️", provider: "Diversidad",
+    schedule: "Diarias — 09:00 a 16:00 hs / 11:00 a 18:00 hs",
+    duration: "7 horas (turno mañana) / 7 horas (turno tarde)",
+    description: "Caminata por bosques nevados hasta la laguna congelada con refrigerio de alfajor artesanal. Regreso al refugio, almuerzo completo y tiempo libre para trineos (culipatín).",
+    season: "Invierno",
+    meetingPoint: "km 8 de Av. Bustillo o Av. Pioneros hasta zona céntrica, centro de Bariloche. Otros puntos a consultar.",
+    itinerary: "Turno Mañana: 09:00 hs - Pick up en hospedajes | 09:30-10:00 hs - Traslado hacia Refugio Neumeyer | 10:00-11:30 hs - Caminata guiada por bosque nevado hasta laguna congelada | 11:30-12:00 hs - Refrigerio (alfajor artesanal e infusiones) | 12:00-13:00 hs - Regreso al refugio | 13:00-14:30 hs - Almuerzo completo | 14:30-15:30 hs - Tiempo libre con culipatines | 15:30-16:00 hs - Regreso a Bariloche\n\nTurno Tarde: 11:00 hs - Pick up | 11:30 hs - Llegada | 12:00-13:00 hs - Caminata | 13:00-14:00 hs - Refrigerio | 14:00-15:00 hs - Almuerzo | 15:00-17:00 hs - Culipatines | 17:00-18:00 hs - Regreso",
+    includes: ["Traslado ida y vuelta", "Uso del refugio", "Caminata guiada por bosque nevado", "Refrigerio (alfajor artesanal e infusiones)", "Almuerzo completo", "Té saborizado", "Pista y culipatines para uso libre"],
+    notIncludes: ["Ropa y calzado de nieve", "Bebidas en el almuerzo"],
+    additional: ["Experiencia de laguna congelada en Parque Nacional", "Ambiente natural y vistas de montaña", "Menores de 0 a 3 años liberados", "Tarifa diferencial para menores 4-12 años", "Grupos reducidos para mejor experiencia", "Fotografia natural del grupo"],
+    prices: [
+      { method: "Adultos - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Adultos - Tarjeta 1-3 cuotas (20%)", price: "Consulta" },
+      { method: "Menores 4-12 - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Menores 4-12 - Tarjeta 1-3 cuotas (20%)", price: "Consulta" }
+    ],
+    freeAge: "0 a 3 años liberados",
+    tags: ["Caminata", "Almuerzo", "Raquetas"]
+  },
+  {
+    id: 13, name: "Vivencias: Raquetas y Sabores Regionales — Refugio Neumeyer", type: "excursion", emoji: "🍽️", provider: "Diversidad",
+    schedule: "Diarias — 14:00 a 19:00 hs",
+    duration: "5 horas",
+    description: "Tarde llena de emociones: caminata guiada con raquetas, gastronomía regional, bebidas con y sin alcohol, y diversión en descensos con culipatines.",
+    season: "Invierno",
+    meetingPoint: "km 8 de Av. Bustillo o Av. Pioneros hasta zona céntrica, centro de Bariloche, zona Las Victorias y Dina Huapi.",
+    itinerary: "14:00 hs - Pick up en hospedajes acordados | 14:30-15:00 hs - Traslado hacia Refugio Neumeyer | 15:00-16:30 hs - Caminata guiada con raquetas por bosque nevado | 16:30-18:00 hs - Gastronomía regional con bebidas (con y sin alcohol) | 18:00-19:00 hs - Tiempo libre con pista y culipatines | 19:00 hs - Regreso a hospedajes",
+    includes: ["Traslado ida y vuelta", "Caminata guiada con raquetas", "Gastronomía regional", "Bebidas con y sin alcohol", "Uso del refugio", "Pista y culipatines"],
+    notIncludes: ["Ropa de nieve"],
+    additional: ["Experiencia gastronómica regional en montaña", "Raquetas de nieve incluidas", "Ambiente cálido y sociable en el refugio", "Bebidas premium incluidas", "Menores de 0 a 3 años liberados", "Tarifa diferencial para menores 4-12 años", "Grupos reducidos para mejor atención"],
+    prices: [
+      { method: "Adultos - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Adultos - Tarjeta 1-3 cuotas (20%)", price: "Consulta" },
+      { method: "Menores 4-12 - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Menores 4-12 - Tarjeta 1-3 cuotas (20%)", price: "Consulta" }
+    ],
+    freeAge: "0 a 3 años liberados",
+    tags: ["Tarde", "Gastronomía", "Raquetas"]
+  },
+  {
+    id: 14, name: "Piedras Blancas — Trineos / Culipatín + Traslado", type: "excursion", emoji: "🛷", provider: "Piedras Blancas",
+    schedule: "Diarias — 08:30 a 12:30 hs / 11:00 a 15:30 hs",
+    description: "Complejo especializado en trineos (culipatín). Actividad de deslizamiento con ascensos en aerosillas y magic carpet. Vistas panorámicas del Cerro López.",
+    season: "Invierno (junio, julio, agosto, septiembre)",
+    meetingPoint: "Mitre 131, Centro de Bariloche.",
+    includes: ["Ingreso al complejo", "Utilización de pistas", "1 culipatín (trineo)", "Hasta 4 ascensos en aerosilla", "2 ascensos en magic carpet", "Traslado ida y vuelta"],
+    notIncludes: ["Ropa de nieve", "Comidas"],
+    prices: [
+      { method: "Adultos 4+ - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Adultos 4+ - Tarjeta 1-3 cuotas (20%)", price: "Consulta" },
+      { method: "Menores 1-3 años (pista infantil) - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Menores 1-3 años - Tarjeta 1-3 cuotas (20%)", price: "Consulta" },
+      { method: "1 ascenso + traslado - Efectivo/Transferencia", price: "Consulta" },
+      { method: "1 ascenso + traslado - Tarjeta 1-3 cuotas (20%)", price: "Consulta" }
+    ],
+    freeAge: "0 a 1 año liberados",
+    tags: ["Trineos", "Aventura", "Pistas"]
+  },
+  {
+    id: 15, name: "Winter Park — Ski Principiantes + Traslado (Cerro Otto)", type: "clase", emoji: "⛷️", provider: "WinterPark",
+    schedule: "Diarias — 09:30 hs / 12:00 hs / 14:00 hs",
+    description: "Clase grupal de Ski para principiantes con pase de medio día en Winter Park. Equipo completo incluido. Edad mínima: 5 años.",
+    season: "Invierno (junio, julio, agosto, septiembre)",
+    meetingPoint: "Centro de Bariloche.",
+    includes: ["Traslado ida y vuelta", "Equipo de ski completo", "Pase de medio día", "Clase grupal de 2 horas"],
+    notIncludes: ["Ropa de nieve", "Comidas"],
+    prices: [
+      { method: "Adultos 5+ - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Adultos 5+ - Tarjeta 1-3 cuotas (20%)", price: "Consulta" }
+    ],
+    freeAge: "Desde 5 años",
+    tags: ["Clase", "Ski", "Winter Park"]
+  },
+  {
+    id: 16, name: "Winter Night — Cena Show y Ski Nocturno (Cerro Otto)", type: "excursion", emoji: "🌙", provider: "WinterPark",
+    schedule: "Diarias — 18:30 a 23:00 hs",
+    description: "Deslízate por pistas iluminadas bajo cielo estrellado o camina con raquetas. Show en vivo con música y baile, cena patagónica con barra libre.",
+    season: "Invierno (junio, julio, agosto, septiembre)",
+    meetingPoint: "Centro de Bariloche por Av. Bustillo o Av. Pioneros hasta base Cerro López. Otros puntos a consultar.",
+    includes: ["Traslado ida y vuelta", "Show en vivo (música y baile)", "Esquí libre o caminata con raquetas", "Cena patagónica (goulash o guiso), barra libre y postre"],
+    notIncludes: ["Ropa de nieve"],
+    prices: [
+      { method: "Adultos - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Adultos - Tarjeta 1-3 cuotas (20%)", price: "Consulta" },
+      { method: "Menores 4-12 - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Menores 4-12 - Tarjeta 1-3 cuotas (20%)", price: "Consulta" }
+    ],
+    freeAge: "0 a 3 años liberados",
+    tags: ["Nocturna", "Premium", "Show en vivo"]
+  },
+  {
+    id: 17, name: "Noche Nórdica", type: "excursion", emoji: "🌙", provider: "Ski Nórdico",
+    schedule: "19:00 a 22:30 hs / 20:30 a 00:00 hs / 22:00 a 01:30 hs",
+    duration: "3,5 horas (turno 1) / 3,5 horas (turno 2) / 3,5 horas (turno 3)",
+    description: "Travesía en cuatriciclos por el bosque nevado con ascenso a centro invernal en Cerro Otto. Fogata intermedia con chocolate o vino caliente. Cena completa en refugio con menú gourmet y bebidas premium.",
+    season: "Invierno (junio, julio, agosto, septiembre)",
+    meetingPoint: "Hoteles y puntos desde el centro hasta km 8 de Av. Bustillo o Av. Pioneros. Otros puntos a consultar.",
+    itinerary: "Turno 1 (19:00-22:30): 19:00 hs - Pick up en hospedajes | 19:30 hs - Llegada a base Cerro Otto | 19:45-20:45 hs - Charla de seguridad y travesía 1 hora en cuatriciclo | 20:45-21:15 hs - Fogata con chocolate/vino caliente | 21:15-22:00 hs - Cena gourmet | 22:00-22:30 hs - Regreso\n\nTurno 2 (20:30-00:00) y Turno 3 (22:00-01:30): Mismo itinerario ajustado a horarios",
+    includes: ["Traslado ida y vuelta", "Ascenso en cuatriciclo (2 personas por vehículo)", "Charla de seguridad", "Travesía 1 hora por bosque nevado", "Parada intermedia con fogata", "Chocolate caliente o vino caliente", "Cena en refugio (entrada, plato principal, postre, bebidas, vino, café, bombones y champagne)"],
+    notIncludes: ["Ropa de nieve (obligatoria para la actividad)", "Fotografías profesionales adicionales"],
+    additional: ["Experiencia nocturna premium en montaña", "Menú gourmet diseñado especialmente", "Bebidas premium incluidas (vino, champagne)", "Edad mínima: 4 años", "Tarifa diferencial para menores 4-12 años", "Capacidad limitada para mejor experiencia", "Fotos profesionales del grupo"],
+    prices: [
+      { method: "Adultos - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Adultos - Tarjeta 1-3 cuotas (20%)", price: "Consulta" },
+      { method: "Menores 4-12 - Efectivo/Transferencia", price: "Consulta" },
+      { method: "Menores 4-12 - Tarjeta 1-3 cuotas (20%)", price: "Consulta" }
+    ],
+    freeAge: "Edad mínima 4 años",
+    tags: ["Nocturna", "Cuatriciclos", "Cena gourmet"]
+  },
+
+  {
+    id: 22, name: "La Cueva — Paseo Nocturno y Cena", type: "excursion", emoji: "🌜", provider: "La Cueva",
+    schedule: "17:30 a 22:00 hs / 20:30 a 00:30 hs aprox.",
+    duration: "4,5 horas (turno 1) / 4 horas (turno 2)",
+    description: "Travesía en cuatriciclos y motos de nieve combinando una experiencia gastronómica diferente en el refugio de montaña La Cueva. Edad mínima 6 años.",
+    season: "Invierno (junio a septiembre)",
+    meetingPoint: "Opción sin traslado: Complejo La Cueva. Con traslado: Hoteles y puntos de encuentro desde Km 8 de Av. Bustillo o Av. Pioneros. Otros lugares consultar.",
+    itinerary: "Turno 1 (17:30-22:00): 17:30 hs - Pick up en hospedajes (si aplica) | 18:00 hs - Presentación en base La Cueva | 18:15 hs - Charla de seguridad | 18:30-19:15 hs - Travesía en cuatriciclo/moto de nieve (45 min) | 19:15-20:30 hs - Recorrido por bosque nevado con paradas | 20:30-22:00 hs - Cena en refugio\n\nTurno 2 (20:30-00:30): Horarios ajustados, misma actividad",
+    includes: ["Guías especializados", "Actividad 45 min en cuatriciclo y moto de nieve (2 personas por vehículo)", "Cena completa", "Traslado ida y vuelta (si aplica)", "Cascos y equipamiento de seguridad"],
+    notIncludes: ["Ropa de nieve", "Bebidas adicionales"],
+    additional: ["Edad mínima 6 años, menores 3-5 años solo primer horario", "Capacidad 2 personas por vehículo", "Experiencia nocturna única en bosque patagónico", "Gastronomía regional en refugio de montaña", "Tarifa diferencial para menores 6-12 años", "Fotos profesionales disponibles", "Ambiente cálido y acogedor"],
+    prices: [
+      { method: "Adultos - Efectivo/Transferencia", price: "$468.000" },
+      { method: "Adultos - Tarjeta 1-3 cuotas (20%)", price: "$561.600" },
+      { method: "Menores 6-12 - Efectivo/Transferencia", price: "$396.000" },
+      { method: "Menores 6-12 - Tarjeta 1-3 cuotas (20%)", price: "$475.200" },
+      { method: "Infantes 3-5 - Efectivo/Transferencia", price: "$168.000" },
+      { method: "Infantes 3-5 - Tarjeta 1-3 cuotas (20%)", price: "$201.600" }
+    ],
+    freeAge: "Mínimo 3 años",
+    tags: ["Nocturna", "Cuatriciclos", "Cena"]
+  },
+  {
+    id: 23, name: "La Cueva — Travesía Diurna Cuatriciclos", type: "excursion", emoji: "🏔️", provider: "La Cueva",
+    schedule: "09:45 / 11:00 / 12:15 / 13:30 hs",
+    duration: "50 minutos de travesía",
+    description: "Travesía guiada en bosques nevados del Cerro Catedral. Recorrido de 7 km en cuatriciclos y motos de nieve con paradas en miradores naturales. Edad mínima 6 años.",
+    season: "Invierno (junio a septiembre)",
+    meetingPoint: "Complejo La Cueva — Presentación 15 min antes del horario.",
+    itinerary: "15 min antes - Presentación y charla de seguridad en complejo La Cueva | Horario exacto - Asignación de vehículos (2 personas por vehículo) | +5 min - Inicio de travesía de 7 km | Recorrido - Bosques nevados del Cerro Catedral con paradas en miradores naturales | +50 min - Regreso a base La Cueva",
+    includes: ["Guías especializados", "Actividad 50 min en cuatriciclo y moto de nieve (2 personas por vehículo)", "Cascos y equipamiento de seguridad", "Paradas en miradores con vistas panorámicas"],
+    notIncludes: ["Ropa de nieve", "Traslados (opcional pagado aparte)", "Comidas"],
+    additional: ["Edad mínima 6 años", "Capacidad 2 personas por vehículo", "Recorrido de 7 km por senderos nevados", "Vistas panorámicas del Cerro Catedral", "Tarifa diferencial para menores 6-12 años", "Traslado opcional 08:00 o 13:00 disponible", "Experiencia de aventura en naturaleza patagónica"],
+    prices: [
+      { method: "Valor por vehículo - Efectivo/Transferencia", price: "$180.000" },
+      { method: "Valor por vehículo - Tarjeta 1-3 cuotas (20%)", price: "$216.000" },
+      { method: "Traslado opcional 08:00 o 13:00 - Efectivo/Transferencia", price: "$31.200" },
+      { method: "Traslado opcional - Tarjeta 1-3 cuotas (20%)", price: "$37.500" }
+    ],
+    freeAge: "Mínimo 6 años",
+    tags: ["Diurna", "Cuatriciclos", "Aventura"]
+  },
+  {
+    id: 24, name: "La Cueva — After Ski", type: "excursion", emoji: "⛷️", provider: "La Cueva",
+    schedule: "14:30 a 18:30 hs",
+    duration: "4 horas",
+    description: "Travesía en cuatriciclos y motos de nieve de 7 km con paradas para contemplar el atardecer del Cerro Catedral. Incluye cena con propuesta gastronómica regional. Edad mínima 4 años.",
+    season: "Invierno (junio a septiembre)",
+    meetingPoint: "Cabaña La Cueva — Base del Cerro Catedral.",
+    itinerary: "14:30 hs - Pick up en hospedajes (si aplica) | 15:00 hs - Presentación en base La Cueva | 15:15 hs - Charla de seguridad | 15:30-16:30 hs - Travesía de 7 km en cuatriciclo/moto de nieve | 16:30-17:30 hs - Miradores con vistas del atardecer | 17:30-18:30 hs - Cena en refugio con gastronomía regional",
+    includes: ["Guías especializados", "Travesía en cuatriciclo y moto de nieve (2 personas por vehículo)", "Recorrido de 7 km con paradas en miradores", "Cena (entrada, plato principal y postre)", "Traslado ida y vuelta", "Cascos y equipamiento de seguridad"],
+    notIncludes: ["Ropa de nieve", "Bebidas adicionales"],
+    additional: ["Edad mínima 4 años", "Vistas panorámicas del atardecer en Cerro Catedral", "Menores 3-5 años tarifa especial", "Tarifa diferencial para menores 6-12 años", "Capacidad 2 personas por vehículo", "Experiencia de aventura + gastronomía regional", "Ambiente cálido en refugio de montaña"],
+    prices: [
+      { method: "Adultos - Efectivo/Transferencia", price: "$414.000" },
+      { method: "Adultos - Tarjeta 1-3 cuotas (20%)", price: "$496.800" },
+      { method: "Menores 6-12 - Efectivo/Transferencia", price: "$330.000" },
+      { method: "Menores 6-12 - Tarjeta 1-3 cuotas (20%)", price: "$396.000" },
+      { method: "Infantes 3-5 - Efectivo/Transferencia", price: "$168.000" },
+      { method: "Infantes 3-5 - Tarjeta 1-3 cuotas (20%)", price: "$201.600" }
+    ],
+    freeAge: "Mínimo 3 años",
+    tags: ["Atardecer", "Cuatriciclos", "Gastronomía"]
+  },
+  {
+    id: 24, name: "Culipatin - Trineos en Cerro López", type: "excursion", emoji: "🛷", provider: "Interno",
+    schedule: "11:00 a 15:00 hs / 13:00 a 17:00 hs — Salidas todos los días",
+    description: "Actividad de deslizamiento por la nieve en trineo (culipatin) con vistas panorámicas del Cerro López. Incluye chocolate caliente y tortas fritas.",
+    season: "Invierno (mayo a octubre)",
+    meetingPoint: "Centro de Bariloche hasta Km 8 de Av. Bustillo / Av. Pioneros. Hospedajes en dirección a Colonia Suiza. Otros lugares consultar.",
+    includes: ["Traslado ida y vuelta", "Traslado en 4x4 hasta inicio de actividad", "Tirada libre en trineo", "Chocolate caliente y tortas fritas"],
+    notIncludes: ["Almuerzo"],
+    prices: [
+      { method: "Adultos - Efectivo/Transferencia", price: "$119.500" },
+      { method: "Adultos - Tarjeta 3 cuotas (25%)", price: "$149.375" },
+      { method: "Menores 4-12 - Efectivo/Transferencia", price: "$109.500" },
+      { method: "Menores 4-12 - Tarjeta 3 cuotas (25%)", price: "$136.875" }
+    ],
+    freeAge: "0 a 4 años liberados",
+    tags: ["Trineos", "Cerro López", "Chocolate caliente"]
+  }
+];
+
+const typeColors = { excursion: "#2563eb", traslado: "#059669", clase: "#d97706", seguro: "#7c3aed", alquiler: "#0891b2" };
+const typeLabels = { excursion: "Excursión", traslado: "Traslado", clase: "Clase", seguro: "Seguro", alquiler: "Alquiler" };
+
+let activeFilter = "all";
+let activeProvider = "all";
+
+function renderCards(filter, search) {
+  const container = document.getElementById("cardsContainer");
+  const noResults = document.getElementById("noResults");
+  let filtered = products;
+  if (filter !== "all") filtered = filtered.filter(p => p.type === filter);
+  if (search) {
+    const s = search.toLowerCase();
+    filtered = filtered.filter(p => p.name.toLowerCase().includes(s) || p.description.toLowerCase().includes(s) || (p.provider && p.provider.toLowerCase().includes(s)));
+  }
+  container.innerHTML = "";
+  noResults.classList.toggle("hidden", filtered.length > 0);
+  filtered.forEach((p, i) => {
+    const color = typeColors[p.type];
+    const card = document.createElement("div");
+    card.className = "card bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer fade-in";
+    card.style.animationDelay = `${i * 0.07}s`;
+    card.style.opacity = "0";
+    card.innerHTML = `
+      <div class="p-5">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-3xl">${p.emoji}</span>
+        </div>
+        <div class="flex items-center gap-3 mb-3">
+          <span class="tag" style="background:${color}15;color:${color}">${typeLabels[p.type]}</span>
+          ${p.provider ? `<span class="tag" style="background:#f3f4f6;color:#4b5563">${p.provider}</span>` : ""}
+        </div>
+        <h3 class="font-bold text-slate-800 mb-2">${p.name}</h3>
+        <p class="text-slate-500 text-sm mb-4 line-clamp-2">${p.description}</p>
+        <div class="flex items-center gap-2 text-sm text-slate-500 mb-3">
+          <i data-lucide="clock" style="width:14px;height:14px"></i>
+          <span>${p.schedule}</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          ${p.tags.map(t => `<span class="bg-slate-100 text-slate-600 text-xs font-medium px-2.5 py-1 rounded-full">${t}</span>`).join("")}
+        </div>
+        <div class="price-box">
+          <div class="flex items-end justify-between">
+            <div>
+              <div class="text-sky-300 text-xs font-semibold mb-1">DESDE</div>
+              <div class="text-2xl font-bold">${p.prices[0].price}</div>
+              <div class="text-sky-300 text-xs">${p.prices[0].method}</div>
+            </div>
+            <button class="bg-white text-slate-800 text-sm font-semibold px-4 py-2 rounded-xl hover:bg-sky-50 transition flex items-center gap-1.5" onclick="event.stopPropagation();openModal(${p.id})">
+              Ver detalle <i data-lucide="chevron-right" style="width:14px;height:14px"></i>
+            </button>
+          </div>
+          ${p.freeAge ? `<div class="text-sky-200 text-xs mt-2">👶 ${p.freeAge}</div>` : ""}
+        </div>
+      </div>
+    `;
+    card.addEventListener("click", () => openModal(p.id));
+    container.appendChild(card);
+  });
+  lucide.createIcons();
+}
+
+function renderProvidersView() {
+  const productsView = document.getElementById("productsView");
+  const providersView = document.getElementById("providersView");
+  const providersContainer = document.getElementById("providersContainer");
+  
+  productsView.classList.add("hidden");
+  providersView.classList.remove("hidden");
+  
+  const uniqueProviders = [...new Set(products.filter(p => p.provider).map(p => p.provider))].sort();
+  
+  providersContainer.innerHTML = "";
+  uniqueProviders.forEach((provider, i) => {
+    const providerProducts = products.filter(p => p.provider === provider);
+    const section = document.createElement("div");
+    section.className = "fade-in";
+    section.style.animationDelay = `${i * 0.07}s`;
+    section.style.opacity = "0";
+    
+    section.innerHTML = `
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+        <div class="bg-gradient-to-r from-purple-600 to-purple-500 p-5 cursor-pointer hover:from-purple-700 hover:to-purple-600 transition" onclick="toggleProvider(this)">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🏢</span>
+              <div>
+                <h3 class="font-bold text-white text-lg">${provider}</h3>
+                <p class="text-purple-100 text-sm">${providerProducts.length} producto${providerProducts.length > 1 ? 's' : ''}</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-down" style="width:24px;height:24px" class="text-white transition-transform duration-300"></i>
+          </div>
+        </div>
+        <div class="products-list hidden max-h-0 overflow-hidden transition-all duration-300" style="max-height: 0;">
+          <div class="p-4 space-y-3"></div>
+        </div>
+      </div>
+    `;
+    
+    providersContainer.appendChild(section);
+  });
+  
+  lucide.createIcons();
+}
+
+function toggleProvider(header) {
+  const section = header.closest(".bg-white");
+  const productsList = section.querySelector(".products-list");
+  const productsContent = productsList.querySelector(".p-4");
+  const chevron = header.querySelector("[data-lucide='chevron-down']");
+  
+  if (productsList.classList.contains("hidden")) {
+    productsList.classList.remove("hidden");
+    const provider = header.querySelector("h3").textContent;
+    const providerProducts = products.filter(p => p.provider === provider);
+    
+    productsContent.innerHTML = "";
+    providerProducts.forEach(p => {
+      const color = typeColors[p.type];
+      const productItem = document.createElement("div");
+      productItem.className = "border border-slate-200 rounded-lg p-3 hover:shadow-md transition cursor-pointer";
+      productItem.innerHTML = `
+        <div class="flex items-start justify-between mb-2" onclick="openModal(${p.id})">
+          <div class="flex items-center gap-2 flex-1">
+            <span class="text-xl">${p.emoji}</span>
+            <div class="flex-1">
+              <h4 class="font-bold text-slate-800 text-sm">${p.name}</h4>
+              <span class="tag" style="background:${color}15;color:${color};font-size:11px;padding:2px 8px">${typeLabels[p.type]}</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-slate-600 mb-2">${p.description.substring(0, 80)}...</p>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-slate-500">Desde <span class="font-bold text-slate-700">${p.prices[0].price}</span></div>
+          <button class="text-sky-600 font-semibold text-xs hover:text-sky-700 flex items-center gap-1" onclick="event.stopPropagation();openModal(${p.id})">
+            Ver detalle <i data-lucide="arrow-right" style="width:12px;height:12px"></i>
+          </button>
+        </div>
+      `;
+      productsContent.appendChild(productItem);
+    });
+    
+    setTimeout(() => {
+      productsList.style.maxHeight = productsContent.scrollHeight + 20 + "px";
+    }, 0);
+    chevron.style.transform = "rotate(180deg)";
+  } else {
+    productsList.style.maxHeight = "0px";
+    chevron.style.transform = "rotate(0deg)";
+    setTimeout(() => {
+      productsList.classList.add("hidden");
+    }, 300);
+  }
+  
+  lucide.createIcons();
+}
+
+function openModal(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const color = typeColors[p.type];
+  const mc = document.getElementById("modalContent");
+  mc.innerHTML = `
+    <div style="background:linear-gradient(135deg,${color}dd,${color}99)" class="p-6 text-white relative">
+      <button onclick="closeModal()" class="absolute top-4 right-4 bg-white/20 hover:bg-white/30 rounded-full p-1.5 transition"><i data-lucide="x" style="width:18px;height:18px;color:white"></i></button>
+      <span class="text-4xl mb-2 block">${p.emoji}</span>
+      <h2 class="font-display text-2xl font-bold">${p.name}</h2>
+      <span class="tag mt-2" style="background:rgba(255,255,255,0.25);color:white">${typeLabels[p.type]}</span>
+    </div>
+    <div class="p-6">
+      <p class="text-slate-600 text-sm mb-5">${p.description}</p>
+
+      ${p.duration ? `<div class="detail-row"><div class="shrink-0"><i data-lucide="hourglass" style="width:18px;height:18px" class="text-slate-400"></i></div><div><div class="text-xs text-slate-400 font-semibold uppercase">Duración</div><div class="text-sm text-slate-700">${p.duration}</div></div></div>` : ""}
+      <div class="detail-row"><div class="shrink-0"><i data-lucide="calendar" style="width:18px;height:18px" class="text-slate-400"></i></div><div><div class="text-xs text-slate-400 font-semibold uppercase">Temporada</div><div class="text-sm text-slate-700">${p.season}</div></div></div>
+      <div class="detail-row"><div class="shrink-0"><i data-lucide="map-pin" style="width:18px;height:18px" class="text-slate-400"></i></div><div><div class="text-xs text-slate-400 font-semibold uppercase">Punto de encuentro</div><div class="text-sm text-slate-700">${p.meetingPoint}</div></div></div>
+      ${p.itinerary ? `<div class="detail-row"><div class="shrink-0"><i data-lucide="route" style="width:18px;height:18px" class="text-slate-400"></i></div><div><div class="text-xs text-slate-400 font-semibold uppercase">Itinerario</div><div class="text-sm text-slate-700 whitespace-pre-line">${p.itinerary}</div></div></div>` : ""}
+
+      <div class="mt-5 mb-3">
+        <h3 class="text-sm font-bold text-green-700 flex items-center gap-1.5 mb-2"><i data-lucide="check-circle" style="width:16px;height:16px"></i> Incluye</h3>
+        <ul class="space-y-1">${p.includes.map(i => `<li class="text-sm text-slate-600 flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span>${i}</li>`).join("")}</ul>
+      </div>
+      <div class="mb-5">
+        <h3 class="text-sm font-bold text-red-600 flex items-center gap-1.5 mb-2"><i data-lucide="x-circle" style="width:16px;height:16px"></i> No incluye</h3>
+        <ul class="space-y-1">${p.notIncludes.map(i => `<li class="text-sm text-slate-600 flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>${i}</li>`).join("")}</ul>
+      </div>
+      ${p.additional ? `<div class="mb-5"><h3 class="text-sm font-bold text-amber-600 flex items-center gap-1.5 mb-2"><i data-lucide="info" style="width:16px;height:16px"></i> Adicionales</h3><ul class="space-y-1">${p.additional.map(i => `<li class="text-sm text-slate-600 flex items-start gap-2"><span class="text-amber-500 mt-0.5">•</span>${i}</li>`).join("")}</ul></div>` : ""}
+
+      <div class="price-box">
+        <div class="text-xs text-sky-300 font-semibold uppercase mb-3">Precios</div>
+        ${p.prices.map(pr => `<div class="flex justify-between items-center mb-2"><span class="text-sm text-sky-100">${pr.method}</span><span class="font-bold text-lg">${pr.price}</span></div>`).join("")}
+        ${p.freeAge ? `<div class="text-sky-200 text-xs mt-2 pt-2 border-t border-sky-400/30">👶 ${p.freeAge}</div>` : ""}
+      </div>
+    </div>
+  `;
+  document.getElementById("modal").classList.add("open");
+  lucide.createIcons();
+}
+
+function openProvidersListModal() {
+  const mc = document.getElementById("modalContent");
+  const uniqueProviders = [...new Set(products.filter(p => p.provider).map(p => p.provider))].sort();
+  
+  mc.innerHTML = `
+    <div style="background:linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);" class="p-6 text-white relative">
+      <button onclick="closeModal()" class="absolute top-4 right-4 bg-white/20 hover:bg-white/30 rounded-full p-1.5 transition"><i data-lucide="x" style="width:18px;height:18px;color:white"></i></button>
+      <h2 class="font-display text-3xl font-bold mb-2">Proveedores</h2>
+      <p class="text-purple-200">${uniqueProviders.length} proveedores disponibles</p>
+    </div>
+    <div class="p-6 max-h-[600px] overflow-y-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        ${uniqueProviders.map(provider => {
+          const providerCount = products.filter(p => p.provider === provider).length;
+          return `
+            <div class="border border-purple-200 rounded-xl p-4 hover:shadow-lg hover:border-purple-400 transition cursor-pointer bg-gradient-to-br from-purple-50 to-white" onclick="openProviderModal('${provider}')">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <h3 class="font-bold text-slate-800 mb-1">${provider}</h3>
+                  <p class="text-sm text-slate-500">${providerCount} producto${providerCount > 1 ? 's' : ''}</p>
+                </div>
+                <i data-lucide="chevron-right" style="width:18px;height:18px" class="text-purple-400"></i>
+              </div>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+  document.getElementById("modal").classList.add("open");
+  lucide.createIcons();
+}
+
+function openProviderModal(providerName) {
+  const providerProducts = products.filter(p => p.provider === providerName);
+  const mc = document.getElementById("modalContent");
+  
+  mc.innerHTML = `
+    <div style="background:linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);" class="p-6 text-white relative">
+      <button onclick="closeModal()" class="absolute top-4 right-4 bg-white/20 hover:bg-white/30 rounded-full p-1.5 transition"><i data-lucide="x" style="width:18px;height:18px;color:white"></i></button>
+      <h2 class="font-display text-3xl font-bold mb-2">${providerName}</h2>
+      <p class="text-purple-200">${providerProducts.length} producto${providerProducts.length > 1 ? 's' : ''}</p>
+    </div>
+    <div class="p-6 max-h-[600px] overflow-y-auto">
+      <div class="space-y-4">
+        ${providerProducts.map(p => {
+          const color = typeColors[p.type];
+          return `
+            <div class="border border-slate-200 rounded-xl p-4 hover:shadow-md transition cursor-pointer" onclick="openModal(${p.id})">
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">${p.emoji}</span>
+                  <div>
+                    <h4 class="font-bold text-slate-800">${p.name}</h4>
+                    <span class="tag" style="background:${color}15;color:${color}">${typeLabels[p.type]}</span>
+                  </div>
+                </div>
+              </div>
+              <p class="text-sm text-slate-600 mb-2">${p.description.substring(0, 100)}...</p>
+              <div class="flex items-center justify-between">
+                <div class="text-sm text-slate-500">Desde <span class="font-bold text-slate-700">${p.prices[0].price}</span></div>
+                <button class="text-sky-600 font-semibold text-sm hover:text-sky-700 flex items-center gap-1">
+                  Ver detalle <i data-lucide="arrow-right" style="width:14px;height:14px"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+  document.getElementById("modal").classList.add("open");
+  lucide.createIcons();
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("open");
+}
+
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") closeModal();
+});
+
+document.getElementById("filterTabs").addEventListener("click", e => {
+  const btn = e.target.closest(".tab-btn");
+  if (!btn) return;
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  activeFilter = btn.dataset.filter;
+  renderCards(activeFilter, document.getElementById("searchInput").value);
+});
+
+document.getElementById("providersBtn").addEventListener("click", () => {
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("providersBtn").classList.add("active");
+  renderProvidersView();
+});
+
+// Restore filter tabs when clicking regular filters
+document.getElementById("filterTabs").addEventListener("click", e => {
+  const btn = e.target.closest(".tab-btn");
+  if (!btn) return;
+  document.getElementById("providersBtn").classList.remove("active");
+  const productsView = document.getElementById("productsView");
+  const providersView = document.getElementById("providersView");
+  productsView.classList.remove("hidden");
+  providersView.classList.add("hidden");
+});
+
+document.getElementById("searchInput").addEventListener("input", e => {
+  renderCards(activeFilter, e.target.value);
+});
+
+// Element SDK
+const defaultConfig = {
+  page_title: "Capacitación Vendedores",
+  background_color: "#f8fafc",
+  surface_color: "#ffffff",
+  text_color: "#1e293b",
+  primary_color: "#0f2027",
+  accent_color: "#2563eb"
+};
+
+function applyConfig(config) {
+  const t = document.getElementById("pageTitle");
+  if (t) t.textContent = config.page_title || defaultConfig.page_title;
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => { applyConfig(config); },
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.primary_color || defaultConfig.primary_color, set: v => { config.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); } },
+        { get: () => config.accent_color || defaultConfig.accent_color, set: v => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } }
+      ],
+      borderables: [],
+      fontEditable: undefined,
+      fontSizeable: undefined
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ["page_title", config.page_title || defaultConfig.page_title]
+    ])
+  });
+}
+
+renderCards("all", "");
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ea2fc59d0dd9a2c',t:'MTc3NTgzNzA1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
