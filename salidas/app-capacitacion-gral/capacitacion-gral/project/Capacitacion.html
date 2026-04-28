@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CapacitaciónPro — Plataforma de Vendedores</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #F1F5F9;
+      color: #1E293B;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Rich content typography */
+    .rich-content h3 {
+      font-size: 17px; font-weight: 700; color: #0F172A;
+      margin: 24px 0 10px; line-height: 1.4;
+    }
+    .rich-content h3:first-child { margin-top: 0; }
+    .rich-content h4 {
+      font-size: 15px; font-weight: 700; color: #334155;
+      margin: 18px 0 8px;
+    }
+    .rich-content p {
+      font-size: 14px; color: #475569; line-height: 1.75;
+      margin-bottom: 12px;
+    }
+    .rich-content ul, .rich-content ol {
+      padding-left: 22px; margin-bottom: 14px;
+    }
+    .rich-content li {
+      font-size: 14px; color: #475569; line-height: 1.7;
+      margin-bottom: 5px;
+    }
+    .rich-content strong { color: #334155; font-weight: 700; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    /* Smooth transitions on all views */
+    #root > * { animation: fadeIn .25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .rich-content h3 { font-size: 15px; }
+      .rich-content p, .rich-content li { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <!-- Markdown + HTML↔Markdown conversion -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+  <script src="https://unpkg.com/turndown@7.1.2/dist/turndown.js"></script>
+  <script>
+    if (window.marked) {
+      window.marked.setOptions({ breaks: true, gfm: true });
+    }
+  </script>
+
+  <!-- Data layer (plain JS) -->
+  <script src="platform-data.js"></script>
+  <script>initStorage();</script>
+
+  <!-- Views -->
+  <script type="text/babel" src="platform-views.jsx"></script>
+  <script type="text/babel" src="platform-admin-content.jsx"></script>
+  <script type="text/babel" src="platform-admin-ai.jsx"></script>
+  <script type="text/babel" src="platform-admin.jsx"></script>
+  <script type="text/babel" src="platform-avatar.jsx"></script>
+  <script type="text/babel" src="platform-app.jsx"></script>
+
+  <!-- Tweaks -->
+  <script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "accentColor": "#54bbaa",
+    "cardRadius": 16,
+    "compactMode": true
+  }/*EDITMODE-END*/;
+
+  window.addEventListener('message', e => {
+    if (e.data?.type === '__activate_edit_mode') showTweaks();
+    if (e.data?.type === '__deactivate_edit_mode') hideTweaks();
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+  function applyTweaks(t) {
+    document.documentElement.style.setProperty('--accent', t.accentColor);
+    document.documentElement.style.setProperty('--radius', t.cardRadius + 'px');
+    if (t.compactMode) document.body.classList.add('compact');
+    else document.body.classList.remove('compact');
+  }
+
+  let tweaks = { ...TWEAK_DEFAULTS };
+  applyTweaks(tweaks);
+
+  function showTweaks() {
+    if (document.getElementById('tweaks-panel')) return;
+    const p = document.createElement('div');
+    p.id = 'tweaks-panel';
+    p.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#fff;border-radius:16px;box-shadow:0 8px 32px #0F172A22;padding:20px 24px;z-index:9999;width:260px;font-family:Plus Jakarta Sans,sans-serif;';
+    p.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <strong style="font-size:14px;color:#0F172A">Tweaks</strong>
+        <button id="close-tweaks" style="background:none;border:none;cursor:pointer;color:#94A3B8;font-size:18px;line-height:1">×</button>
+      </div>
+      <label style="font-size:12px;font-weight:600;color:#64748B;display:block;margin-bottom:6px">COLOR PRINCIPAL</label>
+      <input type="color" id="tw-color" value="${tweaks.accentColor}" style="width:100%;height:38px;border:1.5px solid #E2E8F0;border-radius:8px;cursor:pointer;padding:2px;margin-bottom:14px">
+      <label style="font-size:12px;font-weight:600;color:#64748B;display:block;margin-bottom:6px">RADIO DE TARJETAS — ${tweaks.cardRadius}px</label>
+      <input type="range" id="tw-radius" min="8" max="24" value="${tweaks.cardRadius}" style="width:100%;margin-bottom:14px">
+      <label style="font-size:12px;font-weight:600;color:#64748B;display:block;margin-bottom:8px">MODO COMPACTO</label>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+        <input type="checkbox" id="tw-compact" ${tweaks.compactMode ? 'checked' : ''} style="width:16px;height:16px;cursor:pointer">
+        <span style="font-size:13px;color:#475569">Activar</span>
+      </label>
+    `;
+    document.body.appendChild(p);
+    document.getElementById('close-tweaks').onclick = () => {
+      hideTweaks();
+      window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+    };
+    document.getElementById('tw-color').oninput = e => {
+      tweaks.accentColor = e.target.value;
+      applyTweaks(tweaks);
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accentColor: tweaks.accentColor } }, '*');
+    };
+    document.getElementById('tw-radius').oninput = e => {
+      tweaks.cardRadius = parseInt(e.target.value);
+      p.querySelector('label:nth-of-type(2)').textContent = `RADIO DE TARJETAS — ${tweaks.cardRadius}px`;
+      applyTweaks(tweaks);
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { cardRadius: tweaks.cardRadius } }, '*');
+    };
+    document.getElementById('tw-compact').onchange = e => {
+      tweaks.compactMode = e.target.checked;
+      applyTweaks(tweaks);
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { compactMode: tweaks.compactMode } }, '*');
+    };
+  }
+
+  function hideTweaks() {
+    const p = document.getElementById('tweaks-panel');
+    if (p) p.remove();
+  }
+  </script>
+
+  <style>
+    body.compact { font-size: 13px; }
+    body.compact .rich-content p, body.compact .rich-content li { font-size: 13px; }
+  </style>
+</body>
+</html>

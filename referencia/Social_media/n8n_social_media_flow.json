@@ -1,0 +1,119 @@
+{
+  "name": "Generación Automática de Posts - Turismo Patagonia",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days"
+            }
+          ]
+        }
+      },
+      "id": "trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fileContent": "={{ $node[\"Read Markdown\"].json[\"content\"] }}",
+        "options": {}
+      },
+      "id": "parse-prices",
+      "name": "Extraer Precios",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        300,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "html": "={{ $node[\"Read Template\"].json[\"html\"] }}",
+        "data": {
+          "PRECIO": "={{ $json[\"precio\"] }}",
+          "TITULO": "={{ $json[\"nombre_excursion\"] }}",
+          "IMAGEN_URL": "={{ $json[\"imagen\"] }}"
+        }
+      },
+      "id": "render-html",
+      "name": "Renderizar Template",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.html2image.com/v1/capture",
+        "authentication": "headerAuth",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "html",
+              "value": "={{ $node[\"render-html\"].json[\"html\"] }}"
+            }
+          ]
+        }
+      },
+      "id": "generate-image",
+      "name": "Convertir a Imagen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        700,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "post",
+        "operation": "create",
+        "caption": "🔥 ¡Oferta del día! {{ $json[\"nombre_excursion\"] }} a solo {{ $json[\"precio\"] }}. Reservá por WhatsApp en el link de la bio. #Bariloche #TurismoPatagonia",
+        "mediaUrl": "={{ $node[\"generate-image\"].json[\"image_url\"] }}"
+      },
+      "id": "post-instagram",
+      "name": "Publicar en Instagram",
+      "type": "n8n-nodes-base.instagram",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extraer Precios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer Precios": {
+      "main": [
+        [
+          {
+            "node": "Renderizar Template",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

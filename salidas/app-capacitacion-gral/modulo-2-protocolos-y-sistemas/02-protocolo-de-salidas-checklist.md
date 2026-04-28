@@ -1,0 +1,8 @@
+- Verificacion de carga de celulares
+- Cerrar sesion de chatwoot
+- No dejar datos bancarios en las conversaciones
+- Suspender las computadores
+- Verificar Cierre de ventanas de la oficina
+- Luces y aire apagado
+- Realizar protocolo de rendición (leer protocolo de rendiciones y comisiones)
+- Cierre de oficina y entrega de llave en Administración

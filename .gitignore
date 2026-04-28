@@ -37,3 +37,11 @@ __pycache__/
 # Generated build folders
 dist/
 build/
+
+# Antigravity / Claude AI assistant files
+.claude/
+CLAUDE.md
+shell-aliases.md
+
+# Windsurf AI assistant files
+.windsurf/
