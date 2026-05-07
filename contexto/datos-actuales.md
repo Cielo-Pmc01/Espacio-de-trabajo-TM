@@ -18,15 +18,21 @@
 ✅ Desplegada en servidor propio: https://c1.iadventurecenter.com/
 Contenido e información de protocolos cargados. Backend: Supabase.
 
-## Estado de la App de Capacitación General
+## Estado de la App de Capacitación General — Fase 5 (Pulido y Optimización)
+
+> **Última actualización:** 7 de Mayo de 2026
 
 | Ítem | Estado |
 |------|--------|
-| Archivos en `salidas/app-capacitacion-gral/` | ✅ En desarrollo |
-| Juego drag & drop (Módulo 2) | ❌ No funciona — necesita revisión |
-| Avatar Sofía con voz | ⚠️ Pendiente — definir herramienta (HeyGen u otra) |
-| Conexión con Notion | ⚠️ Pendiente |
-| Videos por módulo | ⏳ Pendiente — agregar links de YouTube |
+| **Fase:** Segmentación por Sector (B1, VR, VP) | ✅ **100% Completa en Local** |
+| Segmentación de usuarios por sector | ✅ Badges visuales, filtros inteligentes, asesores demo configurados |
+| Re-numeración consecutiva de módulos | ✅ Sin huecos numéricos, UI limpia |
+| Títulos dinámicos por sector | ✅ Mismo contenido, nombres personalizados por B1/VR/VP |
+| Panel de administración | ✅ Asignación de sectores a usuarios y módulos, editor de títulos alternativos |
+| Juego drag & drop (Módulo 2) | ✅ Funcional |
+| Videos embebidos YouTube | ✅ Habilitado en Módulo 2, Bloque 2 (avatar Sofía) |
+| Avatar Sofía con voz | ⏳ Enlaces de demo configurados — listo para reemplazar con videos reales |
+| Conexión con Notion (evaluaciones) | 🔴 **Prioridad Alta** — Notion listo, pendiente integrar hooks de envío |
 | Deploy en servidor | ⏳ Pendiente |
 
 ## Estado CRM Meta Ads

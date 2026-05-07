@@ -61,6 +61,15 @@ Claude siempre debe orientarse a través de `/iniciar` al inicio de la sesión, 
 
 ---
 
+## Regla de Oro de Comandos
+
+**PRIORIDAD ABSOLUTA:** Cualquier texto que comience con `/` (ejemplo: `/iniciar`) debe ser interpretado como un comando definido en `.claude/commands/`.
+1. **No adivinar:** No ejecutar comandos de terminal estándar (como `npm run dev`) si el usuario usa un comando con `/`.
+2. **Búsqueda Obligatoria:** Primero buscar el archivo `.md` correspondiente en `.claude/commands/` y seguir sus instrucciones al pie de la letra.
+3. **Contexto:** Si el comando requiere leer archivos de `contexto/` o `agentes/`, hacerlo antes de responder.
+
+---
+
 ## Comandos
 
 ### /iniciar
@@ -98,6 +107,16 @@ Incluye: psicología de conversión por mercado, frameworks PAS/BAB/AIDA/Hook, l
 Usarlo para: copies de Meta Ads, captions de Instagram/Facebook, guiones de Reels, copy web.
 
 Ejemplo: `/copywriter` (solicita briefing) o pasarle directamente la marca, canal y excursión.
+
+---
+
+## Protocolo Obligatorio de Git y Ramas
+
+Para evitar cualquier riesgo de romper la versión de producción (`main`), Claude **DEBE** seguir estrictamente el siguiente protocolo en cada repositorio de `salidas/`:
+
+1. **PROHIBIDO empujar directamente a `main`:** Nunca se debe hacer push directo a la rama principal en ningún repositorio.
+2. **Crear siempre una nueva rama descriptiva:** Al realizar cualquier cambio o nueva funcionalidad, Claude debe crear una rama de feature desde `main` con nomenclatura clara (ej. `feature/editor-visual-drive`).
+3. **Pushear la rama y reportar:** Subir la nueva rama al repositorio remoto de GitHub correspondiente y brindarle al usuario el comando o enlace para que él la revise, apruebe y fusione cuando lo considere seguro.
 
 ---
 
