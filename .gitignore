@@ -38,10 +38,10 @@ __pycache__/
 dist/
 build/
 
-# Antigravity / Claude AI assistant files
-.claude/
-CLAUDE.md
-shell-aliases.md
+# Assistant context files
+.claude/commands/crear-plan.md
+.claude/commands/implementar.md
 
-# Windsurf AI assistant files
-.windsurf/
+# Ignore nested project repositories
+salidas/
+node_modules/
