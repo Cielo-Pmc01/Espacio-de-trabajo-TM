@@ -1,0 +1,20 @@
+{
+  "name": "memorizar",
+  "description": "Guardar información importante del usuario para recordarla en futuras sesiones",
+  "triggers": ["/memorizar", "memoriza que", "recuerda que", "guarda que"],
+  "priority": "medium",
+  "instructions": [
+    "Recibir información a memorizar del usuario",
+    "Determinar tipo: preferencia, contexto_tecnico, decision, negocio",
+    "Verificar duplicados en memoria existente",
+    "Si existe memoria similar, ofrecer actualizar",
+    "Crear memoria con: título descriptivo, contenido claro, tags relevantes, UserTriggered: true",
+    "Confirmar al usuario con resumen de lo guardado"
+  ],
+  "output_format": {
+    "confirmation": "## Memoria guardada ✅\n\n**Título:** [nombre]\n**Tipo:** [tipo]\n**Tags:** [tags]\n\nEsta información estará disponible en futuras sesiones automáticamente."
+  },
+  "turbo": true,
+  "context_files": [],
+  "platforms": ["claude", "windsurf", "antigravity", "vscode"]
+}

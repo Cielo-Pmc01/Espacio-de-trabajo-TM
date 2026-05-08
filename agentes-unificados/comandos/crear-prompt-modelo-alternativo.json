@@ -1,0 +1,27 @@
+{
+  "name": "crear-prompt-modelo-alternativo",
+  "description": "Crear prompts compactos para modelos con límite de tokens, extrayendo solo información esencial",
+  "triggers": ["/crear-prompt-modelo-alternativo", "prompt optimizado", "prompt para otra IA", "prompt portable"],
+  "priority": "medium",
+  "instructions": [
+    "Preguntar: ¿Para qué modelo? (Claude 3 Haiku, GPT-3.5, etc.)",
+    "Preguntar: ¿Cuál es la tarea específica?",
+    "Preguntar: ¿Qué tema/contexto del workspace incluir?",
+    "Extraer contexto relevante de contexto/: marca, datos clave, formatos",
+    "Construir prompt optimizado: Contexto (2-3 líneas), Información de marca, Tarea, Formato de salida",
+    "Optimizar: eliminar redundancias, usar bullets, mantener bajo 500 tokens",
+    "Entregar listo para copiar y sugerir guardar en referencia/prompts/"
+  ],
+  "output_format": {
+    "sections": [
+      "## Prompt Optimizado para [Modelo]",
+      "**Tokens estimados:** [N]",
+      "### Prompt listo para usar:",
+      "### Instrucciones de uso",
+      "### ¿Guardar para reutilizar?"
+    ]
+  },
+  "turbo": true,
+  "context_files": ["contexto/*.md"],
+  "platforms": ["claude", "windsurf", "antigravity", "vscode"]
+}

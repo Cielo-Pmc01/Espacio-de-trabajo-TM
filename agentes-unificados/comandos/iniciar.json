@@ -1,0 +1,25 @@
+{
+  "name": "iniciar",
+  "description": "Iniciar sesión de trabajo - Lee el contexto y resume el workspace",
+  "triggers": ["/iniciar", "inicia el workspace", "empezar a trabajar"],
+  "priority": "high",
+  "instructions": [
+    "Leer CLAUDE.md en la raíz para entender la estructura del proyecto",
+    "Leer README.md para información general del workspace",
+    "Listar directorios principales: contexto/, planes/, salidas/, referencia/",
+    "Identificar archivos .md recientes en cada directorio",
+    "Mostrar resumen estructurado con: descripción del workspace, planes activos, contexto disponible"
+  ],
+  "output_format": {
+    "title": "Resumen del Workspace",
+    "sections": [
+      "Estructura: descripción breve",
+      "Planes activos: lista de archivos en planes/",
+      "Contexto disponible: temas principales en contexto/",
+      "Próximo paso: ¿Qué te gustaría trabajar hoy?"
+    ]
+  },
+  "turbo": true,
+  "context_files": ["CLAUDE.md", "README.md"],
+  "platforms": ["claude", "windsurf", "antigravity", "vscode"]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "implementar",
+  "description": "Ejecutar un plan de implementación existente paso a paso",
+  "triggers": ["/implementar", "ejecutar plan", "implementa el plan"],
+  "priority": "high",
+  "instructions": [
+    "Listar todos los archivos .md en planes/",
+    "Si hay múltiples planes, pedir al usuario que seleccione uno",
+    "Si no hay planes, sugerir usar /crear-plan primero",
+    "Leer contenido completo del plan seleccionado",
+    "Extraer: objetivo, pasos, criterios de éxito, entregables, contexto relevante",
+    "Para cada paso no completado: mostrar paso, leer contexto si necesario, ejecutar acción, marcar como completado",
+    "Preguntar si continuar con siguiente paso",
+    "Al finalizar, verificar criterios de éxito y entregables"
+  ],
+  "output_format": {
+    "progress": "## Implementando: [Nombre]\n\n**Progreso:** [X/Y] pasos\n\n### Paso actual: [N] - [Descripción]\n[Acciones]\n\n**Estado:** ✅ Completado",
+    "completion": "Plan completado. ¿Deseas revisar los criterios de éxito?"
+  },
+  "turbo": false,
+  "context_files": ["planes/*.md"],
+  "platforms": ["claude", "windsurf", "antigravity", "vscode"]
+}

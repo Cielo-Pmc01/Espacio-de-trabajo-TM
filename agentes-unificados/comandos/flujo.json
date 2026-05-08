@@ -1,0 +1,20 @@
+{
+  "name": "flujo",
+  "description": "Crear un nuevo workflow/skill para automatizar tareas repetitivas",
+  "triggers": ["/flujo", "crea workflow", "nuevo comando", "automatiza tarea"],
+  "priority": "medium",
+  "instructions": [
+    "Preguntar: ¿Qué tarea quieres automatizar?",
+    "Preguntar: ¿Con qué frecuencia lo usarás?",
+    "Preguntar: ¿Pasos específicos a incluir?",
+    "Diseñar workflow: nombre del comando, descripción, pasos del asistente, formato de salida",
+    "Crear archivo en agentes-unificados/comandos/[nombre].json",
+    "Ejecutar sync.ps1 para regenerar en todas las plataformas"
+  ],
+  "output_format": {
+    "confirmation": "## Workflow creado: /[nombre] ✅\n\n**Ubicación:** agentes-unificados/comandos/[nombre].json\n\nEjecuta sync.ps1 para sincronizar en todos los editores."
+  },
+  "turbo": true,
+  "context_files": [],
+  "platforms": ["claude", "windsurf", "antigravity", "vscode"]
+}

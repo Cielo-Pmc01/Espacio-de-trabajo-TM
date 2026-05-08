@@ -1,0 +1,21 @@
+{
+  "name": "crear-plan",
+  "description": "Crear un plan de implementación estructurado",
+  "triggers": ["/crear-plan", "crea un plan", "nuevo plan"],
+  "priority": "high",
+  "instructions": [
+    "Preguntar al usuario: ¿Cuál es el objetivo de este plan?",
+    "Preguntar: ¿Hay contexto específico que deba revisar?",
+    "Preguntar: ¿Cuál es el plazo o fecha objetivo?",
+    "Crear archivo en planes/YYYY-MM-DD-nombre-del-plan.md",
+    "Usar template estructurado con: Objetivo, Contexto, Pasos, Criterios de éxito, Entregables",
+    "Confirmar con usuario antes de crear el archivo"
+  ],
+  "output_format": {
+    "template": "# Plan: [Título]\n\n**Fecha:** YYYY-MM-DD\n**Estado:** pendiente\n**Prioridad:** alta/media/baja\n\n## Objetivo\n[Descripción clara]\n\n## Contexto\n- [Archivos relevantes]\n\n## Pasos\n1. [Paso 1]\n2. [Paso 2]\n\n## Criterios de éxito\n- [ ] [Criterio 1]\n\n## Entregables\n- [ ] [Entregable 1]",
+    "confirmation": "Plan creado en planes/YYYY-MM-DD-[nombre].md - ¿Deseas comenzar a implementarlo?"
+  },
+  "turbo": true,
+  "context_files": [],
+  "platforms": ["claude", "windsurf", "antigravity", "vscode"]
+}

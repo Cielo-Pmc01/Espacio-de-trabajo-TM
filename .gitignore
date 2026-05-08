@@ -39,9 +39,4 @@ dist/
 build/
 
 # Assistant context files
-.claude/commands/crear-plan.md
-.claude/commands/implementar.md
-
-# Ignore nested project repositories
-salidas/
-node_modules/
+# (keep untracked folders tracked now)

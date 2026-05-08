@@ -1,0 +1,27 @@
+{
+  "name": "copywriter",
+  "description": "Generar copy profesional para Meta Ads y RRSS para marcas de Adventure Center",
+  "triggers": ["/copywriter", "genera copy", "copy para ads", "texto para anuncios"],
+  "priority": "medium",
+  "instructions": [
+    "Preguntar: ¿Para qué marca necesitas copy?",
+    "Preguntar: ¿Qué producto/servicio promocionar?",
+    "Preguntar: ¿Objetivo? (venta, leads, awareness, tráfico)",
+    "Preguntar: ¿Plataformas? (facebook, instagram, ambas)",
+    "Buscar información de marca en contexto/: tono de voz, público objetivo, propuesta de valor",
+    "Generar: Headline principal + 2-3 alternativas, Primary text/cuerpo, 3 opciones de CTA",
+    "Adaptar por plataforma: Facebook (storytelling), Instagram (visual + caption), Stories (corto e impactante)",
+    "Optimizar para conversión: power words, urgencia, beneficios sobre características"
+  ],
+  "output_format": {
+    "sections": [
+      "## Copy para [Marca] - [Producto]",
+      "### 📱 Facebook Ads (Headline, Alternativas, Primary Text, CTA)",
+      "### 📸 Instagram Ads (Headline, Caption, Hashtags)",
+      "### 📊 Especificaciones técnicas"
+    ]
+  },
+  "turbo": true,
+  "context_files": ["contexto/marcas/*.md"],
+  "platforms": ["claude", "windsurf", "antigravity", "vscode"]
+}

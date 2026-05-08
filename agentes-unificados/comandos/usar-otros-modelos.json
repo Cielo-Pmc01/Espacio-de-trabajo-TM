@@ -1,0 +1,24 @@
+{
+  "name": "usar-otros-modelos",
+  "description": "Guía para usar el workspace con modelos de IA con límite de tokens o agentes alternativos",
+  "triggers": ["/usar-otros-modelos", "cambiar de modelo", "tokens limitados", "otra IA"],
+  "priority": "high",
+  "instructions": [
+    "Explicar estrategia de tokens: no procesar todo el repo, trabajar por archivos pequeños",
+    "Mostrar flujo recomendado: CLAUDE.md → contexto/ → planes/ → salidas/",
+    "Ofrecer formato de prompt optimizado para modelos token-limitados",
+    "Sugerir usar /crear-prompt-modelo-alternativo para crear prompts portátiles"
+  ],
+  "output_format": {
+    "sections": [
+      "## Uso con Modelos Alternativos",
+      "### Estrategia principal",
+      "### Flujo de trabajo",
+      "### Recomendaciones clave",
+      "### Próximo paso"
+    ]
+  },
+  "turbo": true,
+  "context_files": [],
+  "platforms": ["claude", "windsurf", "antigravity", "vscode"]
+}
