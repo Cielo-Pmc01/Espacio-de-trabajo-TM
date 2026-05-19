@@ -1,160 +1,218 @@
-# CLAUDE.md
+# CLAUDE.md — Ecosistema TM / Adventure Center
 
-Este archivo provee instrucciones a Claude Code (claude.ai/code) cuando trabaja con código en este repositorio.
-
----
-
-## Qué Es Esto
-
-Este es un **Claude Workspace Template** — un entorno estructurado diseñado para trabajar con Claude Code como un potente asistente agente entre sesiones. El usuario abrirá nuevas sesiones de Claude Code repetidamente, usando `/iniciar` al comienzo de cada una para cargar contexto esencial sin sobrecargar el contexto.
-
-**Este archivo (CLAUDE.md) es la base.** Se carga automáticamente al inicio de cada sesión. Mantenelo actualizado — es la única fuente de verdad sobre cómo Claude debe entender y operar dentro de este workspace.
+Este archivo es la base del workspace. Se carga automáticamente al inicio de cada sesión. Refleja el estado actual del ecosistema y cómo navegarlo.
 
 ---
 
-## La Relación Claude-Usuario
+## ⚠️ REGLA CRÍTICA: SIEMPRE EN ESPAÑOL
 
-Claude opera como un **asistente agente** con acceso a las carpetas del workspace, archivos de contexto, comandos y salidas. La relación es:
-
-- **Usuario**: Define objetivos, provee contexto sobre su rol/función y dirige el trabajo mediante comandos
-- **Claude**: Lee el contexto, entiende los objetivos del usuario, ejecuta comandos, produce salidas y mantiene la consistencia del workspace
-
-Claude siempre debe orientarse a través de `/iniciar` al inicio de la sesión, y luego actuar con plena conciencia de quién es el usuario, qué está tratando de lograr y cómo este workspace lo apoya.
+**Claude debe responder SIEMPRE en español.** Cielo solo entiende español. Esto NO es negociable.
+- Todas las respuestas, explicaciones, documentos y mensajes → español
+- Comentarios de código pueden estar en inglés (si es estándar), pero todo lo que se comunique con Cielo → español
+- Si algo está en inglés en una librería/documentación, traducir lo relevante para el usuario
 
 ---
 
-## Estructura del Workspace
+## Qué Es Este Workspace
 
-```
-.
-├── CLAUDE.md              # Este archivo — contexto principal, siempre cargado
-├── .claude/
-│   └── commands/          # Comandos que Claude puede ejecutar
-│       ├── iniciar.md      # /iniciar — inicialización de sesión
-│       ├── crear-plan.md   # /crear-plan — crear planes de implementación
-│       └── implementar.md  # /implementar — ejecutar planes
-├── contexto/              # Contexto del negocio, rol, estrategia y datos actuales
-├── planes/                # Planes de implementación creados por /crear-plan
-├── salidas/               # Proyectos y entregables (cada uno con su propio repo GitHub)
-│   ├── app-invierno/          # ✅ Completada — https://c1.iadventurecenter.com/
-│   ├── app-capacitacion-gral/ # En desarrollo — capacitación general vendedores
-│   ├── crm-meta-ads/          # En desarrollo — análisis campañas Meta Ads (repo: CieloSosa/crm-meta-ads)
-│   └── crm-equipo-tm/         # En desarrollo — seguimiento tareas equipo TM (repo: CieloSosa/crm-tm)
-├── agentes/               # Agentes de IA listos para usar (prompts completos con instrucciones)
-│   └── agente-copy-tm.md  # Generador de copies para las 14 marcas (Meta Ads, RRSS, Web)
-├── referencia/            # Plantillas, prompts maestros, flujos n8n reutilizables
-└── scripts/               # Scripts de automatización auxiliares
-```
+Un ecosistema estructurado para gestionar **todo el área TM (Telemarketing & Marketing) de Adventure Center** (Bariloche, Patagonia Argentina). Incluye desarrollo de productos digitales, estrategia de redes sociales, gestión de campañas publicitarias y automatizaciones.
 
-**Nota importante sobre `salidas/`:** cada subcarpeta de proyecto tiene su propio repositorio GitHub conectado. Los cambios se pushean al repo del proyecto correspondiente, no al repo principal del workspace.
-
-**Directorios principales:**
-
-| Directorio    | Propósito                                                                                       |
-| ------------- | ----------------------------------------------------------------------------------------------- |
-| `contexto/`   | Quién es el usuario, su rol, prioridades actuales, estrategias. Leído por `/iniciar`.           |
-| `planes/`     | Planes de implementación detallados. Creados por `/crear-plan`, ejecutados por `/implementar`.  |
-| `salidas/`    | Proyectos activos. Cada uno conectado a su propio repo de GitHub.                               |
-| `agentes/`    | Agentes de IA listos para usar. Cada archivo es un prompt completo con instrucciones y formulario. |
-| `referencia/` | Docs de ayuda, plantillas y patrones para asistir en distintos flujos de trabajo.               |
-| `scripts/`    | Scripts de automatización auxiliares (bash, python, etc.) que soporten otros flujos.            |
+**Operadora:** Cielo — Líder del Área TM. Detalles en `contexto/info-personal.md`.
 
 ---
 
 ## Regla de Oro de Comandos
 
-**PRIORIDAD ABSOLUTA:** Cualquier texto que comience con `/` (ejemplo: `/iniciar`) debe ser interpretado como un comando definido en `.claude/commands/`.
-1. **No adivinar:** No ejecutar comandos de terminal estándar (como `npm run dev`) si el usuario usa un comando con `/`.
-2. **Búsqueda Obligatoria:** Primero buscar el archivo `.md` correspondiente en `.claude/commands/` y seguir sus instrucciones al pie de la letra.
-3. **Contexto:** Si el comando requiere leer archivos de `contexto/` o `agentes/`, hacerlo antes de responder.
+Cualquier texto que comience con `/` es un comando definido en `.claude/commands/`. **Buscar siempre el archivo `.md` correspondiente y seguirlo al pie de la letra.**
 
 ---
 
-## Comandos
+## Comandos Disponibles
 
-### /iniciar
-
-**Propósito:** Inicializar una nueva sesión con plena conciencia del contexto.
-
-Ejecutalo al inicio de cada sesión. Claude:
-
-1. Leerá CLAUDE.md y los archivos de contexto
-2. Resumirá su comprensión del usuario, el workspace y los objetivos
-3. Confirmará que está listo para asistir
-
-### /crear-plan [pedido]
-
-**Propósito:** Crear un plan de implementación detallado antes de hacer cambios.
-
-Usalo cuando se agrega nueva funcionalidad, comandos, scripts, o se hacen cambios estructurales. Produce un documento de plan exhaustivo en `planes/` que captura contexto, justificación y tareas paso a paso.
-
-Ejemplo: `/crear-plan agregar comando de análisis de competidores`
-
-### /implementar [ruta-al-plan]
-
-**Propósito:** Ejecutar un plan creado por /crear-plan.
-
-Lee el plan, ejecuta cada paso en orden, valida el trabajo y actualiza el estado del plan.
-
-Ejemplo: `/implementar planes/2026-01-28-comando-analisis-competidores.md`
-
-### /copywriter
-
-**Propósito:** Generar copies profesionales para Meta Ads y redes sociales, adaptados a cada una de las 14 marcas y sus mercados (Argentina, Brasil, internacional en inglés).
-
-Incluye: psicología de conversión por mercado, frameworks PAS/BAB/AIDA/Hook, límites técnicos de Meta Ads, protocolo de lenguaje positivo y checklist de calidad. Genera siempre 3 variantes A/B/C con análisis de cada una.
-
-Usarlo para: copies de Meta Ads, captions de Instagram/Facebook, guiones de Reels, copy web.
-
-Ejemplo: `/copywriter` (solicita briefing) o pasarle directamente la marca, canal y excursión.
+| Comando | Propósito |
+|---------|-----------|
+| `/iniciar` | Inicializar sesión — carga contexto y reporta estado actual |
+| `/crear-plan [pedido]` | Crear plan de implementación detallado en `planes/` |
+| `/implementar [ruta]` | Ejecutar un plan paso a paso |
 
 ---
 
-## Protocolo Obligatorio de Git y Ramas
+## Estructura del Ecosistema
 
-Para evitar cualquier riesgo de romper la versión de producción (`main`), Claude **DEBE** seguir estrictamente el siguiente protocolo en cada repositorio de `salidas/`:
-
-1. **PROHIBIDO empujar directamente a `main`:** Nunca se debe hacer push directo a la rama principal en ningún repositorio.
-2. **Crear siempre una nueva rama descriptiva:** Al realizar cualquier cambio o nueva funcionalidad, Claude debe crear una rama de feature desde `main` con nomenclatura clara (ej. `feature/editor-visual-drive`).
-3. **Pushear la rama y reportar:** Subir la nueva rama al repositorio remoto de GitHub correspondiente y brindarle al usuario el comando o enlace para que él la revise, apruebe y fusione cuando lo considere seguro.
+```
+.
+├── CLAUDE.md                          # Este archivo — mapa del ecosistema
+│
+├── contexto/                          # Todo el contexto del negocio y trabajo
+│   ├── info-personal.md               # Rol, equipo y responsabilidades de Cielo
+│   ├── estrategia.md                  # Prioridades estratégicas actuales
+│   ├── negocio/                       # Contexto del negocio y marcas
+│   │   ├── info-negocio.md            # Descripción de la empresa y área TM
+│   │   ├── brand_profiles.md          # Perfiles, tonos y públicos de las 14 marcas
+│   │   ├── copy_protocol.md           # Protocolo de copy y lenguaje por marca
+│   │   ├── catalog_*.md               # Catálogos de excursiones (invierno, verano, año)
+│   │   ├── Excursiones todo el año.md # Lista completa de excursiones
+│   │   └── logos_marcas/              # Logos de las marcas
+│   ├── proyectos/                     # Estado actual de proyectos
+│   │   ├── datos-actuales.md          # Estado de cada proyecto activo
+│   │   └── proyectos.md               # Lista y backlog de proyectos
+│   ├── meta-ads/                      # (en construcción) Contexto de campañas
+│   └── redes-sociales/                # (en construcción) Contexto de RRSS
+│
+├── .claude/
+│   ├── commands/                      # Comandos de sesión
+│   │   ├── iniciar.md
+│   │   ├── crear-plan.md
+│   │   └── implementar.md
+│   └── skills/                        # Skills activas (1 nivel — limitación del harness)
+│       ├── turismo-design-expert/     # [TM] Diseño premium para las 14 marcas
+│       ├── senior-architect-tm-protocol/ # [TM] Arquitectura 6 fases para proyectos TM
+│       ├── context7/                  # [Docs] Buscar docs de librerías en tiempo real
+│       ├── brainstorming/             # [Dev] Explorar diseño antes de implementar
+│       ├── writing-plans/             # [Dev] Crear planes de implementación detallados
+│       ├── executing-plans/           # [Dev] Ejecutar planes en sesión separada
+│       ├── systematic-debugging/      # [Dev] Debugging metódico antes de proponer fixes
+│       ├── test-driven-development/   # [Dev] TDD — test antes de código
+│       ├── verification-before-completion/ # [Dev] Verificar antes de declarar listo
+│       ├── subagent-driven-development/    # [Dev] Planes con tareas independientes
+│       ├── dispatching-parallel-agents/    # [Dev] Tareas paralelas independientes
+│       ├── using-git-worktrees/       # [Dev] Aislamiento de workspace para features
+│       ├── finishing-a-development-branch/ # [Dev] Cerrar rama de desarrollo
+│       ├── requesting-code-review/    # [Dev] Solicitar code review antes de merge
+│       ├── receiving-code-review/     # [Dev] Procesar feedback de code review
+│       ├── writing-skills/            # [Meta] Crear/editar skills
+│       ├── using-superpowers/         # [Meta] Protocolo de uso de skills
+│       ├── n8n-code-javascript/       # [n8n] Pendiente contenido
+│       ├── n8n-code-python/           # [n8n] Pendiente contenido
+│       ├── n8n-expression-syntax/     # [n8n] Pendiente contenido
+│       ├── n8n-mcp-tools-expert/      # [n8n] Pendiente contenido
+│       ├── n8n-node-configuration/    # [n8n] Pendiente contenido
+│       ├── n8n-validation-expert/     # [n8n] Pendiente contenido
+│       ├── n8n-workflow-patterns/     # [n8n] Pendiente contenido
+│       ├── mcp-integration/           # [MCP] Pendiente contenido
+│       ├── pdf/                       # [Dev] Procesamiento de archivos PDF
+│       ├── xlsx/                      # [Dev] Crear/editar/analizar archivos Excel y CSV
+│       ├── canvas-design/             # [Dev] Arte visual — posters, diseño, PDF/PNG con filosofía estética
+│       ├── docx/                      # [Dev] Procesamiento de archivos DOCX (Word)
+│       ├── web-artifacts-builder/      # [Dev] Creación de artifacts HTML complejos con React y shadcn/ui
+│       ├── brand-guidelines/          # [Dev] Aplica colores, tipografía y estilo de marca a cualquier artifact
+│       ├── deep-research/             # [Dev] Investigación profunda con citas, evidencia y reportes PDF/HTML
+│       ├── promptfoo-evals/           # [QA] Evaluaciones y testing de prompts/modelos con PromptFoo
+│       ├── redteam-plugin-development/ # [QA] Desarrollo de plugins de red team para PromptFoo
+│       ├── search-params/             # [QA] Manejo de search params en evaluaciones PromptFoo
+│       ├── meta-ads/                  # [Área] En construcción
+│       ├── redes-sociales/            # [Área] En construcción
+│       │
+│       │   # Skills de Marketing (from coreyhaines31/marketingskills)
+│       ├── ab-test-setup/             # [Mkt] Diseño y ejecución de A/B tests
+│       ├── ad-creative/               # [Mkt] Generación de copy para ads (Facebook, Google, LinkedIn)
+│       ├── ai-seo/                    # [Mkt] Optimización para búsquedas con IA (AEO/GEO)
+│       ├── analytics-tracking/        # [Mkt] Configuración de tracking y analytics (GA4, GTM)
+│       ├── aso-audit/                 # [Mkt] Auditoría de App Store / Google Play
+│       ├── churn-prevention/          # [Mkt] Estrategias de retención y reducción de churn
+│       ├── co-marketing/              # [Mkt] Campañas conjuntas y partnerships
+│       ├── cold-email/                # [Mkt] Secuencias de email frío y outreach
+│       ├── community-marketing/       # [Mkt] Construcción y activación de comunidades
+│       ├── competitor-alternatives/   # [Mkt] Páginas "alternativas a X" y SEO competitivo
+│       ├── competitor-profiling/      # [Mkt] Análisis y perfiles de competidores
+│       ├── content-strategy/          # [Mkt] Estrategia de contenidos y calendario editorial
+│       ├── copy-editing/              # [Mkt] Edición y mejora de copy existente
+│       ├── copywriting/               # [Mkt] Copy de conversión para páginas web
+│       ├── customer-research/         # [Mkt] Investigación de usuarios y Jobs-to-be-Done
+│       ├── directory-submissions/     # [Mkt] Listados en directorios y backlinks
+│       ├── email-sequence/            # [Mkt] Secuencias de email automatizadas
+│       ├── form-cro/                  # [Mkt] Optimización de formularios
+│       ├── free-tool-strategy/        # [Mkt] Herramientas gratuitas como canal de adquisición
+│       ├── image/                     # [Mkt] Estrategia visual y assets de marketing
+│       ├── launch-strategy/           # [Mkt] Estrategia de lanzamiento de productos
+│       ├── lead-magnets/              # [Mkt] Creación de lead magnets y recursos gratuitos
+│       ├── marketing-ideas/           # [Mkt] Generación de ideas de marketing
+│       ├── marketing-psychology/      # [Mkt] Psicología del consumidor aplicada al marketing
+│       ├── onboarding-cro/            # [Mkt] Optimización del flujo de onboarding
+│       ├── page-cro/                  # [Mkt] Optimización de conversión de páginas
+│       ├── paid-ads/                  # [Mkt] Estrategia y gestión de publicidad paga
+│       ├── paywall-upgrade-cro/       # [Mkt] CRO para upgrades y paywall
+│       ├── popup-cro/                 # [Mkt] Optimización de popups y overlays
+│       ├── pricing-strategy/          # [Mkt] Estrategia de precios
+│       ├── product-marketing-context/ # [Mkt] Contexto base para todas las skills de marketing
+│       ├── programmatic-seo/          # [Mkt] SEO programático a escala
+│       ├── referral-program/          # [Mkt] Programas de referidos
+│       ├── revops/                    # [Mkt] Revenue Operations y alineación ventas-marketing
+│       ├── sales-enablement/          # [Mkt] Materiales y herramientas para el equipo de ventas
+│       ├── schema-markup/             # [Mkt] Implementación de datos estructurados
+│       ├── seo-audit/                 # [Mkt] Auditoría técnica y on-page de SEO
+│       ├── signup-flow-cro/           # [Mkt] Optimización del flujo de registro
+│       ├── site-architecture/         # [Mkt] Arquitectura de sitio web para SEO y UX
+│       ├── social-content/            # [Mkt] Contenido para redes sociales (LinkedIn, IG, TikTok)
+│       └── video/                     # [Mkt] Estrategia y producción de video marketing
+│
+├── agentes/                           # Prompts de agentes listos para usar
+│   └── agente-copy-tm.md             # Generador de copies para las 14 marcas
+│
+├── planes/                            # Planes de implementación con fecha
+├── salidas/                           # Proyectos activos (cada uno con repo propio)
+│   ├── app-invierno/                  # ✅ Completada — https://c1.iadventurecenter.com/
+│   ├── app-capacitacion-gral/         # 🔄 En desarrollo — rediseño + Notion + Vercel
+│   ├── crm-equipo-tm/                 # 🔄 En desarrollo
+│   └── crm-meta-ads/                  # 🔄 En desarrollo
+├── referencia/                        # Plantillas, flujos n8n, materiales de apoyo
+└── scripts/                           # Scripts de automatización auxiliares
+```
 
 ---
 
-## Instrucción Crítica: Mantener Este Archivo
+## Las 14 Marcas
 
-**Siempre que Claude haga cambios en el workspace, DEBE considerar si CLAUDE.md necesita actualizarse.**
+Siempre leer `contexto/negocio/brand_profiles.md` antes de trabajar con cualquier marca. Existe brandbook con paletas de colores definidas.
 
-Después de cualquier cambio — agregar comandos, scripts, flujos de trabajo, o modificar la estructura — preguntarse:
+**Activas (9):** Adventure Center, Bariloche Excursiones, Turismo Bariloche, Centro de Reservas, Turismo Patagonia, Tur Central, Patagonia Booking, TB Brasil, Passeios Bariloche.
+**Rafting (5 — inactivas en invierno):** Rafting Adventure, Rafting Bariloche, Rafting Villegas, Rafting Patagonia, Rafting Valle del Manso.
 
-1. ¿Este cambio agrega nueva funcionalidad que los usuarios necesitan conocer?
-2. ¿Modifica la estructura del workspace documentada arriba?
-3. ¿Debe listarse un nuevo comando?
-4. ¿Necesita `contexto/` nuevos archivos para capturar esto?
-
-Si la respuesta es sí a cualquiera, actualizar las secciones relevantes. Este archivo debe siempre reflejar el estado actual del workspace para que las sesiones futuras tengan contexto preciso.
-
-**Ejemplos de cambios que requieren actualizar CLAUDE.md:**
-
-- Agregar un nuevo comando → agregar a la sección de Comandos
-- Crear un nuevo tipo de salida → documentar en Estructura del Workspace o crear una sección
-- Agregar un script → documentar su propósito y uso
-- Cambiar patrones de flujo de trabajo → actualizar la documentación relevante
+**CM Luciana gestiona:** TB, Passeios Bariloche, TP, Adventure Center, Bariloche Excursiones, Centro de Reservas, Tur Central, Patagonia Booking.
 
 ---
 
-## Flujo de Trabajo de Sesión
+## Stack Tecnológico
 
-1. **Inicio**: Ejecutar `/iniciar` para cargar el contexto
-2. **Trabajo**: Usar comandos o dirigir a Claude con tareas
-3. **Planificar cambios**: Usar `/crear-plan` antes de adiciones significativas
-4. **Ejecutar**: Usar `/implementar` para ejecutar los planes
-5. **Mantener**: Claude actualiza CLAUDE.md y `contexto/` a medida que el workspace evoluciona
+| Capa | Tecnología |
+|------|-----------|
+| Frontend | Next.js 16 + React 19 (App Router, TypeScript) |
+| Estilos | Tailwind CSS v4 (CSS-first, sin config.js) |
+| Animaciones | Framer Motion v12 (instalado) |
+| Iconos | Lucide React (instalado) |
+| Backend/DB | Supabase (Auth + PostgreSQL) |
+| Deploy | Vercel vía GitHub |
+| Datos/Reportes | Notion API |
+| Automatizaciones | n8n |
+| Comunicación | WhatsApp + Chatwoot |
 
 ---
 
-## Notas
+## Protocolo Obligatorio de Git
 
-- Mantener el contexto mínimo pero suficiente — evitar sobrecarga
-- Los planes viven en `planes/` con nombres de archivo con fecha para historial
-- Las salidas se organizan por tipo/propósito en `salidas/`
-- Los materiales de referencia van en `referencia/` para reutilización
+**NUNCA** hacer push directo a `main` en ningún proyecto de `salidas/`. Crear siempre rama descriptiva → push → reportar link para que Cielo apruebe el merge.
+
+---
+
+## Cómo Agregar Contexto a un Área Nueva
+
+Cuando se empieza a trabajar en profundidad en un área:
+1. Crear archivos `.md` en la subcarpeta de `contexto/` correspondiente (ej: `contexto/meta-ads/campanas-activas.md`)
+2. Crear la skill en `.claude/skills/[nombre]/SKILL.md` — siempre 1 nivel de profundidad
+3. Actualizar este CLAUDE.md con la nueva estructura y documentar el área
+
+---
+
+## Flujo de Sesión
+
+1. `/iniciar` — cargar contexto y ver estado actual
+2. Trabajar con comandos o instrucciones directas
+3. `/crear-plan` — antes de cambios significativos
+4. `/implementar` — ejecutar planes
+5. Claude actualiza CLAUDE.md y `contexto/proyectos/datos-actuales.md` al finalizar
+
+---
+
+## Nota Técnica sobre Skills
+
+El harness de Claude Code lee skills **solo 1 nivel de profundidad** dentro de `.claude/skills/`. Todas las skills deben estar en `.claude/skills/[nombre]/SKILL.md` directamente. La organización por área se documenta aquí en CLAUDE.md mediante la etiqueta `[área]` en cada skill, no en la estructura de carpetas.
