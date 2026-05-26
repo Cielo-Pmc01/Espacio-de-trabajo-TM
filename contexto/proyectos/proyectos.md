@@ -8,7 +8,7 @@
 
 | Proyecto | Descripción | Prioridad |
 |----------|-------------|-----------|
-| App Capacitación General | Plataforma web de capacitación interna para vendedores dividida por sectores (B1, VR, VP). Stack: HTML+CSS+JS, servidor empresa, Notion, GitHub. 3 módulos con quiz, avatar Sofía, panel de supervisores y admin con gestión dinámica de contenidos por sectores. Archivos en `salidas/app-capacitacion-gral/`. | ALTA |
+| App Capacitación General | Plataforma web de capacitación interna para vendedores dividida por sectores (B1, VR, VP). Stack: HTML+CSS+JS, servidor empresa, GitHub. 3 módulos con quiz, avatar Sofía, panel de supervisores y admin con gestión dinámica de contenidos por sectores. El contenido se gestiona desde la misma plataforma (admin propio), sin Notion. Archivos en `salidas/app-capacitacion-gral/`. | ALTA |
 | Bloque 3 - Meta y Prioridades | Armado y grabación de contenido de pauta en Meta Ads, prioridades de marcas, conexión de clientes y flujo hacia WhatsApp. Plan guardado en `planes/2026-05-07-sistema-meta-y-prioridades.md`. | MEDIA |
 | CRM Meta Ads | Herramienta de análisis de campañas publicitarias de Meta. Funcionalidad pendiente de documentar. | ALTA |
 | CRM Equipo TM | Panel centralizado para gestión del equipo TM. Funcionalidad pendiente de documentar. | ALTA |
