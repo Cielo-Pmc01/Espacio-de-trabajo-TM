@@ -31,9 +31,10 @@ Cualquier texto que comience con `/` es un comando definido en `.claude/commands
 
 | Comando | Propósito |
 |---------|-----------|
-| `/iniciar` | Inicializar sesión — carga contexto y reporta estado actual |
+| `/iniciar` | Inicializar sesión — carga contexto y reporta estado actual (incluye chequeo de memorias viejas) |
 | `/crear-plan [pedido]` | Crear plan de implementación detallado en `planes/` |
 | `/implementar [ruta]` | Ejecutar un plan paso a paso |
+| `/cerrar` | Cerrar sesión actualizando la memoria persistente con lo trabajado |
 
 ---
 
