@@ -1,0 +1,156 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Configuración de Variables de Entorno de Producción",
+        "description": "Configurar todas las variables de entorno necesarias para el despliegue en producción, incluyendo las claves de Supabase y la API de Notion.",
+        "details": "Identificar y configurar las variables de entorno críticas como `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` y `NOTION_API_KEY` en el entorno de Vercel. Asegurarse de que estas variables estén correctamente enmascaradas y sean accesibles para la aplicación en el entorno de producción. Validar que no haya fugas de información sensible.",
+        "testStrategy": "Realizar un despliegue de prueba y verificar que la aplicación pueda acceder a las variables de entorno sin errores. Intentar una conexión básica a Supabase y Notion (si es posible en esta etapa) para confirmar que las claves son válidas.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Despliegue Inicial en Vercel",
+        "description": "Realizar el despliegue inicial de la aplicación en Vercel, conectando el repositorio de GitHub y verificando la funcionalidad básica.",
+        "details": "Conectar el repositorio de GitHub a Vercel. Configurar los ajustes de construcción y el framework (Next.js). Realizar el primer despliegue para asegurar que la aplicación se compile y se ejecute correctamente en el entorno de Vercel. Verificar que las rutas principales y la autenticación funcionen.",
+        "testStrategy": "Acceder a la URL generada por Vercel. Intentar iniciar sesión con usuarios de prueba para cada rol (admin, vendedor). Navegar por las secciones principales de la aplicación para asegurar que no haya errores de carga o de enrutamiento.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Configuración de Dominio Personalizado",
+        "description": "Configurar el subdominio personalizado para la aplicación en producción.",
+        "details": "En la configuración de Vercel, añadir el dominio personalizado `capacitacion.iadventurecenter.com`. Seguir los pasos para configurar los registros DNS necesarios (CNAME o A record) en el proveedor de dominio de iadventurecenter.com. Verificar que el dominio se resuelva correctamente y apunte a la aplicación desplegada.",
+        "testStrategy": "Acceder a la aplicación utilizando el subdominio `capacitacion.iadventurecenter.com`. Verificar que la aplicación carga correctamente y que todas las funcionalidades (autenticación, navegación) operan sin problemas a través del dominio personalizado.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Implementación de Envío de Evaluaciones a Notion",
+        "description": "Integrar la lógica para enviar automáticamente los resultados de las evaluaciones completadas a la base de datos de Notion.",
+        "details": "Modificar el flujo de finalización de evaluación para incluir una llamada a la API de Notion. Utilizar el backend de Notion ya configurado. La carga útil debe incluir `usuario`, `sector (B1/VR/VP)`, `módulo`, `puntaje`, `fecha` y `hora`. Implementar la llamada de forma asíncrona para no interrumpir la UX. Se recomienda usar `fetch` o una librería como `axios` para la comunicación HTTP.",
+        "testStrategy": "Completar varias evaluaciones con diferentes usuarios y sectores. Verificar directamente en la base de datos de Notion que cada envío se registre con los datos correctos (usuario, sector, módulo, puntaje, fecha y hora).",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Manejo de Fallos de Conexión a Notion y Reintento",
+        "description": "Implementar un mecanismo de resiliencia para guardar localmente los resultados de las evaluaciones y reintentar el envío a Notion en caso de fallo de conexión.",
+        "details": "Envolver la llamada a la API de Notion en un bloque `try-catch`. Si la llamada falla (ej. error de red, error de API), guardar los datos de la evaluación en `localStorage` o `IndexedDB` junto con un timestamp. Implementar un servicio o un hook que revise periódicamente estos datos guardados y reintente el envío a Notion. Una vez exitoso, eliminar el registro local.",
+        "testStrategy": "Simular un fallo de conexión a la API de Notion (ej. bloqueando la URL de Notion en el navegador o usando un proxy). Completar una evaluación y verificar que los resultados se guarden localmente. Restaurar la conexión y verificar que los resultados se envíen automáticamente a Notion y se eliminen del almacenamiento local.",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Visualización de Estado de Envío a Notion en Panel Admin",
+        "description": "Añadir una indicación en el panel de administración para que el admin pueda ver qué usuarios han enviado sus resultados a Notion.",
+        "details": "Modificar la tabla o vista de resultados de evaluaciones en el panel de administración. Añadir una nueva columna o un icono que muestre el estado de envío a Notion (ej. 'Enviado', 'Pendiente de envío', 'Error'). Esto podría implicar almacenar un flag booleano en Supabase junto con los resultados de la evaluación, que se actualiza tras el éxito o fallo del envío a Notion.",
+        "testStrategy": "Como administrador, acceder al panel. Completar evaluaciones con diferentes usuarios y verificar que el estado de envío a Notion se actualice correctamente en el panel. Probar escenarios de éxito y fallo de envío (usando la simulación del Task 5).",
+        "priority": "medium",
+        "dependencies": [
+          4,
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Migración de Seguimiento de Progreso a Supabase",
+        "description": "Migrar el seguimiento del progreso del usuario de `localStorage` a Supabase para asegurar la persistencia cross-device.",
+        "details": "Diseñar un esquema de tabla en Supabase (ej. `user_progress`) que almacene el `user_id`, `module_id`, `status` (completado/en progreso), `last_accessed`, etc. Reemplazar todas las operaciones de lectura y escritura de `localStorage` relacionadas con el progreso por llamadas a la API de Supabase. Implementar lógica para sincronizar el progreso existente en `localStorage` (si lo hay) con Supabase en el primer inicio de sesión.",
+        "testStrategy": "Completar parte de un módulo en un dispositivo. Cerrar sesión y volver a iniciar sesión en otro dispositivo (o navegador). Verificar que el progreso se haya mantenido y sea visible. Completar un módulo y verificar que el progreso se actualice correctamente en Supabase y se refleje en todos los dispositivos.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Reemplazo de Videos Demo por Videos Reales",
+        "description": "Actualizar los enlaces de los videos de demostración del avatar Sofía con los videos reales de YouTube o un bucket externo.",
+        "details": "Identificar los placeholders de los videos de demo en el Módulo 2. Obtener los enlaces de los videos reales de Sofía (ya sean de YouTube o de un bucket de almacenamiento). Actualizar la fuente de datos de la aplicación (ej. una tabla en Supabase o un archivo de configuración) con los nuevos enlaces. Asegurarse de que el reproductor de video maneje correctamente los casos en los que un video no esté disponible, mostrando un mensaje o un fallback visual.",
+        "testStrategy": "Navegar al Módulo 2 y verificar que todos los videos de Sofía carguen correctamente. Probar con un enlace de video inválido o no disponible para asegurar que el fallback funcione como se espera y no rompa la interfaz de usuario.",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Implementación de Indicador de Progreso Global",
+        "description": "Añadir un indicador de progreso global en el encabezado de la aplicación que muestre el porcentaje de completado del programa total.",
+        "details": "Utilizar los datos de progreso almacenados en Supabase (Task 7) para calcular el porcentaje de módulos completados respecto al total de módulos disponibles. Mostrar este porcentaje de forma prominente en el header de la aplicación. El indicador debe actualizarse dinámicamente a medida que el usuario avanza.",
+        "testStrategy": "Completar diferentes módulos y verificar que el porcentaje de progreso global en el header se actualice de forma precisa. Probar con usuarios que no han completado nada y usuarios que han completado todo para verificar los valores extremos (0% y 100%).",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Mejora de Feedback Visual al Completar Módulos",
+        "description": "Mejorar la experiencia de usuario al completar un módulo con una animación o feedback visual claro.",
+        "details": "Al detectar que un módulo ha sido marcado como completado (basado en el progreso de Supabase del Task 7), disparar una animación sutil (ej. confeti, un checkmark grande, un toast de '¡Módulo Completado!') o un cambio visual en la interfaz que confirme al usuario su logro. Esto debe ser no intrusivo y gratificante.",
+        "testStrategy": "Completar un módulo y observar el feedback visual. Verificar que la animación o el mensaje aparezcan correctamente y que no interfieran con la navegación o la funcionalidad de la aplicación. Probar en diferentes dispositivos y navegadores.",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Verificación y Ajuste de Responsividad Móvil",
+        "description": "Revisar y optimizar la responsividad de la aplicación para asegurar una experiencia de usuario fluida en dispositivos móviles.",
+        "details": "Utilizar las herramientas de desarrollo del navegador para simular diferentes tamaños de pantalla móvil. Identificar y corregir cualquier problema de diseño, desbordamiento de contenido, o elementos interactivos que no funcionen bien en pantallas pequeñas. Ajustar las clases de Tailwind CSS según sea necesario para garantizar que la interfaz se adapte correctamente a los dispositivos móviles, que son el principal medio de uso para los vendedores.",
+        "testStrategy": "Probar la aplicación en varios dispositivos móviles reales (smartphones iOS y Android de diferentes tamaños). Verificar la navegación, la visualización de contenido, la interacción con formularios y evaluaciones, y la carga de videos en modo retrato y paisaje.",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Creación de Usuarios Reales y Documentación de Entrega",
+        "description": "Crear las cuentas de usuario reales en Supabase para el equipo y generar la documentación final para el administrador y la gestión de contenido.",
+        "details": "Crear las cuentas de usuario para Cielo (administrador) y otros miembros del equipo en Supabase, asignando los roles correctos (admin, supervisor, editor, vendedor). Redactar una guía detallada para el administrador sobre cómo asignar sectores, gestionar usuarios y visualizar los resultados en Notion. Documentar el proceso para agregar nuevos módulos o actualizar contenido existente en la plataforma.",
+        "testStrategy": "Verificar que los usuarios recién creados puedan iniciar sesión con sus roles asignados y acceder a las funcionalidades correspondientes. Revisar la documentación para asegurar que sea clara, completa y fácil de entender para los usuarios finales y administradores.",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2026-05-12T16:58:25.530Z",
+      "updated": "2026-05-12T16:58:25.530Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

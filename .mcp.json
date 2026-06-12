@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "obsidian": {
+      "type": "http",
+      "url": "http://127.0.0.1:27200/mcp",
+      "headers": {
+        "Authorization": "Bearer br-fdPErHHYdizntyTdtaZHAWVh2-s69GI52PakMnEg"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "taskmaster-ai": {
+      "command": "npx",
+      "args": ["-y", "--yes", "task-master-ai"],
+      "env": {
+        "GOOGLE_API_KEY": "AIzaSyAlzDrafn7R6w9jTn-fQI6Mf1KRUO14PgU",
+        "TASKMASTER_MAIN_PROVIDER": "google",
+        "TASKMASTER_MAIN_MODEL_ID": "gemini-2.5-flash",
+        "TASKMASTER_RESEARCH_PROVIDER": "google",
+        "TASKMASTER_RESEARCH_MODEL_ID": "gemini-2.5-flash",
+        "TASKMASTER_FALLBACK_PROVIDER": "google",
+        "TASKMASTER_FALLBACK_MODEL_ID": "gemini-2.5-flash"
+      }
+    }
+  }
+}

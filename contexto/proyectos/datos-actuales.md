@@ -47,13 +47,29 @@ Contenido e información de protocolos cargados. Backend: Supabase.
 
 ## Capacitación TM (nuevo proyecto, reemplazo de App Capacitación General)
 
-> **Última actualización:** 14 de Mayo de 2026
+> **Última actualización:** 27 de Mayo de 2026
 > **Repo:** https://github.com/Cielo-Pmc01/Capacitacion-TM
-> **Rama activa:** `feature/capacitacion-tm-fase-1`
+> **Rama activa:** `Actualizacion-mayo` (sin push aún) — último commit `c51c747`
 > **Local:** `salidas/capacitacion-tm/`
-> **Stack:** React Router 7 + TypeScript + Tailwind v4 + Supabase + PWA
+> **Stack:** React Router 7 + TypeScript + Tailwind v4 + Supabase + PWA + Leaflet
 > **PRD:** [`planes/2026-05-14-prd-plataforma-capacitacion.md`](../../planes/2026-05-14-prd-plataforma-capacitacion.md)
-> **Plan Fase 1:** [`planes/2026-05-14-fase-1-bootstrap.md`](../../planes/2026-05-14-fase-1-bootstrap.md)
+> **Último plan ejecutado:** [`planes/2026-05-27-mapa-recorrido-react-nativo.md`](../../planes/2026-05-27-mapa-recorrido-react-nativo.md) ✅
+
+### Recorridos de Excursiones (Mayo 2026) ✅
+- Componente React nativo `<ExcursionRouteMap>` con Leaflet + OSRM + animación
+- 27 rutas en Supabase (tablas `excursion_routes` + `excursion_route_paradas`)
+- Integrado dentro de cada excursión del catálogo (alumno + agencia, hereda automático)
+- Admin UI `/admin/recorridos` para CRUD de rutas y paradas
+- App HTML standalone (Recorrido.html) movida a `_deprecated/`
+
+### Mapa de Pick Ups (28 de Mayo 2026) ✅ mergeado a main
+- Plan: [`planes/2026-05-28-mapa-pickups-react-supabase.md`](../../planes/2026-05-28-mapa-pickups-react-supabase.md)
+- PR `feature/mapa-pickups` mergeado · migración 016 aplicada · seeds corridos (109 pickups + 1743 horarios)
+- Componente React nativo `<PickupsViewer>` + `<PickupsMapLeaflet>` (Leaflet imperativo, SSR-safe)
+- Datos en Supabase: tablas `pickups` + `pickup_horarios`
+- Embebido en la lección "Protocolo de Pick Ups" (bloque `pickups_map`, reemplazó el iframe viejo)
+- Editor admin `/admin/pickups` con drag + guardado de offsets visuales
+- Acordeón "Mapa de Pick Ups" en Vista Agencias (read-only)
 
 | Tarea Fase 1 | Estado |
 |---|---|

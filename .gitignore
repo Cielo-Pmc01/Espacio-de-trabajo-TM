@@ -45,3 +45,11 @@ build/
 # Ignore nested project repositories
 salidas/
 node_modules/
+
+# IDEs y herramientas locales de runtime
+.continue/
+.windsurf/
+.playwright-mcp/
+
+# Logs
+*.log

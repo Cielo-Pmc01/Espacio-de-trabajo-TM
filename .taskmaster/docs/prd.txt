@@ -1,0 +1,72 @@
+# PRD — App Capacitación General (iAdventure Center)
+# Fase 5: Integración Notion + Deploy + Pulido Final
+
+## Contexto del Proyecto
+
+Plataforma web de capacitación para el equipo comercial de iAdventure Center (Adventure Center, Bariloche).
+Stack: Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 + Supabase.
+
+La app ya tiene implementado:
+- Autenticación con roles (admin, supervisor, editor, vendedor)
+- Segmentación por sector (B1, VR, VP) con badges, filtros y títulos dinámicos
+- Módulos de aprendizaje (Módulo 0: Intro, Módulo 1: Excursiones, Módulo 2: Desarrollo Comercial)
+- Sistema de evaluaciones con preguntas de opción múltiple
+- Panel de administración (asignación de sectores, editor de títulos alternativos)
+- Juego drag & drop en Módulo 2
+- Videos YouTube embebidos en Módulo 2 (avatar Sofía)
+- Seguimiento de progreso en localStorage
+
+## Tareas Pendientes (Fase 5)
+
+### 1. Integración con Notion — PRIORIDAD ALTA
+
+El backend de Notion ya está configurado y listo. Falta integrar los hooks de envío de evaluaciones.
+
+Requisitos:
+- Cuando un vendedor completa una evaluación, los resultados deben enviarse automáticamente a Notion
+- Cada envío debe registrar: usuario, sector (B1/VR/VP), módulo, puntaje, fecha y hora
+- La base de datos Notion debe actualizarse en tiempo real sin interrumpir la UX
+- En caso de fallo de conexión, guardar resultado localmente y reintentar
+- El admin debe poder ver en el panel qué usuarios enviaron resultados a Notion
+
+### 2. Videos Reales para Avatar Sofía
+
+Actualmente hay enlaces de demo configurados. Falta:
+- Reemplazar los placeholders de demo con los videos reales de Sofía
+- Los videos deben cargarse desde YouTube o desde un bucket externo
+- Asegurarse que el player no falle si el video no está disponible (fallback)
+
+### 3. Deploy en Servidor de Producción
+
+La app está 100% funcional en local. Falta:
+- Configurar variables de entorno de producción (Supabase, Notion API key)
+- Deploy en Vercel conectado al repositorio GitHub
+- Verificar que todas las rutas, autenticaciones y llamadas a API funcionen en producción
+- Configurar dominio personalizado (subdominio de iadventurecenter.com)
+- Smoke testing post-deploy con usuarios reales de cada sector
+
+### 4. Optimizaciones de UX y Performance
+
+- Migrar el seguimiento de progreso de localStorage a Supabase para persistencia cross-device
+- Mejorar feedback visual al completar módulos (animación de completado)
+- Agregar indicador de progreso global en el header (X% del programa completo)
+- Verificar responsividad en mobile (los vendedores usan el celular)
+
+### 5. Documentación y Entrega
+
+- Documentar cómo agregar nuevos módulos o actualizar contenido existente
+- Guía para el admin: cómo asignar sectores, gestionar usuarios, ver resultados en Notion
+- Crear usuarios reales en Supabase para el equipo (reemplazar usuarios de demo)
+
+## Criterios de Éxito
+
+- Vendedores pueden completar evaluaciones y los resultados llegan a Notion automáticamente
+- La app está desplegada en producción y accesible desde el subdominio configurado
+- El progreso de cada vendedor se guarda en Supabase (no se pierde si cambia de dispositivo)
+- El admin puede ver desde el panel quién completó qué y con qué puntaje
+
+## Usuarios del Sistema
+
+- **Administrador (Cielo):** gestiona usuarios, sectores, ve resultados
+- **Supervisor/Editor:** puede ver y editar contenido
+- **Vendedor (B1, VR, VP):** consume el contenido, completa evaluaciones
