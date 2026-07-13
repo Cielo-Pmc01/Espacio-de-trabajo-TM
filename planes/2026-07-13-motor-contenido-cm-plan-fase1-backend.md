@@ -4,6 +4,17 @@
 >
 > Ver diseño completo en [`planes/2026-07-13-motor-contenido-cm-arquitectura.md`](2026-07-13-motor-contenido-cm-arquitectura.md).
 
+## ✅ Resultado (ejecutado 13/07/2026, misma sesión)
+
+Los dos tasks se completaron y probaron con datos reales. Workflow activo:
+`CM - Generar Contenido` (`EOsiYhWiMAimGXs6`), webhook `POST /webhook/cm-generar-contenido` con body `{ brief, formato }`.
+
+**Dos problemas no anticipados en el plan original, encontrados y corregidos durante la ejecución:**
+1. `gpt-5-mini` rechazó el parámetro `temperature` ("Unsupported parameter") — se usa vía Responses API, que no lo acepta. Fix: sacar `temperature` de las `options` del nodo `lmChatOpenAi`, queda con los defaults del modelo.
+2. El fix de exposición de schema anticipado en Task 1 Step 3 **sí hizo falta** (no era solo una posibilidad) — `crm_cm` no estaba en `pgrst.db_schemas` pese a tener los grants correctos. Aplicado: `alter role authenticator set pgrst.db_schemas = 'public, meta_ads, platform, crm_cm'; notify pgrst, 'reload schema';`.
+
+Probado con brief real ("Promocionar la excursión a Piedras Blancas para la temporada de nieve", formato Carrusel) → 9 filas reales en `content_pipeline`, una por marca, tono correcto por marca, español para las 7 marcas hispanas y portugués para TBBR/PBRS, 4-5 slides cada una, todas `estado='Idea'`, `aprobado=false`.
+
 **Goal:** Tener una tabla `crm_cm.content_pipeline` real en Supabase y un workflow de n8n que, a partir de un brief de texto libre, genera copy + concepto para las 9 marcas activas vía GPT y lo guarda en esa tabla — verificable con una consulta SQL, sin depender de ningún frontend.
 
 **Architecture:** Webhook de n8n recibe `{ brief, formato }` → AI Agent (GPT-5-mini vía `lmChatOpenAi`) con salida estructurada genera un objeto por marca (copy + hook + concepto) usando el tono de cada marca ya cargado en el prompt del sistema → un nodo Code aplana el resultado en filas → se insertan en `crm_cm.content_pipeline` vía la API REST de Supabase (mismo patrón que ya usan los workflows de MetaAds — credencial `Supabase Plataforma Meta`, project `jvudavpopxsguiemtrkk`, solo cambia el schema).
@@ -28,7 +39,7 @@
 
 **Herramientas:** `mcp__claude_ai_Supabase__apply_migration`, `mcp__claude_ai_Supabase__execute_sql` (ambas contra `project_id: jvudavpopxsguiemtrkk`)
 
-- [ ] **Step 1: Crear el schema `crm_cm` y la tabla `content_pipeline`**
+- [x] **Step 1: Crear el schema `crm_cm` y la tabla `content_pipeline`**
 
 Ejecutar con `apply_migration`, `name: "create_crm_cm_content_pipeline"`:
 
@@ -64,7 +75,7 @@ comment on table crm_cm.content_pipeline is
   'Pipeline de contenido real de la CM (Luciana) — reemplaza el mock de salidas/crm-cm/src/data/mock.ts. Poblada por el workflow n8n "CM - Generar Contenido". Ver planes/2026-07-13-motor-contenido-cm-plan-fase1-backend.md';
 ```
 
-- [ ] **Step 2: Otorgar permisos (el gotcha confirmado esta sesión)**
+- [x] **Step 2: Otorgar permisos (el gotcha confirmado esta sesión)**
 
 Ejecutar con `apply_migration`, `name: "grant_content_pipeline_privileges"`:
 
@@ -73,7 +84,7 @@ grant usage on schema crm_cm to anon, authenticated, service_role;
 grant select, insert, update, delete on crm_cm.content_pipeline to anon, authenticated, service_role;
 ```
 
-- [ ] **Step 3: Verificar que el schema quedó expuesto en la API REST**
+- [x] **Step 3: Verificar que el schema quedó expuesto en la API REST**
 
 Ejecutar con `execute_sql`:
 
@@ -83,7 +94,7 @@ select nspname from pg_namespace where nspname = 'crm_cm';
 
 Esperado: una fila con `crm_cm`. Si además `insert`/`select` vía REST fallan más adelante con `PGRST106` ("schema must be one of the exposed schemas"), el schema existe pero no está en `pgrst.db_schemas` — mismo síntoma que ya se documentó y resolvió para este mismo proyecto en `reference_supabase_plataforma_meta_ads.md`. Fix si pasa: `alter role authenticator set pgrst.db_schemas = 'public, meta_ads, platform, crm_cm'; notify pgrst, 'reload schema';` vía `execute_sql`.
 
-- [ ] **Step 4: Confirmar los grants con una consulta de control**
+- [x] **Step 4: Confirmar los grants con una consulta de control**
 
 Ejecutar con `execute_sql`:
 
@@ -102,7 +113,7 @@ Esperado: filas para `anon`, `authenticated`, `service_role` (además de `postgr
 
 **Herramientas:** `mcp__claude_ai_n8n__get_sdk_reference` (ya consultado en esta sesión), `mcp__claude_ai_n8n__validate_workflow`, `mcp__claude_ai_n8n__create_workflow_from_code`, `mcp__claude_ai_n8n__update_workflow` (para `setNodeCredential`), `mcp__claude_ai_n8n__execute_workflow`, `mcp__claude_ai_n8n__get_execution`, `mcp__claude_ai_n8n__publish_workflow`.
 
-- [ ] **Step 1: Validar el código del workflow con el SDK**
+- [x] **Step 1: Validar el código del workflow con el SDK**
 
 Ejecutar con `validate_workflow` el siguiente código (ya usa los node types confirmados en esta sesión: `n8n-nodes-base.webhook` v2.1, `@n8n/n8n-nodes-langchain.agent` v3.1, `@n8n/n8n-nodes-langchain.lmChatOpenAi` v1.3, `@n8n/n8n-nodes-langchain.outputParserStructured` v1.3):
 
@@ -244,15 +255,15 @@ export default workflow('cm-generar-contenido', 'CM - Generar Contenido')
   .add(notaProposito);
 ```
 
-- [ ] **Step 2: Confirmar que `validate_workflow` devuelve `"valid": true` sin warnings.** Si hay warnings, corregirlos antes de seguir — no crear el workflow con warnings pendientes.
+- [x] **Step 2: Confirmar que `validate_workflow` devuelve `"valid": true` sin warnings.** Si hay warnings, corregirlos antes de seguir — no crear el workflow con warnings pendientes.
 
-- [ ] **Step 3: Crear el workflow con `create_workflow_from_code`**
+- [x] **Step 3: Crear el workflow con `create_workflow_from_code`**
 
 Usar el mismo código validado en el Step 1. Pasar `name: "CM - Generar Contenido"` y `description: "Genera copy+concepto para las 9 marcas a partir de un brief manual (webhook) y lo guarda en crm_cm.content_pipeline. Fase 1 del motor de contenido CM — ver planes/2026-07-13-motor-contenido-cm-plan-fase1-backend.md"`.
 
 Guardar el `workflowId` devuelto — se usa en todos los pasos siguientes.
 
-- [ ] **Step 4: Conectar las credenciales existentes explícitamente**
+- [x] **Step 4: Conectar las credenciales existentes explícitamente**
 
 La creación normalmente deja las credenciales de los nodos `httpRequest`/`lmChatOpenAi` sin asignar (mismo comportamiento visto con los workflows de MetaAds esta sesión). Ejecutar `update_workflow` con:
 
@@ -266,7 +277,7 @@ La creación normalmente deja las credenciales de los nodos `httpRequest`/`lmCha
 }
 ```
 
-- [ ] **Step 5: Probar con una ejecución manual real (sin publicar todavía)**
+- [x] **Step 5: Probar con una ejecución manual real (sin publicar todavía)**
 
 Ejecutar `execute_workflow` con `executionMode: "manual"`, `workflowId` del Step 3, e `inputs`:
 
@@ -276,13 +287,13 @@ Ejecutar `execute_workflow` con `executionMode: "manual"`, `workflowId` del Step
 
 Guardar el `executionId` devuelto.
 
-- [ ] **Step 6: Verificar que la ejecución terminó en éxito**
+- [x] **Step 6: Verificar que la ejecución terminó en éxito**
 
 Ejecutar `get_execution` con ese `workflowId`/`executionId` (sin `includeData`, para chequear solo `status`). Si `status` es `"error"`: pedir `includeData: true` filtrando `nodeNames` al nodo que falló (para no traer toda la transcripción) y leer `resultData.error` — los errores más probables son `permission denied` (Task 1 Step 2 no se aplicó bien) o un error de schema de OpenAI en el output parser (revisar que `jsonSchemaExample` sea JSON válido).
 
 Esperado: `"status": "success"`.
 
-- [ ] **Step 7: Verificar los datos reales en Supabase**
+- [x] **Step 7: Verificar los datos reales en Supabase**
 
 Ejecutar con `execute_sql` contra `jvudavpopxsguiemtrkk`:
 
@@ -295,7 +306,7 @@ limit 9;
 
 Esperado: 9 filas (una por marca), `formato = 'Carrusel'`, `estado = 'Idea'`, `aprobado = false`, `origen = 'brief_manual'`, `n_slides` entre 3 y 6, `hook`/`cta` en portugués para las filas `TBBR`/`PBRS` y en español para el resto.
 
-- [ ] **Step 8: Publicar el workflow**
+- [x] **Step 8: Publicar el workflow**
 
 Ejecutar `publish_workflow` con el `workflowId`. Esto lo activa — el webhook queda accesible en `https://n8ntm.iadventurecentersx.com/webhook/cm-generar-contenido` para cuando el Plan 2 conecte el botón del Generador en `crm-cm`.
 
