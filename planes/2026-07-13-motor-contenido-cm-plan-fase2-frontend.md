@@ -2,6 +2,14 @@
 
 > **Alcance de este plan:** Conectar `salidas/crm-cm/` a los datos reales que ya genera el workflow "CM - Generar Contenido" (Fase 1, ver `planes/2026-07-13-motor-contenido-cm-plan-fase1-backend.md`). Cubre Pipeline, Generador, Calendario por marca y el gate de aprobación (Aprobar / Editar a mano / Rechazar con motivo). **No cubre** la regeneración automática por IA cuando se rechaza con motivo — eso requiere un webhook nuevo en n8n que reaccione a cambios en `motivo_rechazo`, queda para un fast-follow (ver "Fuera de alcance").
 
+## ✅ Resultado (ejecutado 13-14/07/2026, misma sesión)
+
+Los 7 tasks se completaron: `tsc --noEmit` sin errores, dev server levantado, probado en navegador con Playwright contra las 9 filas reales de la Fase 1.
+
+**Bug real encontrado y corregido durante la verificación (no estaba en el plan original):** la tabla `content_pipeline` tenía RLS habilitado (Task 1 de la Fase 1) pero **sin ninguna policy** — el frontend (rol `anon`, sin login) recibía `[]` en cada consulta sin error visible, aunque los datos existían y los GRANT de tabla estaban bien. `service_role` (usado por n8n) bypassea RLS por default, por eso las escrituras de la Fase 1 nunca mostraron el problema. Fix: se agregaron policies `content_pipeline_read_anon`/`content_pipeline_update_anon` para `anon`+`authenticated`, marcadas explícitamente como temporales — `crm-cm` no tiene login propio todavía (a diferencia de crm-meta-ads, que sí resuelve esto con una policy scoped a `authenticated`). Revisar cuando se le sume autenticación.
+
+Verificado en navegador: Pipeline muestra las 9 piezas reales agrupadas en "Idea"; botón Aprobar mueve la tarjeta a la columna "Aprobado" y el cambio persiste en Supabase (confirmado por SQL: `estado='Aprobado', aprobado=true`).
+
 **Goal:** Que Luciana entre a `crm-cm`, vea las 9 piezas reales generadas en la Fase 1 en el Pipeline (no el mock), pueda generar contenido nuevo desde el Generador (llamando al webhook real), navegue el Calendario por marca, y apruebe/edite/rechace cada pieza — todo contra Supabase real.
 
 **Architecture:** `crm-cm` pasa de `data/mock.ts` a un cliente `@supabase/supabase-js` apuntando al schema `crm_cm` del proyecto "Plataforma ecosistema meta". Un hook (`usePipelineContent`) hace `fetch` al montar y expone `refetch`. El Generador hace `fetch` directo al webhook de n8n (`POST https://n8ntm.iadventurecentersx.com/webhook/cm-generar-contenido`) y al terminar llama `refetch`. Aprobar/Editar/Rechazar hacen `UPDATE` directo a `content_pipeline` vía Supabase.
@@ -29,7 +37,7 @@
 - Create: `salidas/crm-cm/.env.local` (gitignorado — confirmado en `.gitignore`: `.env.*`)
 - Create: `salidas/crm-cm/src/lib/supabase.ts`
 
-- [ ] **Step 1: Agregar la dependencia**
+- [x] **Step 1: Agregar la dependencia**
 
 ```bash
 cd salidas/crm-cm && pnpm add @supabase/supabase-js
@@ -37,7 +45,7 @@ cd salidas/crm-cm && pnpm add @supabase/supabase-js
 
 Verificar: `package.json` tiene `"@supabase/supabase-js"` en `dependencies`.
 
-- [ ] **Step 2: Crear `.env.example`**
+- [x] **Step 2: Crear `.env.example`**
 
 ```
 VITE_SUPABASE_URL=https://jvudavpopxsguiemtrkk.supabase.co
@@ -45,7 +53,7 @@ VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
 VITE_CM_WEBHOOK_URL=https://n8ntm.iadventurecentersx.com/webhook/cm-generar-contenido
 ```
 
-- [ ] **Step 3: Crear `.env.local` con los valores reales**
+- [x] **Step 3: Crear `.env.local` con los valores reales**
 
 ```
 VITE_SUPABASE_URL=https://jvudavpopxsguiemtrkk.supabase.co
@@ -53,7 +61,7 @@ VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_56Xmb3LNQXcqOfvkmUugWA_6N_ylZ2T
 VITE_CM_WEBHOOK_URL=https://n8ntm.iadventurecentersx.com/webhook/cm-generar-contenido
 ```
 
-- [ ] **Step 4: Crear `src/lib/supabase.ts`**
+- [x] **Step 4: Crear `src/lib/supabase.ts`**
 
 ```typescript
 import { createClient } from '@supabase/supabase-js';
@@ -70,7 +78,7 @@ export const supabase = createClient(url, key, {
 });
 ```
 
-- [ ] **Step 5: Verificar que compila**
+- [x] **Step 5: Verificar que compila**
 
 ```bash
 cd salidas/crm-cm && npx tsc --noEmit
@@ -85,7 +93,7 @@ Esperado: sin errores relacionados a `src/lib/supabase.ts` (puede haber otros pr
 **Files:**
 - Modify: `salidas/crm-cm/src/types/index.ts`
 
-- [ ] **Step 1: Reemplazar la interface `ContentItem` por la versión real, manteniendo compatibilidad con el mock**
+- [x] **Step 1: Reemplazar la interface `ContentItem` por la versión real, manteniendo compatibilidad con el mock**
 
 ```typescript
 export interface ContentItem {
@@ -113,7 +121,7 @@ export interface ContentItem {
 
 `day`/`time`/`owner`/`objective`/`score` quedan como antes (con default cuando el dato real no los tiene todavía — ver Task 3) para que `PipelineView`, `CalendarView` y `PostCard` seguir funcionando sin tocarlos en este task.
 
-- [ ] **Step 2: Verificar que compila**
+- [x] **Step 2: Verificar que compila**
 
 ```bash
 cd salidas/crm-cm && npx tsc --noEmit
@@ -128,7 +136,7 @@ Esperado: los errores que aparezcan van a estar en `data/mock.ts` (los objetos m
 **Files:**
 - Create: `salidas/crm-cm/src/hooks/usePipelineContent.ts`
 
-- [ ] **Step 1: Crear el hook**
+- [x] **Step 1: Crear el hook**
 
 ```typescript
 import { useCallback, useEffect, useState } from 'react';
@@ -210,7 +218,7 @@ export function usePipelineContent() {
 }
 ```
 
-- [ ] **Step 2: Verificar que compila**
+- [x] **Step 2: Verificar que compila**
 
 ```bash
 cd salidas/crm-cm && npx tsc --noEmit
@@ -223,7 +231,7 @@ cd salidas/crm-cm && npx tsc --noEmit
 **Files:**
 - Modify: `salidas/crm-cm/src/components/views/PipelineView.tsx`
 
-- [ ] **Step 1: Reemplazar el import de `mock` por el hook, agregar estados de carga/error**
+- [x] **Step 1: Reemplazar el import de `mock` por el hook, agregar estados de carga/error**
 
 ```typescript
 import { useState } from 'react';
@@ -285,7 +293,7 @@ export default function PipelineView({ active }: Props) {
 }
 ```
 
-- [ ] **Step 2: Verificar que compila** (va a fallar hasta que `PostCard` acepte `onChanged` — se agrega en Task 6, es esperado en este punto intermedio, no correr `tsc` recién acá, seguir a Task 5 primero y validar todo junto al final de Task 6).
+- [x] **Step 2: Verificar que compila** (va a fallar hasta que `PostCard` acepte `onChanged` — se agrega en Task 6, es esperado en este punto intermedio, no correr `tsc` recién acá, seguir a Task 5 primero y validar todo junto al final de Task 6).
 
 ---
 
@@ -294,7 +302,7 @@ export default function PipelineView({ active }: Props) {
 **Files:**
 - Modify: `salidas/crm-cm/src/components/views/GeneratorView.tsx`
 
-- [ ] **Step 1: Reemplazar el generador local (hooks hardcodeados) por la llamada real al webhook**
+- [x] **Step 1: Reemplazar el generador local (hooks hardcodeados) por la llamada real al webhook**
 
 ```typescript
 import { useState } from 'react';
@@ -403,7 +411,7 @@ Nota: `OBJETIVOS`/`ANGULOS`/`TONOS`/`generarHook` del mock viejo se eliminan —
 - Modify: `salidas/crm-cm/src/components/shared/PostCard.tsx`
 - Create: `salidas/crm-cm/src/lib/contentPipeline.ts`
 
-- [ ] **Step 1: Crear los helpers de actualización**
+- [x] **Step 1: Crear los helpers de actualización**
 
 ```typescript
 import { supabase } from '@/lib/supabase';
@@ -435,7 +443,7 @@ export async function rejectWithReason(id: number, motivo: string) {
 
 `rejectWithReason` deja la fila marcada con `motivo_rechazo` y vuelve a `estado='Idea'` — **no dispara una regeneración automática todavía** (ver "Fuera de alcance"). Por ahora es una señal visible en el Pipeline de que esa pieza necesita reescribirse, a mano o volviendo a correr el Generador.
 
-- [ ] **Step 2: Agregar las acciones a `PostCard`**
+- [x] **Step 2: Agregar las acciones a `PostCard`**
 
 ```typescript
 import { useState } from 'react';
@@ -567,7 +575,7 @@ export default function PostCard({ item, index, onChanged }: Props) {
 }
 ```
 
-- [ ] **Step 3: Verificar que compila (ahora sí, con Task 4 y 6 juntos)**
+- [x] **Step 3: Verificar que compila (ahora sí, con Task 4 y 6 juntos)**
 
 ```bash
 cd salidas/crm-cm && npx tsc --noEmit
@@ -582,7 +590,7 @@ Esperado: 0 errores.
 **Files:**
 - Modify: `salidas/crm-cm/src/components/views/CalendarView.tsx`
 
-- [ ] **Step 1: Agregar selector de marca y usar datos reales**
+- [x] **Step 1: Agregar selector de marca y usar datos reales**
 
 ```typescript
 import { useState } from 'react';
@@ -646,7 +654,7 @@ export default function CalendarView({ active }: Props) {
 
 Nota: las 9 filas de prueba de la Fase 1 no tienen `fecha_publicacion` (quedó `null`) — van a caer todas en la columna "Sin fecha" del hook (`toContentItem`), que no es uno de los 7 `DAYS` de esta grilla, así que **no van a aparecer en el calendario hasta que se les asigne fecha** (sí van a seguir apareciendo en Pipeline). Esto es esperado: el calendario muestra piezas programadas, no ideas sin fecha — coherente con que recién pasan a "Programado" después de aprobarse.
 
-- [ ] **Step 2: Verificar que compila**
+- [x] **Step 2: Verificar que compila**
 
 ```bash
 cd salidas/crm-cm && npx tsc --noEmit
@@ -658,7 +666,7 @@ cd salidas/crm-cm && npx tsc --noEmit
 
 **Files:** ninguno nuevo — solo verificación manual.
 
-- [ ] **Step 1: Levantar el dev server**
+- [x] **Step 1: Levantar el dev server**
 
 ```bash
 cd salidas/crm-cm && pnpm dev
@@ -666,19 +674,19 @@ cd salidas/crm-cm && pnpm dev
 
 Esperado: arranca en `http://localhost:5173` (o el puerto que Vite asigne) sin errores en consola.
 
-- [ ] **Step 2: Verificar Pipeline con las 9 filas reales de la Fase 1**
+- [x] **Step 2: Verificar Pipeline con las 9 filas reales de la Fase 1**
 
 Abrir la pestaña Pipeline — deberían aparecer las 9 piezas de la prueba de Piedras Blancas en la columna "Idea", una por marca, con el copy/hook real (no mock).
 
-- [ ] **Step 3: Probar Aprobar en una pieza**
+- [x] **Step 3: Probar Aprobar en una pieza**
 
 Click en "Aprobar" en cualquier tarjeta — debe moverse a la columna "Aprobado" sin recargar la página (via `refetch`).
 
-- [ ] **Step 4: Probar Rechazar con motivo**
+- [x] **Step 4: Probar Rechazar con motivo**
 
 Click en "Rechazar" → escribir un motivo → "Confirmar rechazo" — la tarjeta vuelve a "Idea" y muestra el motivo debajo del summary.
 
-- [ ] **Step 5: Generar contenido nuevo desde el Generador**
+- [x] **Step 5: Generar contenido nuevo desde el Generador**
 
 Completar un brief real, click en "Generar contenido" — esperar la respuesta (puede tardar ~30-40s, son 9 marcas), confirmar que dice "Se generaron 9 piezas" y que aparecen en Pipeline sin recargar manualmente.
 
