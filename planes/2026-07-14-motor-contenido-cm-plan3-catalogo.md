@@ -68,9 +68,18 @@ Confirma que: (a) la selección al azar funciona (dos corridas, dos excursiones 
 
 ---
 
+## ✅ Frontend agregado (mismo día): selector de excursión en el Generador
+
+Se agregó a `salidas/crm-cm/` (rama `feat/marcas-tm`) un modo "Desde catálogo" en la vista Generador — chip toggle junto a "Brief manual", con un `<select>` de las 26 excursiones activas (más "Cualquiera (al azar)") que llama al webhook `CM - Generar desde Catálogo`. Archivos: `src/hooks/useExcursionCatalog.ts` (nuevo), `src/components/views/GeneratorView.tsx` (modificado), `.env.local`/`.env.example` (nueva variable `VITE_CM_CATALOG_WEBHOOK_URL`).
+
+**Segundo bug real encontrado y corregido durante esta prueba (más importante que el anterior):** el webhook `Recibir brief` de "CM - Generar Contenido" tiene `responseMode: 'lastNode'`, y por default (`responseData: 'firstEntryJson'`) **solo devuelve la PRIMERA de las 9 filas insertadas** en la respuesta HTTP — aunque las 9 se insertan correctamente en Supabase (confirmado por SQL en ambos casos). Esto afectaba a los dos caminos: al Generador de crm-cm llamando directo (brief manual) y al workflow de catálogo, que reenvía esa respuesta. Fix: `responseData: 'allEntries'` en el nodo `Recibir brief` — ahora la respuesta trae las 9 filas siempre. Verificado end-to-end vía la UI real (Playwright): antes del fix mostraba "Se generaron 1 piezas", después "Se generaron 9 piezas".
+
+**Nota para toda esta familia de workflows:** cualquier webhook de n8n con `responseMode: 'lastNode'` que inserte/genere múltiples filas necesita `responseData: 'allEntries'` explícito — el default de n8n trunca a la primera fila silenciosamente, sin error, y los datos en la base quedan bien igual, así que el bug solo se nota mirando la respuesta HTTP o la UI, no revisando la base.
+
+---
+
 ## Fuera de alcance de este plan
 
 - **`catalog_verano.md` / `catalog_anio_completo.md`** — no cargados, son archivos mucho más cortos y probablemente no tienen el mismo detalle por excursión. Revisar cuando se acerque la temporada.
-- **Botón en `crm-cm` para "generar desde catálogo"** — hoy el Generador de `salidas/crm-cm/` (Fase 2) solo tiene el campo de brief manual. Falta un selector de excursión (o un botón "sorprendeme") que llame a este nuevo webhook — es trabajo de frontend, no incluido acá.
 - **Actualización del catálogo cuando cambien precios/excursiones** — hoy es una carga de una sola vez. No hay proceso para mantenerlo sincronizado si se edita `catalog_invierno.md` más adelante.
 - **Fuentes Chatwoot y tendencias** — siguen sin empezar, son las otras dos fuentes que faltaban del diseño original de la Fase 1.
