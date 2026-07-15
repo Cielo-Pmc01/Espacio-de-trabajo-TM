@@ -33,8 +33,11 @@ Ejecución manual real (sin credencial extra necesaria — usa la misma `OpenAI 
 
 ---
 
+## ✅ Frontend agregado (15/07): tercer modo en el Generador
+
+Se agregó "Desde tendencia" como tercer chip en el Generador de `salidas/crm-cm/` (junto a "Brief manual" y "Desde catálogo") — sin campos extra, solo formato, porque el agente investiga solo. Layout verificado con `getBoundingClientRect()` (sin overflow, mismo cuidado que en el fix anterior). **Falta probar la llamada real al webhook** — `n8ntm.iadventurecentersx.com` está caído en este momento (ver `project_n8n_capacitacion_dominio_caido.md` en memoria), Cielo lo está manejando aparte. Repetir la prueba end-to-end del botón cuando el dominio vuelva.
+
 ## Fuera de alcance de este plan
 
-- **Sin botón en `crm-cm` todavía** — el Generador solo tiene "Brief manual" y "Desde catálogo". Agregar "Desde tendencia" es un cambio de frontend análogo al ya hecho para catálogo, no incluido acá.
 - **Sin cron automático** — hoy es 100% a demanda por webhook. Ponerlo en automático (ej. todos los lunes) es la razón por la que se mantuvo como workflow separado, pero el cron en sí no está armado.
 - **Fuente Chatwoot** — sigue bloqueada. Cielo pidió un token nuevo y aislado de Chatwoot (no reusar el de Pb2) — pendiente que lo genere y lo pase.
