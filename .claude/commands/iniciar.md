@@ -7,11 +7,12 @@ Ejecuta este comando al comienzo de cada sesión para cargar el contexto complet
 1. **Leer los archivos de contexto principales:**
    - `CLAUDE.md` — reglas del workspace (ya cargado automáticamente)
    - `contexto/info-personal.md` — rol y responsabilidades de Cielo
-   - `contexto/estrategia.md` — dirección estratégica del área TM
-   - `contexto/proyectos/datos-actuales.md` — estado actual de proyectos y métricas
-   - `contexto/proyectos/proyectos.md` — lista de proyectos en desarrollo y backlog
-   - `contexto/negocio/info-negocio.md` — información del negocio y las marcas
-   - `contexto/negocio/brand_profiles.md` — perfiles de las 14 marcas
+   - `contexto/tm/estrategia.md` — dirección estratégica del área TM
+   - `contexto/tm/proyectos/datos-actuales.md` — estado actual de proyectos y métricas
+   - `contexto/tm/proyectos/proyectos.md` — lista de proyectos en desarrollo y backlog
+   - `contexto/tm/negocio/info-negocio.md` — información del negocio y las marcas
+   - `contexto/tm/negocio/brand_profiles.md` — perfiles de las 14 marcas
+   - Si la sesión es sobre temas de SX (Pb2, Magda, Chatwoot, sitios web) en vez de TM, leer `contexto/sx/` en lugar de lo anterior
 
 2. **Revisar la memoria persistente:**
    - Leer `C:\Users\opera\.claude\projects\d--Desktop-Espacio-trabajo-TM\memory\MEMORY.md` para cargar contexto de sesiones anteriores

@@ -1,0 +1,9 @@
+56969
+gris 0 []
+gray 0 []
+color 0 []
+strikethrough 0 []
+tachado 0 []
+inactiv 0 []
+# 80 [0, 45, 486, 588, 625]
+rgb 0 []

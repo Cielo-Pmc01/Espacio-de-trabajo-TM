@@ -1,16 +1,2 @@
 {
-  "hooks": {
-    "SessionEnd": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"D:\\Desktop\\Espacio-trabajo-TM\\scripts\\sync-obsidian.ps1\"",
-            "timeout": 30
-          }
-        ]
-      }
-    ]
-  }
 }

@@ -1,0 +1,1260 @@
+- generic [active] [ref=f17e1]:
+  - banner [ref=f17e2]:
+    - generic [ref=f17e3]:
+      - link [ref=f17e5] [cursor=pointer]:
+        - /url: /
+        - img "PatagoniaBooking" [ref=f17e6]
+        - img "PatagoniaBooking" [ref=f17e7]
+      - generic [ref=f17e8]:
+        - button "ar$" [ref=f17e12] [cursor=pointer]
+        - generic [ref=f17e13]:
+          - paragraph [ref=f17e14]: Seleccione su idioma
+          - button "Seleccione su idioma Español (España) ES" [ref=f17e16] [cursor=pointer]:
+            - img "Español (España)" [ref=f17e17]
+            - text: ES
+        - list [ref=f17e18]:
+          - listitem [ref=f17e19]:
+            - list [ref=f17e20]:
+              - listitem [ref=f17e21]:
+                - link [ref=f17e22] [cursor=pointer]:
+                  - /url: /es/ayuda
+                  - text: Ayuda
+    - generic [ref=f17e24]:
+      - navigation [ref=f17e26]:
+        - list [ref=f17e28]:
+          - listitem [ref=f17e29]:
+            - link "Excursiones" [ref=f17e30] [cursor=pointer]:
+              - /url: /es/excursiones
+          - listitem [ref=f17e31]:
+            - link "Traslados" [ref=f17e32] [cursor=pointer]:
+              - /url: /es/traslados
+          - listitem [ref=f17e33]:
+            - link "Actividades" [ref=f17e34] [cursor=pointer]:
+              - /url: /es/actividades
+          - listitem [ref=f17e35]:
+            - link "Invierno" [ref=f17e36] [cursor=pointer]:
+              - /url: /es/invierno
+          - listitem [ref=f17e37]:
+            - link "Paquetes" [ref=f17e38] [cursor=pointer]:
+              - /url: /es/paquetes
+          - listitem [ref=f17e39]:
+            - link "Otros" [ref=f17e40] [cursor=pointer]:
+              - /url: /es/otros
+          - listitem [ref=f17e41]:
+            - link "Coches" [ref=f17e42] [cursor=pointer]:
+              - /url: /es/alquiler-coches
+      - generic [ref=f17e43]:
+        - generic "Secretaría" [ref=f17e46] [cursor=pointer]: 
+        - text:    
+      - link "Logout " [ref=f17e49] [cursor=pointer]:
+        - /url: /es/excursiones?task=logout
+        - text: Logout
+        - generic [ref=f17e50]: 
+  - main [ref=f17e53]:
+    - generic [ref=f17e54]:
+      - text: 
+      - link "" [ref=f17e56] [cursor=pointer]:
+        - /url: /es/administrativa?view=manager
+      - link "" [ref=f17e59] [cursor=pointer]:
+        - /url: /es/administrativa?task=gridReservations&order_task=add_blank
+      - link "" [ref=f17e62] [cursor=pointer]:
+        - /url: /es/administrativa?task=gridReservations
+      - link "" [ref=f17e65] [cursor=pointer]:
+        - /url: /es/administrativa?task=editDays
+      - link "" [ref=f17e68] [cursor=pointer]:
+        - /url: /es/administrativa?task=rentalCalendar
+      - link "" [ref=f17e71] [cursor=pointer]:
+        - /url: /es/administrativa?task=gridObjects
+      - link "" [ref=f17e74] [cursor=pointer]:
+        - /url: /es/administrativa?task=gridCode
+      - link "" [ref=f17e77] [cursor=pointer]:
+        - /url: /es/administrativa?task=accounting
+      - link "" [ref=f17e80] [cursor=pointer]:
+        - /url: javascript:void(0);
+    - generic [ref=f17e83]:
+      - heading "Reservas" [level=2] [ref=f17e84]
+      - generic [ref=f17e85]:
+        - generic [ref=f17e86]: Mostrar/Ocultar filtros
+        - generic [ref=f17e1178]:
+          - generic [ref=f17e1180]:
+            - generic [ref=f17e1181]:
+              - generic [ref=f17e1183]:
+                - generic [ref=f17e1184]: Usuario
+                - generic [ref=f17e1187]:
+                  - textbox [ref=f17e1188]
+                  - text: 
+              - generic [ref=f17e1190]:
+                - generic [ref=f17e1191]: Confirmado
+                - combobox [ref=f17e1195] [cursor=pointer]:
+                  - option "-" [selected]
+                  - option "Sí"
+                  - option "No"
+                  - option "Pendiente"
+            - generic [ref=f17e1196]:
+              - generic [ref=f17e1198]:
+                - generic [ref=f17e1199]: N °
+                - textbox [ref=f17e1203]
+              - generic [ref=f17e1205]:
+                - generic [ref=f17e1206]: Pasar
+                - combobox [ref=f17e1210] [cursor=pointer]:
+                  - option "Todos" [selected]
+                  - option "No"
+                  - option "Sí"
+            - generic [ref=f17e1211]:
+              - generic [ref=f17e1213]:
+                - generic [ref=f17e1214]: Contabilizadas
+                - combobox [ref=f17e1218] [cursor=pointer]:
+                  - option "Todos" [selected]
+                  - option "No"
+                  - option "Sí"
+              - generic [ref=f17e1220]:
+                - generic [ref=f17e1221]: Saldo
+                - combobox [ref=f17e1225] [cursor=pointer]:
+                  - option "-" [selected]
+                  - option "pagado"
+                  - option "No pagado"
+                  - option "Balance impago"
+            - generic [ref=f17e1226]:
+              - generic [ref=f17e1228]:
+                - generic [ref=f17e1229]: Fecha de reserva
+                - generic [ref=f17e1232]:
+                  - textbox [ref=f17e1233]
+                  - text: Al dia
+                  - textbox [ref=f17e1234]
+              - generic [ref=f17e1236]:
+                - generic [ref=f17e1237]: Actividad
+                - generic [ref=f17e1240]:
+                  - textbox [ref=f17e1241]
+                  - text: Al dia
+                  - textbox [ref=f17e1242]
+            - generic [ref=f17e1243]:
+              - generic [ref=f17e1245]:
+                - generic [ref=f17e1246]: Desde la hora
+                - combobox [ref=f17e1250] [cursor=pointer]:
+                  - option [selected]
+                  - option "0"
+                  - option "1"
+                  - option "2"
+                  - option "3"
+                  - option "4"
+                  - option "5"
+                  - option "6"
+                  - option "7"
+                  - option "8"
+                  - option "9"
+                  - option "10"
+                  - option "11"
+                  - option "12"
+                  - option "13"
+                  - option "14"
+                  - option "15"
+                  - option "16"
+                  - option "17"
+                  - option "18"
+                  - option "19"
+                  - option "20"
+                  - option "21"
+                  - option "22"
+                  - option "23"
+              - generic [ref=f17e1252]:
+                - generic [ref=f17e1253]: Hasta la hora
+                - combobox [ref=f17e1257] [cursor=pointer]:
+                  - option [selected]
+                  - option "0"
+                  - option "1"
+                  - option "2"
+                  - option "3"
+                  - option "4"
+                  - option "5"
+                  - option "6"
+                  - option "7"
+                  - option "8"
+                  - option "9"
+                  - option "10"
+                  - option "11"
+                  - option "12"
+                  - option "13"
+                  - option "14"
+                  - option "15"
+                  - option "16"
+                  - option "17"
+                  - option "18"
+                  - option "19"
+                  - option "20"
+                  - option "21"
+                  - option "22"
+                  - option "23"
+            - generic [ref=f17e1258]:
+              - generic [ref=f17e1260]:
+                - generic [ref=f17e1261]: Tipo de Actividad
+                - combobox [ref=f17e1267]:
+                  - textbox "Escriba o seleccione algunas opciones" [ref=f17e1269]
+              - generic [ref=f17e1271]:
+                - generic [ref=f17e1272]: Categoría
+                - combobox [ref=f17e1276] [cursor=pointer]:
+                  - option [selected]
+                  - option "Excursiones"
+                  - option "Traslados"
+                  - option "Actividades"
+                  - option "Invierno"
+                  - option "Paquetes"
+                  - option "Otros"
+            - generic [ref=f17e1277]:
+              - generic [ref=f17e1279]:
+                - generic [ref=f17e1280]: Tipo de reserva
+                - combobox [ref=f17e1284] [cursor=pointer]:
+                  - option "Todos" [selected]
+                  - option "Reservar"
+                  - option "Alquiler"
+                  - option "Vale"
+                  - option "Vales no utilizados"
+                  - option "Servicios y productos"
+                  - option "- traslado"
+                  - option "- Descuento"
+                  - option "- Gastos de entrega y recogida"
+                  - option "- Dias de alquiler"
+                  - option "- Reembolso"
+              - generic [ref=f17e1286]:
+                - generic [ref=f17e1288]:
+                  - text: Proveedor
+                  - generic [ref=f17e1289]:  ?
+                - generic [ref=f17e1291]:
+                  - textbox [ref=f17e1292]
+                  - text: 
+            - generic [ref=f17e1293]:
+              - generic [ref=f17e1295]:
+                - generic [ref=f17e1296]: Código
+                - textbox [ref=f17e1300]
+              - generic [ref=f17e1302]:
+                - generic [ref=f17e1303]: Autor
+                - generic [ref=f17e1306]:
+                  - textbox [ref=f17e1307]
+                  - text: 
+          - generic [ref=f17e1308]:
+            - button "Filtrar" [ref=f17e1311] [cursor=pointer]
+            - button "Claro Filtros" [ref=f17e1314] [cursor=pointer]
+      - text:  
+      - generic [ref=f17e88]:
+        - button "Actividades y productos" [ref=f17e89] [cursor=pointer]
+        - button "Alquiler" [ref=f17e91] [cursor=pointer]
+        - button "Imprimir reserva"
+        - button "Emisión de recibos"
+        - button "Borrar"
+        - generic [ref=f17e93]:
+          - button "Presentar"
+          - text:  
+        - generic [ref=f17e94]:
+          - button "Carro"
+      - generic [ref=f17e95]:
+        - generic [ref=f17e96]: Resultados 1 - 20 de 177587
+        - link " Resumen" [ref=f17e99] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=f17e100]: 
+          - text: Resumen
+        - generic [ref=f17e101]: Resultados por página
+        - combobox [ref=f17e104] [cursor=pointer]:
+          - option "5"
+          - option "10"
+          - option "15"
+          - option "20" [selected]
+          - option "25"
+          - option "30"
+          - option "50"
+          - option "100"
+      - table [ref=f17e107]:
+        - rowgroup [ref=f17e108]:
+          - row [ref=f17e109]:
+            - cell [ref=f17e110]:
+              - link "N °" [ref=f17e111] [cursor=pointer]:
+                - /url: /es/administrativa?view=manager&task=gridReservations&orderby=r.id&ord=DESC
+            - cell [ref=f17e112]:
+              - checkbox "Seleccionar todo" [ref=f17e113]
+            - cell [ref=f17e114]:
+              - link [ref=f17e115] [cursor=pointer]:
+                - /url: /es/administrativa?view=manager&task=gridReservations&orderby=confirmed&ord=DESC
+            - cell [ref=f17e116]:
+              - link "Nombre" [ref=f17e117] [cursor=pointer]:
+                - /url: /es/administrativa?view=manager&task=gridReservations&orderby=u.name&ord=DESC
+            - cell [ref=f17e118]:
+              - link "Apellido" [ref=f17e119] [cursor=pointer]:
+                - /url: /es/administrativa?view=manager&task=gridReservations&orderby=u.surname&ord=DESC
+            - cell "Datos" [ref=f17e120]
+            - cell "Teléfono" [ref=f17e121]
+            - cell "Fecha de reserva" [ref=f17e122]
+            - cell "Notas" [ref=f17e123]
+            - cell [ref=f17e124]:
+              - link "Actividad" [ref=f17e125] [cursor=pointer]:
+                - /url: /es/administrativa?view=manager&task=gridReservations&orderby=a.date&ord=DESC
+            - cell [ref=f17e126]:
+              - link "Nombre del alojamiento" [ref=f17e127] [cursor=pointer]:
+                - /url: /es/administrativa?view=manager&task=gridReservations&orderby=pickup.acc_name&ord=DESC
+            - cell "Habitación" [ref=f17e128]
+            - cell [ref=f17e129]:
+              - link "Hora de la reunión" [ref=f17e130] [cursor=pointer]:
+                - /url: /es/administrativa?view=manager&task=gridReservations&orderby=pickup.pickup_time&ord=DESC
+            - cell "Proveedor" [ref=f17e131]
+            - cell "Falta Pagar" [ref=f17e132]
+            - cell "Archivo" [ref=f17e133]
+            - cell "Lugares" [ref=f17e134]
+            - cell "Servicios Adicionales" [ref=f17e135]
+            - cell "Total pagado" [ref=f17e136]
+            - cell "Precio" [ref=f17e137]
+            - cell [ref=f17e138]:
+              - link "Autor" [ref=f17e139] [cursor=pointer]:
+                - /url: /es/administrativa?view=manager&task=gridReservations&orderby=author.username&ord=DESC
+            - cell "Opciones" [ref=f17e140]
+          - row [ref=f17e141]:
+            - cell "332480" [ref=f17e142]
+            - cell [ref=f17e143]:
+              - checkbox [ref=f17e144]
+            - cell "" [ref=f17e145]:
+              - generic "Confirmado" [ref=f17e146]: 
+            - cell [ref=f17e147]:
+              - link "Adalberto" [ref=f17e148] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122553&active_filter=1
+            - cell [ref=f17e149]:
+              - link "Martin" [ref=f17e150] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122553&active_filter=1
+            - cell [ref=f17e151]
+            - cell [ref=f17e152]:
+              - text: 
+              - link "+541144971350" [ref=f17e153] [cursor=pointer]:
+                - /url: tel:+541144971350
+            - cell "2026-07-27 16:30:05" [ref=f17e154]
+            - cell "tc. Sin traslado" [ref=f17e155]
+            - cell [ref=f17e157]:
+              - link "Mar 28/07/26 13:00 Isla Victoria y Bosque de Arrayanes . Regular." [ref=f17e158] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33765&ttt=1785181067
+                - text: Mar 28/07/26 13:00Isla Victoria y Bosque de Arrayanes . Regular.
+            - cell "Puerto Pañuelo" [ref=f17e159]
+            - cell [ref=f17e160]
+            - cell "13:00" [ref=f17e161]
+            - cell [ref=f17e162]
+            - cell "0ar$" [ref=f17e163]
+            - cell [ref=f17e166]
+            - cell [ref=f17e167]
+            - cell [ref=f17e170]
+            - cell "114.000ar$" [ref=f17e171]
+            - cell "114.000ar$" [ref=f17e173]
+            - cell "17-patag..." [ref=f17e176]:
+              - generic "17-patagoniabooking" [ref=f17e177]: 17-patag...
+            - cell [ref=f17e178]:
+              - generic [ref=f17e180]:
+                - button "Modificación" [ref=f17e181] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e183] [cursor=pointer]
+                - button "Pick-up" [ref=f17e185] [cursor=pointer]
+                - button "Objetos" [ref=f17e187] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e189]:
+            - cell "332479" [ref=f17e190]
+            - cell [ref=f17e191]:
+              - checkbox [ref=f17e192]
+            - cell "" [ref=f17e193]:
+              - generic "Confirmado" [ref=f17e194]: 
+            - cell [ref=f17e195]:
+              - link "Eliana" [ref=f17e196] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122552&active_filter=1
+            - cell [ref=f17e197]:
+              - link "Urzagasti" [ref=f17e198] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122552&active_filter=1
+            - cell [ref=f17e199]
+            - cell [ref=f17e200]:
+              - text: 
+              - link "+541156267915" [ref=f17e201] [cursor=pointer]:
+                - /url: tel:+541156267915
+            - cell "2026-07-27 16:28:57" [ref=f17e202]
+            - cell "TRF" [ref=f17e203]
+            - cell [ref=f17e205]:
+              - link "Mié 29/07/26 08:00 Villa La Angostura y Cerro Bayo Regular" [ref=f17e206] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33782&ttt=1785181067
+                - text: Mié 29/07/26 08:00Villa La Angostura y Cerro Bayo Regular
+            - cell "Patagonia Booking" [ref=f17e207]
+            - cell [ref=f17e208]
+            - cell "08:20" [ref=f17e209]
+            - cell [ref=f17e210]
+            - cell "0ar$" [ref=f17e211]
+            - cell "" [ref=f17e214]:
+              - generic "Sí" [ref=f17e216]: 
+            - cell [ref=f17e217]:
+              - generic [ref=f17e219]:
+                - text: 2 Adulto
+                - generic [ref=f17e220]: 1 Bebe
+            - cell [ref=f17e222]
+            - cell "155.000ar$" [ref=f17e223]
+            - cell "155.000ar$" [ref=f17e225]
+            - cell "9-turism..." [ref=f17e228]:
+              - generic "9-turismobariloche-9" [ref=f17e229]: 9-turism...
+            - cell [ref=f17e230]:
+              - generic [ref=f17e232]:
+                - button "Modificación" [ref=f17e233] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e235] [cursor=pointer]
+                - button "Pick-up" [ref=f17e237] [cursor=pointer]
+                - button "Objetos" [ref=f17e239] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e241]:
+            - cell "332478" [ref=f17e242]
+            - cell [ref=f17e243]:
+              - checkbox [ref=f17e244]
+            - cell "" [ref=f17e245]:
+              - generic "Confirmado" [ref=f17e246]: 
+            - cell [ref=f17e247]:
+              - link "André" [ref=f17e248] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122551&active_filter=1
+            - cell [ref=f17e249]:
+              - link "Amadeu" [ref=f17e250] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122551&active_filter=1
+            - cell [ref=f17e251]
+            - cell [ref=f17e252]:
+              - text: 
+              - link "+556292516275" [ref=f17e253] [cursor=pointer]:
+                - /url: tel:+556292516275
+            - cell "2026-07-27 16:13:11" [ref=f17e254]
+            - cell "TRF/ pix" [ref=f17e255]
+            - cell [ref=f17e257]:
+              - link "Mar 28/07/26 08:00 Traslado a Cerro Catedral Regular" [ref=f17e258] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=32266&ttt=1785181067
+                - text: Mar 28/07/26 08:00Traslado a Cerro Catedral Regular
+            - cell "Patagonia Booking" [ref=f17e259]
+            - cell [ref=f17e260]
+            - cell "07:50" [ref=f17e261]
+            - cell [ref=f17e262]
+            - cell "0ar$" [ref=f17e263]
+            - cell "" [ref=f17e266]:
+              - generic "Sí" [ref=f17e268]: 
+            - cell [ref=f17e269]
+            - cell [ref=f17e272]
+            - cell "177.500ar$" [ref=f17e273]
+            - cell "177.500ar$" [ref=f17e275]
+            - cell "34-patag..." [ref=f17e278]:
+              - generic "34-patagoniabooking" [ref=f17e279]: 34-patag...
+            - cell [ref=f17e280]:
+              - generic [ref=f17e282]:
+                - button "Modificación" [ref=f17e283] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e285] [cursor=pointer]
+                - button "Pick-up" [ref=f17e287] [cursor=pointer]
+                - button "Objetos" [ref=f17e289] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e291]:
+            - cell "332477" [ref=f17e292]
+            - cell [ref=f17e293]:
+              - checkbox [ref=f17e294]
+            - cell "" [ref=f17e295]:
+              - generic "Confirmado" [ref=f17e296]: 
+            - cell [ref=f17e297]:
+              - link "Maria Belen" [ref=f17e298] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122550&active_filter=1
+            - cell [ref=f17e299]:
+              - link "Diaz" [ref=f17e300] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122550&active_filter=1
+            - cell [ref=f17e301]
+            - cell [ref=f17e302]:
+              - text: 
+              - link "+541126060197" [ref=f17e303] [cursor=pointer]:
+                - /url: tel:+541126060197
+            - cell "2026-07-27 16:07:22" [ref=f17e304]
+            - cell "trans" [ref=f17e305]
+            - cell [ref=f17e307]:
+              - link "Mar 28/07/26 08:00 Villa La Angostura y Cerro Bayo Regular" [ref=f17e308] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33781&ttt=1785181067
+                - text: Mar 28/07/26 08:00Villa La Angostura y Cerro Bayo Regular
+            - cell "Pioneros Suites by grupo Tierra Gaucha" [ref=f17e309]
+            - cell [ref=f17e310]
+            - cell "08:15" [ref=f17e311]
+            - cell [ref=f17e312]
+            - cell "0ar$" [ref=f17e313]
+            - cell "" [ref=f17e316]:
+              - generic "Sí" [ref=f17e318]: 
+            - cell [ref=f17e319]:
+              - generic [ref=f17e321]:
+                - text: 2 Adulto
+                - generic [ref=f17e322]: 1 Menor
+            - cell [ref=f17e324]
+            - cell "232.500ar$" [ref=f17e325]
+            - cell "232.500ar$" [ref=f17e327]
+            - cell "17-patag..." [ref=f17e330]:
+              - generic "17-patagoniabooking" [ref=f17e331]: 17-patag...
+            - cell [ref=f17e332]:
+              - generic [ref=f17e334]:
+                - button "Modificación" [ref=f17e335] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e337] [cursor=pointer]
+                - button "Pick-up" [ref=f17e339] [cursor=pointer]
+                - button "Objetos" [ref=f17e341] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e343]:
+            - cell "332476" [ref=f17e344]
+            - cell [ref=f17e345]:
+              - checkbox [ref=f17e346]
+            - cell "" [ref=f17e347]:
+              - generic "Confirmado" [ref=f17e348]: 
+            - cell [ref=f17e349]:
+              - link "Sergio" [ref=f17e350] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122549&active_filter=1
+            - cell [ref=f17e351]:
+              - link "Fourcade" [ref=f17e352] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122549&active_filter=1
+            - cell [ref=f17e353]
+            - cell [ref=f17e354]:
+              - text: 
+              - link "+59898247006" [ref=f17e355] [cursor=pointer]:
+                - /url: tel:+59898247006
+            - cell "2026-07-27 15:36:49" [ref=f17e356]
+            - cell "traj" [ref=f17e357]
+            - cell [ref=f17e359]:
+              - link "Mar 28/07/26 09:00 Cerro Tronador regular" [ref=f17e360] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33708&ttt=1785181067
+                - text: Mar 28/07/26 09:00Cerro Tronador regular
+            - cell "Patagonia Booking" [ref=f17e361]
+            - cell [ref=f17e362]
+            - cell "08:50" [ref=f17e363]
+            - cell [ref=f17e364]
+            - cell "0ar$" [ref=f17e365]
+            - cell [ref=f17e368]
+            - cell [ref=f17e369]
+            - cell [ref=f17e372]
+            - cell "333.600ar$" [ref=f17e373]
+            - cell "333.600ar$" [ref=f17e375]
+            - cell "8-patago..." [ref=f17e378]:
+              - generic "8-patagoniabooking" [ref=f17e379]: 8-patago...
+            - cell [ref=f17e380]:
+              - generic [ref=f17e382]:
+                - button "Modificación" [ref=f17e383] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e385] [cursor=pointer]
+                - button "Pick-up" [ref=f17e387] [cursor=pointer]
+                - button "Objetos" [ref=f17e389] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e391]:
+            - cell "332475" [ref=f17e392]
+            - cell [ref=f17e393]:
+              - checkbox [ref=f17e394]
+            - cell "" [ref=f17e395]:
+              - generic "Confirmado" [ref=f17e396]: 
+            - cell [ref=f17e397]:
+              - link "Éder William" [ref=f17e398] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122548&active_filter=1
+            - cell [ref=f17e399]:
+              - link "Mendes" [ref=f17e400] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122548&active_filter=1
+            - cell [ref=f17e401]
+            - cell [ref=f17e402]:
+              - text: 
+              - link "+5455 119750791..." [ref=f17e403] [cursor=pointer]:
+                - /url: tel:+5455 11975079114
+                - generic "+5455 11975079114" [ref=f17e404]: +5455 119750791...
+            - cell "2026-07-27 15:00:56" [ref=f17e405]
+            - cell "PIX" [ref=f17e406]
+            - cell [ref=f17e408]:
+              - link "Vie 7/08/26 08:00 Villa La Angostura y Cerro Bayo Regular" [ref=f17e409] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33778&ttt=1785181067
+                - text: Vie 7/08/26 08:00Villa La Angostura y Cerro Bayo Regular
+            - cell "Patagonia Booking" [ref=f17e410]
+            - cell [ref=f17e411]
+            - cell "08:20" [ref=f17e412]
+            - cell [ref=f17e413]
+            - cell "0ar$" [ref=f17e414]
+            - cell "" [ref=f17e417]:
+              - generic "Sí" [ref=f17e419]: 
+            - cell [ref=f17e420]
+            - cell [ref=f17e423]
+            - cell "77.500ar$" [ref=f17e424]
+            - cell "77.500ar$" [ref=f17e426]
+            - cell "13-patag..." [ref=f17e429]:
+              - generic "13-patagoniabooking" [ref=f17e430]: 13-patag...
+            - cell [ref=f17e431]:
+              - generic [ref=f17e433]:
+                - button "Modificación" [ref=f17e434] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e436] [cursor=pointer]
+                - button "Pick-up" [ref=f17e438] [cursor=pointer]
+                - button "Objetos" [ref=f17e440] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e442]:
+            - cell "332474" [ref=f17e443]
+            - cell [ref=f17e444]:
+              - checkbox [ref=f17e445]
+            - cell "" [ref=f17e446]:
+              - generic "Confirmado" [ref=f17e447]: 
+            - cell [ref=f17e448]:
+              - link "Juliane" [ref=f17e449] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122547&active_filter=1
+            - cell [ref=f17e450]:
+              - link "França" [ref=f17e451] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122547&active_filter=1
+            - cell [ref=f17e452]
+            - cell [ref=f17e453]:
+              - text: 
+              - link "+5511974243902" [ref=f17e454] [cursor=pointer]:
+                - /url: tel:+5511974243902
+            - cell "2026-07-27 14:59:30" [ref=f17e455]
+            - cell "PIX R$226.92 (ARS$59.000)" [ref=f17e456]
+            - cell [ref=f17e458]:
+              - link "Dom 30/08/26 08:00 Circuito Chico regular" [ref=f17e459] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33777&ttt=1785181067
+                - text: Dom 30/08/26 08:00Circuito Chico regular
+            - cell "Patagonia Booking" [ref=f17e460]
+            - cell [ref=f17e461]
+            - cell "07:50" [ref=f17e462]
+            - cell [ref=f17e463]
+            - cell "0ar$" [ref=f17e464]
+            - cell "" [ref=f17e467]:
+              - generic "Sí" [ref=f17e469]: 
+            - cell [ref=f17e470]
+            - cell [ref=f17e473]
+            - cell "59.000ar$" [ref=f17e474]
+            - cell "59.000ar$" [ref=f17e476]
+            - cell "39-patag..." [ref=f17e479]:
+              - generic "39-patagoniabooking" [ref=f17e480]: 39-patag...
+            - cell [ref=f17e481]:
+              - generic [ref=f17e483]:
+                - button "Modificación" [ref=f17e484] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e486] [cursor=pointer]
+                - button "Pick-up" [ref=f17e488] [cursor=pointer]
+                - button "Objetos" [ref=f17e490] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e492]:
+            - cell "332473" [ref=f17e493]
+            - cell [ref=f17e494]:
+              - checkbox [ref=f17e495]
+            - cell "" [ref=f17e496]:
+              - generic "Confirmado" [ref=f17e497]: 
+            - cell [ref=f17e498]:
+              - link "Antonio" [ref=f17e499] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122546&active_filter=1
+            - cell [ref=f17e500]:
+              - link "Goulart" [ref=f17e501] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122546&active_filter=1
+            - cell [ref=f17e502]
+            - cell [ref=f17e503]:
+              - text: 
+              - link "+5553984042279" [ref=f17e504] [cursor=pointer]:
+                - /url: tel:+5553984042279
+            - cell "2026-07-27 14:46:13" [ref=f17e505]
+            - cell "TRF" [ref=f17e506]
+            - cell [ref=f17e508]:
+              - link "Mar 28/07/26 08:00 San Martín por 7 Lagos regular" [ref=f17e509] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=32818&ttt=1785181067
+                - text: Mar 28/07/26 08:00San Martín por 7 Lagos regular
+            - cell "Bungalows AMULÉN" [ref=f17e510]
+            - cell [ref=f17e511]
+            - cell "07:30" [ref=f17e512]
+            - cell [ref=f17e513]
+            - cell "0ar$" [ref=f17e514]
+            - cell [ref=f17e517]
+            - cell [ref=f17e518]
+            - cell [ref=f17e521]
+            - cell "155.000ar$" [ref=f17e522]
+            - cell "155.000ar$" [ref=f17e524]
+            - cell "9-turism..." [ref=f17e527]:
+              - generic "9-turismobariloche-9" [ref=f17e528]: 9-turism...
+            - cell [ref=f17e529]:
+              - generic [ref=f17e531]:
+                - button "Modificación" [ref=f17e532] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e534] [cursor=pointer]
+                - button "Pick-up" [ref=f17e536] [cursor=pointer]
+                - button "Objetos" [ref=f17e538] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e540]:
+            - cell "332472" [ref=f17e541]
+            - cell [ref=f17e542]:
+              - checkbox [ref=f17e543]
+            - cell "" [ref=f17e544]:
+              - generic "Confirmado" [ref=f17e545]: 
+            - cell [ref=f17e546]:
+              - link "LAURA" [ref=f17e547] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122250&active_filter=1
+            - cell [ref=f17e548]:
+              - link "SOSA" [ref=f17e549] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122250&active_filter=1
+            - cell [ref=f17e550]
+            - cell [ref=f17e551]:
+              - text: 
+              - link "+542944588996" [ref=f17e552] [cursor=pointer]:
+                - /url: tel:+542944588996
+            - cell "2026-07-27 14:44:21" [ref=f17e553]
+            - cell "TARJETA CREDITO PRUEBA" [ref=f17e554]
+            - cell [ref=f17e556]:
+              - link "Sáb 16/05/26 08:00 Clase Bautismo Ski o Snowboard cerro Catedral regu" [ref=f17e557] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33774&ttt=1785181067
+                - text: Sáb 16/05/26 08:00Clase Bautismo Ski o Snowboard cerro Catedral regu
+            - cell "Patagonia Booking" [ref=f17e558]
+            - cell [ref=f17e559]
+            - cell "07:50" [ref=f17e560]
+            - cell [ref=f17e561]
+            - cell "0ar$" [ref=f17e562]
+            - cell [ref=f17e565]
+            - cell [ref=f17e566]
+            - cell [ref=f17e567]
+            - cell "0ar$" [ref=f17e568]
+            - cell "0ar$" [ref=f17e570]
+            - cell "13-patag..." [ref=f17e573]:
+              - generic "13-patagoniabooking" [ref=f17e574]: 13-patag...
+            - cell [ref=f17e575]:
+              - generic [ref=f17e577]:
+                - button "Modificación" [ref=f17e578] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e580] [cursor=pointer]
+                - button "Pick-up" [ref=f17e582] [cursor=pointer]
+                - button "Objetos" [ref=f17e584] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e586]:
+            - cell "332471" [ref=f17e587]
+            - cell [ref=f17e588]:
+              - checkbox [ref=f17e589]
+            - cell "" [ref=f17e590]:
+              - generic "Confirmado" [ref=f17e591]: 
+            - cell [ref=f17e592]:
+              - link "LAURA" [ref=f17e593] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122250&active_filter=1
+            - cell [ref=f17e594]:
+              - link "SOSA" [ref=f17e595] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122250&active_filter=1
+            - cell [ref=f17e596]
+            - cell [ref=f17e597]:
+              - text: 
+              - link "+542944588996" [ref=f17e598] [cursor=pointer]:
+                - /url: tel:+542944588996
+            - cell "2026-07-27 14:40:25" [ref=f17e599]
+            - cell "TARJETA-ES PRUEBA" [ref=f17e600]
+            - cell [ref=f17e602]:
+              - link "Sáb 16/05/26 08:00 Clase Bautismo Ski o Snowboard cerro Catedral regu" [ref=f17e603] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33775&ttt=1785181067
+                - text: Sáb 16/05/26 08:00Clase Bautismo Ski o Snowboard cerro Catedral regu
+            - cell "NH Edelweiss" [ref=f17e604]
+            - cell [ref=f17e605]
+            - cell "07:50" [ref=f17e606]
+            - cell [ref=f17e607]
+            - cell "0ar$" [ref=f17e608]
+            - cell [ref=f17e611]
+            - cell [ref=f17e612]
+            - cell [ref=f17e613]
+            - cell "0ar$" [ref=f17e614]
+            - cell "0ar$" [ref=f17e616]
+            - cell "13-patag..." [ref=f17e619]:
+              - generic "13-patagoniabooking" [ref=f17e620]: 13-patag...
+            - cell [ref=f17e621]:
+              - generic [ref=f17e623]:
+                - button "Modificación" [ref=f17e624] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e626] [cursor=pointer]
+                - button "Pick-up" [ref=f17e628] [cursor=pointer]
+                - button "Objetos" [ref=f17e630] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e632]:
+            - cell "332470" [ref=f17e633]
+            - cell [ref=f17e634]:
+              - checkbox [ref=f17e635]
+            - cell "" [ref=f17e636]:
+              - generic "Confirmado" [ref=f17e637]: 
+            - cell [ref=f17e638]:
+              - link "LAURA" [ref=f17e639] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122250&active_filter=1
+            - cell [ref=f17e640]:
+              - link "SOSA" [ref=f17e641] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122250&active_filter=1
+            - cell [ref=f17e642]
+            - cell [ref=f17e643]:
+              - text: 
+              - link "+542944588996" [ref=f17e644] [cursor=pointer]:
+                - /url: tel:+542944588996
+            - cell "2026-07-27 14:36:50" [ref=f17e645]
+            - cell "TC 1 PAGO - PRUEBA" [ref=f17e646]
+            - cell [ref=f17e648]:
+              - link "Sáb 16/05/26 08:00 Clase Bautismo Ski o Snowboard cerro Catedral regu" [ref=f17e649] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33774&ttt=1785181067
+                - text: Sáb 16/05/26 08:00Clase Bautismo Ski o Snowboard cerro Catedral regu
+            - cell "NH Edelweiss" [ref=f17e650]
+            - cell [ref=f17e651]
+            - cell "08:05" [ref=f17e652]
+            - cell [ref=f17e653]
+            - cell "0ar$" [ref=f17e654]
+            - cell [ref=f17e657]
+            - cell [ref=f17e658]
+            - cell [ref=f17e659]
+            - cell "0ar$" [ref=f17e660]
+            - cell "0ar$" [ref=f17e662]
+            - cell "13-patag..." [ref=f17e665]:
+              - generic "13-patagoniabooking" [ref=f17e666]: 13-patag...
+            - cell [ref=f17e667]:
+              - generic [ref=f17e669]:
+                - button "Modificación" [ref=f17e670] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e672] [cursor=pointer]
+                - button "Pick-up" [ref=f17e674] [cursor=pointer]
+                - button "Objetos" [ref=f17e676] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e678]:
+            - cell "332469" [ref=f17e679]
+            - cell [ref=f17e680]:
+              - checkbox [ref=f17e681]
+            - cell "" [ref=f17e682]:
+              - generic "Confirmado" [ref=f17e683]: 
+            - cell [ref=f17e684]:
+              - link "Mohamed" [ref=f17e685] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122545&active_filter=1
+            - cell [ref=f17e686]:
+              - link "Sanchez" [ref=f17e687] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122545&active_filter=1
+            - cell [ref=f17e688]
+            - cell [ref=f17e689]:
+              - text: 
+              - link "+541132379791" [ref=f17e690] [cursor=pointer]:
+                - /url: tel:+541132379791
+            - cell "2026-07-27 14:32:33" [ref=f17e691]
+            - cell "trf se quedan en bayo" [ref=f17e692]
+            - cell [ref=f17e694]:
+              - link "Dom 9/08/26 08:00 Villa La Angostura y Cerro Bayo Regular" [ref=f17e695] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33773&ttt=1785181067
+                - text: Dom 9/08/26 08:00Villa La Angostura y Cerro Bayo Regular
+            - cell "La Fonda del Tío" [ref=f17e696]
+            - cell [ref=f17e697]
+            - cell "08:40" [ref=f17e698]
+            - cell [ref=f17e699]
+            - cell "0ar$" [ref=f17e700]
+            - cell "" [ref=f17e703]:
+              - generic "Sí" [ref=f17e705]: 
+            - cell [ref=f17e706]
+            - cell [ref=f17e709]
+            - cell "279.000ar$" [ref=f17e710]
+            - cell "279.000ar$" [ref=f17e712]
+            - cell "3-turism..." [ref=f17e715]:
+              - generic "3-turismobariloche" [ref=f17e716]: 3-turism...
+            - cell [ref=f17e717]:
+              - generic [ref=f17e719]:
+                - button "Modificación" [ref=f17e720] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e722] [cursor=pointer]
+                - button "Pick-up" [ref=f17e724] [cursor=pointer]
+                - button "Objetos" [ref=f17e726] [cursor=pointer]
+                - button "En mismo carro" [ref=f17e728] [cursor=pointer]
+          - row [ref=f17e730]:
+            - cell "332468" [ref=f17e731]
+            - cell [ref=f17e732]:
+              - checkbox [ref=f17e733]
+            - cell "" [ref=f17e734]:
+              - generic "Confirmado" [ref=f17e735]: 
+            - cell [ref=f17e736]:
+              - link "Mohamed" [ref=f17e737] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122545&active_filter=1
+            - cell [ref=f17e738]:
+              - link "Sanchez" [ref=f17e739] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122545&active_filter=1
+            - cell [ref=f17e740]
+            - cell [ref=f17e741]:
+              - text: 
+              - link "+541132379791" [ref=f17e742] [cursor=pointer]:
+                - /url: tel:+541132379791
+            - cell "2026-07-27 14:31:09" [ref=f17e743]
+            - cell "trf se quedan en bayo" [ref=f17e744]
+            - cell [ref=f17e746]:
+              - link "Sáb 8/08/26 08:00 Villa La Angostura y Cerro Bayo Regular" [ref=f17e747] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33772&ttt=1785181067
+                - text: Sáb 8/08/26 08:00Villa La Angostura y Cerro Bayo Regular
+            - cell "La Fonda del Tío" [ref=f17e748]
+            - cell [ref=f17e749]
+            - cell "08:40" [ref=f17e750]
+            - cell [ref=f17e751]
+            - cell "0ar$" [ref=f17e752]
+            - cell "" [ref=f17e755]:
+              - generic "Sí" [ref=f17e757]: 
+            - cell [ref=f17e758]
+            - cell [ref=f17e761]
+            - cell "279.000ar$" [ref=f17e762]
+            - cell "279.000ar$" [ref=f17e764]
+            - cell "3-turism..." [ref=f17e767]:
+              - generic "3-turismobariloche" [ref=f17e768]: 3-turism...
+            - cell [ref=f17e769]:
+              - generic [ref=f17e771]:
+                - button "Modificación" [ref=f17e772] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e774] [cursor=pointer]
+                - button "Pick-up" [ref=f17e776] [cursor=pointer]
+                - button "Objetos" [ref=f17e778] [cursor=pointer]
+                - button "En mismo carro" [ref=f17e780] [cursor=pointer]
+          - row [ref=f17e782]:
+            - cell "332467" [ref=f17e783]
+            - cell [ref=f17e784]:
+              - checkbox [ref=f17e785]
+            - cell "" [ref=f17e786]:
+              - generic "Confirmado" [ref=f17e787]: 
+            - cell [ref=f17e788]:
+              - link "FACUNDO" [ref=f17e789] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=108190&active_filter=1
+            - cell [ref=f17e790]:
+              - link "VILLAR" [ref=f17e791] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=108190&active_filter=1
+            - cell [ref=f17e792]
+            - cell [ref=f17e793]:
+              - link:
+                - /url: "tel:"
+            - cell "2026-07-27 14:26:15" [ref=f17e794]
+            - cell "TRANS-ES PRUEBA" [ref=f17e795]
+            - cell [ref=f17e797]:
+              - link "Vie 15/05/26 08:00 Seguro Reprogramacion" [ref=f17e798] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33639&ttt=1785181067
+                - text: Vie 15/05/26 08:00Seguro Reprogramacion
+            - cell "Patagonia Booking" [ref=f17e799]
+            - cell [ref=f17e800]
+            - cell "19:00" [ref=f17e801]
+            - cell [ref=f17e802]
+            - cell "0ar$" [ref=f17e803]
+            - cell [ref=f17e806]
+            - cell [ref=f17e807]
+            - cell [ref=f17e808]
+            - cell "0ar$" [ref=f17e809]
+            - cell "0ar$" [ref=f17e811]
+            - cell "13-patag..." [ref=f17e814]:
+              - generic "13-patagoniabooking" [ref=f17e815]: 13-patag...
+            - cell [ref=f17e816]:
+              - generic [ref=f17e818]:
+                - button "Modificación" [ref=f17e819] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e821] [cursor=pointer]
+                - button "Pick-up" [ref=f17e823] [cursor=pointer]
+                - button "Objetos" [ref=f17e825] [cursor=pointer]
+                - button "En mismo carro" [ref=f17e827] [cursor=pointer]
+          - row [ref=f17e829]:
+            - cell "332466" [ref=f17e830]
+            - cell [ref=f17e831]:
+              - checkbox [ref=f17e832]
+            - cell "" [ref=f17e833]:
+              - generic "Confirmado" [ref=f17e834]: 
+            - cell [ref=f17e835]:
+              - link "FACUNDO" [ref=f17e836] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=108190&active_filter=1
+            - cell [ref=f17e837]:
+              - link "VILLAR" [ref=f17e838] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=108190&active_filter=1
+            - cell [ref=f17e839]
+            - cell [ref=f17e840]:
+              - link:
+                - /url: "tel:"
+            - cell "2026-07-27 14:26:08" [ref=f17e841]
+            - cell "TRF PREUBA 332464" [ref=f17e842]
+            - cell [ref=f17e844]:
+              - link "Jue 14/05/26 08:00 Seguro Reprogramacion" [ref=f17e845] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33771&ttt=1785181067
+                - text: Jue 14/05/26 08:00Seguro Reprogramacion
+            - cell "Patagonia Booking" [ref=f17e846]
+            - cell [ref=f17e847]
+            - cell "19:00" [ref=f17e848]
+            - cell [ref=f17e849]
+            - cell "0ar$" [ref=f17e850]
+            - cell [ref=f17e853]
+            - cell [ref=f17e854]
+            - cell [ref=f17e855]
+            - cell "0ar$" [ref=f17e856]
+            - cell "0ar$" [ref=f17e858]
+            - cell "13-patag..." [ref=f17e861]:
+              - generic "13-patagoniabooking" [ref=f17e862]: 13-patag...
+            - cell [ref=f17e863]:
+              - generic [ref=f17e865]:
+                - button "Modificación" [ref=f17e866] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e868] [cursor=pointer]
+                - button "Pick-up" [ref=f17e870] [cursor=pointer]
+                - button "Objetos" [ref=f17e872] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e874]:
+            - cell "332465" [ref=f17e875]
+            - cell [ref=f17e876]:
+              - checkbox [ref=f17e877]
+            - cell "" [ref=f17e878]:
+              - generic "Confirmado" [ref=f17e879]: 
+            - cell [ref=f17e880]:
+              - link "FACUNDO" [ref=f17e881] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=108190&active_filter=1
+            - cell [ref=f17e882]:
+              - link "VILLAR" [ref=f17e883] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=108190&active_filter=1
+            - cell [ref=f17e884]
+            - cell [ref=f17e885]:
+              - link:
+                - /url: "tel:"
+            - cell "2026-07-27 14:19:45" [ref=f17e886]
+            - cell "TRANS. BANCARIA - PRUEBA - VOUCHER n° 332462" [ref=f17e887]
+            - cell [ref=f17e889]:
+              - link "Jue 14/05/26 08:00 Seguro Reprogramacion" [ref=f17e890] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=33771&ttt=1785181067
+                - text: Jue 14/05/26 08:00Seguro Reprogramacion
+            - cell "Patagonia Booking" [ref=f17e891]
+            - cell [ref=f17e892]
+            - cell "19:00" [ref=f17e893]
+            - cell [ref=f17e894]
+            - cell "0ar$" [ref=f17e895]
+            - cell [ref=f17e898]
+            - cell [ref=f17e899]
+            - cell [ref=f17e900]
+            - cell "0ar$" [ref=f17e901]
+            - cell "0ar$" [ref=f17e903]
+            - cell "13-patag..." [ref=f17e906]:
+              - generic "13-patagoniabooking" [ref=f17e907]: 13-patag...
+            - cell [ref=f17e908]:
+              - generic [ref=f17e910]:
+                - button "Modificación" [ref=f17e911] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e913] [cursor=pointer]
+                - button "Pick-up" [ref=f17e915] [cursor=pointer]
+                - button "Objetos" [ref=f17e917] [cursor=pointer]
+                - button "En mismo carro" [ref=f17e919] [cursor=pointer]
+          - row [ref=f17e921]:
+            - cell "332464" [ref=f17e922]
+            - cell [ref=f17e923]:
+              - checkbox [ref=f17e924]
+            - cell "" [ref=f17e925]:
+              - generic "Confirmado" [ref=f17e926]: 
+            - cell [ref=f17e927]:
+              - link "FACUNDO" [ref=f17e928] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=108190&active_filter=1
+            - cell [ref=f17e929]:
+              - link "VILLAR" [ref=f17e930] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=108190&active_filter=1
+            - cell [ref=f17e931]
+            - cell [ref=f17e932]:
+              - link:
+                - /url: "tel:"
+            - cell "2026-07-27 14:10:20" [ref=f17e933]
+            - cell "TRANS-ES PRUEBA" [ref=f17e934]
+            - cell [ref=f17e936]:
+              - link "Vie 15/05/26 08:00 San Martín por 7 Lagos regular" [ref=f17e937] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=31846&ttt=1785181067
+                - text: Vie 15/05/26 08:00San Martín por 7 Lagos regular
+            - cell "Huemul" [ref=f17e938]
+            - cell [ref=f17e939]
+            - cell "07:50" [ref=f17e940]
+            - cell [ref=f17e941]
+            - cell "0ar$" [ref=f17e942]
+            - cell [ref=f17e945]
+            - cell [ref=f17e946]
+            - cell [ref=f17e947]
+            - cell "0ar$" [ref=f17e948]
+            - cell "0ar$" [ref=f17e950]
+            - cell "13-patag..." [ref=f17e953]:
+              - generic "13-patagoniabooking" [ref=f17e954]: 13-patag...
+            - cell [ref=f17e955]:
+              - generic [ref=f17e957]:
+                - button "Modificación" [ref=f17e958] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e960] [cursor=pointer]
+                - button "Pick-up" [ref=f17e962] [cursor=pointer]
+                - button "Objetos" [ref=f17e964] [cursor=pointer]
+                - button "En mismo carro" [ref=f17e966] [cursor=pointer]
+          - row [ref=f17e968]:
+            - cell "332463" [ref=f17e969]
+            - cell [ref=f17e970]:
+              - checkbox [ref=f17e971]
+            - cell "" [ref=f17e972]:
+              - generic "Pendiente" [ref=f17e973]: 
+            - cell "Reservas" [ref=f17e974]:
+              - link "Reservas":
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=&active_filter=1
+            - cell "Reservas" [ref=f17e975]:
+              - link "Reservas":
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=&active_filter=1
+            - cell [ref=f17e976]
+            - cell [ref=f17e977]:
+              - link:
+                - /url: "tel:"
+            - cell "2026-07-27 14:10:19" [ref=f17e978]
+            - cell "PRUEBA" [ref=f17e979]
+            - cell "-" [ref=f17e981]
+            - cell "Huemul" [ref=f17e982]
+            - cell [ref=f17e983]
+            - cell "07:50" [ref=f17e984]
+            - cell [ref=f17e985]
+            - cell "0ar$" [ref=f17e986]
+            - cell [ref=f17e989]
+            - cell [ref=f17e990]
+            - cell [ref=f17e991]
+            - cell "0ar$" [ref=f17e992]
+            - cell "0ar$" [ref=f17e994]
+            - cell "13-patag..." [ref=f17e997]:
+              - generic "13-patagoniabooking" [ref=f17e998]: 13-patag...
+            - cell [ref=f17e999]:
+              - generic [ref=f17e1001]:
+                - button "Modificación" [ref=f17e1002] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e1004] [cursor=pointer]
+                - button "Pick-up" [ref=f17e1006] [cursor=pointer]
+                - button "Objetos" [ref=f17e1008] [cursor=pointer]
+                - button "En mismo carro"
+          - row [ref=f17e1010]:
+            - cell "332462" [ref=f17e1011]
+            - cell [ref=f17e1012]:
+              - checkbox [ref=f17e1013]
+            - cell "" [ref=f17e1014]:
+              - generic "Confirmado" [ref=f17e1015]: 
+            - cell [ref=f17e1016]:
+              - link "FACUNDO" [ref=f17e1017] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=108190&active_filter=1
+            - cell [ref=f17e1018]:
+              - link "VILLAR" [ref=f17e1019] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=108190&active_filter=1
+            - cell [ref=f17e1020]
+            - cell [ref=f17e1021]:
+              - link:
+                - /url: "tel:"
+            - cell "2026-07-27 14:08:31" [ref=f17e1022]
+            - cell "TRANS. BANCARIA - PRUEBA" [ref=f17e1023]
+            - cell [ref=f17e1025]:
+              - link "Vie 15/05/26 08:00 San Martín por 7 Lagos regular" [ref=f17e1026] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=31846&ttt=1785181067
+                - text: Vie 15/05/26 08:00San Martín por 7 Lagos regular
+            - cell "Huemul" [ref=f17e1027]
+            - cell [ref=f17e1028]
+            - cell "07:50" [ref=f17e1029]
+            - cell [ref=f17e1030]
+            - cell "0ar$" [ref=f17e1031]
+            - cell [ref=f17e1034]
+            - cell [ref=f17e1035]
+            - cell [ref=f17e1036]
+            - cell "0ar$" [ref=f17e1037]
+            - cell "0ar$" [ref=f17e1039]
+            - cell "13-patag..." [ref=f17e1042]:
+              - generic "13-patagoniabooking" [ref=f17e1043]: 13-patag...
+            - cell [ref=f17e1044]:
+              - generic [ref=f17e1046]:
+                - button "Modificación" [ref=f17e1047] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e1049] [cursor=pointer]
+                - button "Pick-up" [ref=f17e1051] [cursor=pointer]
+                - button "Objetos" [ref=f17e1053] [cursor=pointer]
+                - button "En mismo carro" [ref=f17e1055] [cursor=pointer]
+          - row [ref=f17e1057]:
+            - cell "332461" [ref=f17e1058]
+            - cell [ref=f17e1059]:
+              - checkbox [ref=f17e1060]
+            - cell "" [ref=f17e1061]:
+              - generic "Confirmado" [ref=f17e1062]: 
+            - cell [ref=f17e1063]:
+              - link "Paula" [ref=f17e1064] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122543&active_filter=1
+            - cell [ref=f17e1065]:
+              - link "Gomez" [ref=f17e1066] [cursor=pointer]:
+                - /url: /es/administrativa?task=gridReservations&id_ora_user=122543&active_filter=1
+            - cell [ref=f17e1067]
+            - cell [ref=f17e1068]:
+              - text: 
+              - link "+54258965872" [ref=f17e1069] [cursor=pointer]:
+                - /url: tel:+54258965872
+            - cell "2026-07-27 13:48:34" [ref=f17e1070]
+            - cell "EFECTIVO-ES PRUEBA ." [ref=f17e1071]
+            - cell [ref=f17e1073]:
+              - link "Mié 13/05/26 08:00 Circuito Chico regular" [ref=f17e1074] [cursor=pointer]:
+                - /url: https://admin.patagoniabooking.com/es/administrativa?task=gridReservations&id_activities=31844&ttt=1785181067
+                - text: Mié 13/05/26 08:00Circuito Chico regular
+            - cell "Patagonia Booking" [ref=f17e1075]
+            - cell [ref=f17e1076]
+            - cell "07:50" [ref=f17e1077]
+            - cell [ref=f17e1078]
+            - cell "0ar$" [ref=f17e1079]
+            - cell [ref=f17e1082]
+            - cell [ref=f17e1083]
+            - cell [ref=f17e1084]
+            - cell "0ar$" [ref=f17e1085]
+            - cell "0ar$" [ref=f17e1087]
+            - cell "13-patag..." [ref=f17e1090]:
+              - generic "13-patagoniabooking" [ref=f17e1091]: 13-patag...
+            - cell [ref=f17e1092]:
+              - generic [ref=f17e1094]:
+                - button "Modificación" [ref=f17e1095] [cursor=pointer]
+                - button "Listado de Clientes" [ref=f17e1097] [cursor=pointer]
+                - button "Pick-up" [ref=f17e1099] [cursor=pointer]
+                - button "Objetos" [ref=f17e1101] [cursor=pointer]
+                - button "En mismo carro"
+      - navigation "Paginación" [ref=f17e1105]:
+        - list [ref=f17e1106]:
+          - listitem [ref=f17e1107]:
+            - generic: 
+          - listitem [ref=f17e1108]:
+            - generic: 
+          - listitem [ref=f17e1109]:
+            - link "Página 1" [ref=f17e1110] [cursor=pointer]:
+              - /url: "#"
+              - text: "1"
+          - listitem [ref=f17e1111]:
+            - link "Ir a la página 2" [ref=f17e1112] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=20
+              - text: "2"
+          - listitem [ref=f17e1113]:
+            - link "Ir a la página 3" [ref=f17e1114] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=40
+              - text: "3"
+          - listitem [ref=f17e1115]:
+            - link "Ir a la página 4" [ref=f17e1116] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=60
+              - text: "4"
+          - listitem [ref=f17e1117]:
+            - link "Ir a la página 5" [ref=f17e1118] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=80
+              - text: "5"
+          - listitem [ref=f17e1119]:
+            - link "Ir a la página 6" [ref=f17e1120] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=100
+              - text: "6"
+          - listitem [ref=f17e1121]:
+            - link "Ir a la página 7" [ref=f17e1122] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=120
+              - text: "7"
+          - listitem [ref=f17e1123]:
+            - link "Ir a la página 8" [ref=f17e1124] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=140
+              - text: "8"
+          - listitem [ref=f17e1125]:
+            - link "Ir a la página 9" [ref=f17e1126] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=160
+              - text: "9"
+          - listitem [ref=f17e1127]:
+            - link "Ir a la página 10" [ref=f17e1128] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=180
+              - text: "10"
+          - listitem [ref=f17e1129]:
+            - link "Ir a la página siguiente" [ref=f17e1130] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=20
+              - generic [ref=f17e1131]: 
+          - listitem [ref=f17e1132]:
+            - link "Ir a la última página" [ref=f17e1133] [cursor=pointer]:
+              - /url: /es/administrativa?view=manager&task=gridReservations&keepfilters=1&start=177580
+              - generic [ref=f17e1134]: 
+  - contentinfo [ref=f17e1135]:
+    - generic [ref=f17e1136]:
+      - generic [ref=f17e1137]:
+        - heading "Información" [level=3] [ref=f17e1138]
+        - list [ref=f17e1139]:
+          - listitem [ref=f17e1140]:
+            - link "Contactos" [ref=f17e1141] [cursor=pointer]:
+              - /url: /es/contactos
+          - listitem [ref=f17e1142]:
+            - link "Preguntas Generales" [ref=f17e1143] [cursor=pointer]:
+              - /url: /es/preguntas-generales
+          - listitem [ref=f17e1144]:
+            - link "Preguntas sobre reservas" [ref=f17e1145] [cursor=pointer]:
+              - /url: /es/preguntas-sobre-reservas
+      - generic [ref=f17e1146]:
+        - heading "Aviso Legal" [level=3] [ref=f17e1147]
+        - list [ref=f17e1148]:
+          - listitem [ref=f17e1149]:
+            - link "Términos y Condiciones" [ref=f17e1150] [cursor=pointer]:
+              - /url: /es/terminos-y-condiciones
+          - listitem [ref=f17e1151]:
+            - link "Política de cookies" [ref=f17e1152] [cursor=pointer]:
+              - /url: /es/politica-de-cookies
+          - listitem [ref=f17e1153]:
+            - link "Política de privacidad" [ref=f17e1154] [cursor=pointer]:
+              - /url: /es/politica-de-privacidad
+          - listitem [ref=f17e1155]:
+            - link "Login" [ref=f17e1156] [cursor=pointer]:
+              - /url: /es/login
+          - listitem [ref=f17e1157]:
+            - link "v2" [ref=f17e1158] [cursor=pointer]:
+              - /url: /es/i
+      - generic [ref=f17e1159]:
+        - heading "Contactos" [level=3] [ref=f17e1160]
+        - generic [ref=f17e1161]:
+          - link "+54-294-4435040" [ref=f17e1163] [cursor=pointer]:
+            - /url: tel:00542944435040
+          - link " +54 9 294 4601440" [ref=f17e1165] [cursor=pointer]:
+            - /url: https://api.whatsapp.com/send?phone=5492944601440
+            - generic [ref=f17e1166]: 
+            - text: +54 9 294 4601440
+          - paragraph
+          - link "contact@patagoniabooking.com" [ref=f17e1168] [cursor=pointer]:
+            - /url: mailto:contact@patagoniabooking.com
+          - link "Formulario de contacto" [ref=f17e1170] [cursor=pointer]:
+            - /url: /es/contactos
+      - generic:
+        - paragraph:
+          - link [ref=f17e1171] [cursor=pointer]:
+            - /url: https://wa.me/5492944601440?text=
+  - paragraph [ref=f17e1173]: © 2021 copyright PatagoniaBooking.com
+  - text:   
+  - status [ref=f17e1174]
+  - status [ref=f17e1175]
+  - status [ref=f17e1176]
+  - text:      

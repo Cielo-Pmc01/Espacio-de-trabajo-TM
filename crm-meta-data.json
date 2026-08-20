@@ -1,0 +1,1945 @@
+{
+  "meta": {
+    "total_msgs": 177495,
+    "total_clicks": 464154,
+    "period": "2026 YTD (al 22-jun)"
+  },
+  "by_excursion": [
+    {
+      "name": "Circuito Chico",
+      "msgs": 77250,
+      "clicks": 36624,
+      "brands": [
+        {
+          "name": "Centro de Reservas",
+          "msgs": 75365,
+          "clicks": 10255
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 1414,
+          "clicks": 22684
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 377,
+          "clicks": 2398
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 39,
+          "clicks": 646
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 19,
+          "clicks": 176
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 18,
+          "clicks": 326
+        },
+        {
+          "name": "General",
+          "msgs": 17,
+          "clicks": 130
+        },
+        {
+          "name": "Tur Central",
+          "msgs": 1,
+          "clicks": 9
+        }
+      ]
+    },
+    {
+      "name": "Isla Victoria",
+      "msgs": 54577,
+      "clicks": 23260,
+      "brands": [
+        {
+          "name": "Centro de Reservas",
+          "msgs": 53108,
+          "clicks": 8680
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 1199,
+          "clicks": 10761
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 252,
+          "clicks": 3703
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 11,
+          "clicks": 85
+        },
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 7,
+          "clicks": 31
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 0,
+          "clicks": 0
+        }
+      ]
+    },
+    {
+      "name": "Kayak",
+      "msgs": 9762,
+      "clicks": 12317,
+      "brands": [
+        {
+          "name": "Centro de Reservas",
+          "msgs": 8448,
+          "clicks": 1871
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 858,
+          "clicks": 6714
+        },
+        {
+          "name": "General",
+          "msgs": 352,
+          "clicks": 2774
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 103,
+          "clicks": 955
+        },
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 1,
+          "clicks": 3
+        }
+      ]
+    },
+    {
+      "name": "Paquete",
+      "msgs": 8682,
+      "clicks": 86817,
+      "brands": [
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 3284,
+          "clicks": 24075
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 2882,
+          "clicks": 24613
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 2265,
+          "clicks": 36840
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 251,
+          "clicks": 1289
+        }
+      ]
+    },
+    {
+      "name": "Paquete 3 Excursiones",
+      "msgs": 4481,
+      "clicks": 73147,
+      "brands": [
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 4481,
+          "clicks": 73147
+        }
+      ]
+    },
+    {
+      "name": "Cabalgatas",
+      "msgs": 3695,
+      "clicks": 37516,
+      "brands": [
+        {
+          "name": "General",
+          "msgs": 2562,
+          "clicks": 28976
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 390,
+          "clicks": 3349
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 390,
+          "clicks": 1996
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 327,
+          "clicks": 3049
+        },
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 26,
+          "clicks": 146
+        }
+      ]
+    },
+    {
+      "name": "General Terrestres",
+      "msgs": 3433,
+      "clicks": 26011,
+      "brands": [
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 3433,
+          "clicks": 26011
+        }
+      ]
+    },
+    {
+      "name": "San Martin 7 Lagos",
+      "msgs": 2098,
+      "clicks": 21309,
+      "brands": [
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 1828,
+          "clicks": 16147
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 141,
+          "clicks": 1047
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 68,
+          "clicks": 1621
+        },
+        {
+          "name": "Tur Central",
+          "msgs": 22,
+          "clicks": 602
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 17,
+          "clicks": 146
+        },
+        {
+          "name": "Centro de Reservas",
+          "msgs": 8,
+          "clicks": 1624
+        },
+        {
+          "name": "General",
+          "msgs": 6,
+          "clicks": 44
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 4,
+          "clicks": 46
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 4,
+          "clicks": 32
+        }
+      ]
+    },
+    {
+      "name": "Rafting Light",
+      "msgs": 2007,
+      "clicks": 20631,
+      "brands": [
+        {
+          "name": "General",
+          "msgs": 1597,
+          "clicks": 16166
+        },
+        {
+          "name": "Rafting",
+          "msgs": 363,
+          "clicks": 3730
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 42,
+          "clicks": 715
+        },
+        {
+          "name": "Centro de Reservas",
+          "msgs": 4,
+          "clicks": 15
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 1,
+          "clicks": 5
+        }
+      ]
+    },
+    {
+      "name": "Rafting Al Limite",
+      "msgs": 1725,
+      "clicks": 23006,
+      "brands": [
+        {
+          "name": "Adventure Center",
+          "msgs": 835,
+          "clicks": 14289
+        },
+        {
+          "name": "Rafting",
+          "msgs": 729,
+          "clicks": 7555
+        },
+        {
+          "name": "General",
+          "msgs": 159,
+          "clicks": 1154
+        },
+        {
+          "name": "Centro de Reservas",
+          "msgs": 1,
+          "clicks": 6
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 1,
+          "clicks": 2
+        }
+      ]
+    },
+    {
+      "name": "Puerto Blest",
+      "msgs": 1247,
+      "clicks": 18521,
+      "brands": [
+        {
+          "name": "Adventure Center",
+          "msgs": 1247,
+          "clicks": 18521
+        }
+      ]
+    },
+    {
+      "name": "Piedras Blancas",
+      "msgs": 1196,
+      "clicks": 9244,
+      "brands": [
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 554,
+          "clicks": 4188
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 275,
+          "clicks": 1454
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 260,
+          "clicks": 3080
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 105,
+          "clicks": 502
+        },
+        {
+          "name": "Tur Central",
+          "msgs": 2,
+          "clicks": 20
+        }
+      ]
+    },
+    {
+      "name": "Bautismo de Ski",
+      "msgs": 1090,
+      "clicks": 5778,
+      "brands": [
+        {
+          "name": "Adventure Center",
+          "msgs": 524,
+          "clicks": 2423
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 382,
+          "clicks": 2312
+        },
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 103,
+          "clicks": 542
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 56,
+          "clicks": 303
+        },
+        {
+          "name": "Centro de Reservas",
+          "msgs": 10,
+          "clicks": 76
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 9,
+          "clicks": 47
+        },
+        {
+          "name": "Tur Central",
+          "msgs": 6,
+          "clicks": 45
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 0,
+          "clicks": 30
+        }
+      ]
+    },
+    {
+      "name": "Cerro Tronador",
+      "msgs": 928,
+      "clicks": 12218,
+      "brands": [
+        {
+          "name": "Centro de Reservas",
+          "msgs": 388,
+          "clicks": 5295
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 175,
+          "clicks": 2250
+        },
+        {
+          "name": "Tur Central",
+          "msgs": 133,
+          "clicks": 1900
+        },
+        {
+          "name": "General",
+          "msgs": 63,
+          "clicks": 482
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 54,
+          "clicks": 1191
+        },
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 39,
+          "clicks": 288
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 38,
+          "clicks": 513
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 37,
+          "clicks": 259
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 1,
+          "clicks": 40
+        }
+      ]
+    },
+    {
+      "name": "General",
+      "msgs": 699,
+      "clicks": 8160,
+      "brands": [
+        {
+          "name": "Cabalgatas",
+          "msgs": 315,
+          "clicks": 3840
+        },
+        {
+          "name": "General",
+          "msgs": 277,
+          "clicks": 2833
+        },
+        {
+          "name": "Rafting",
+          "msgs": 58,
+          "clicks": 1117
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 49,
+          "clicks": 367
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 0,
+          "clicks": 3
+        }
+      ]
+    },
+    {
+      "name": "Cerro Lopez",
+      "msgs": 568,
+      "clicks": 4403,
+      "brands": [
+        {
+          "name": "Cabalgatas",
+          "msgs": 568,
+          "clicks": 4403
+        }
+      ]
+    },
+    {
+      "name": "0301 Rafting",
+      "msgs": 509,
+      "clicks": 9647,
+      "brands": [
+        {
+          "name": "Adventure Center",
+          "msgs": 509,
+          "clicks": 9647
+        }
+      ]
+    },
+    {
+      "name": "Piedras Blancas Culipatin",
+      "msgs": 438,
+      "clicks": 3732,
+      "brands": [
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 300,
+          "clicks": 2642
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 128,
+          "clicks": 1022
+        },
+        {
+          "name": "Centro de Reservas",
+          "msgs": 10,
+          "clicks": 68
+        }
+      ]
+    },
+    {
+      "name": "La Cueva Diurno",
+      "msgs": 379,
+      "clicks": 2585,
+      "brands": [
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 324,
+          "clicks": 2031
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 31,
+          "clicks": 354
+        },
+        {
+          "name": "Tur Central",
+          "msgs": 18,
+          "clicks": 143
+        },
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 4,
+          "clicks": 22
+        },
+        {
+          "name": "Centro de Reservas",
+          "msgs": 2,
+          "clicks": 35
+        }
+      ]
+    },
+    {
+      "name": "Laguna Congelada",
+      "msgs": 293,
+      "clicks": 3984,
+      "brands": [
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 233,
+          "clicks": 3261
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 41,
+          "clicks": 541
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 10,
+          "clicks": 98
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 7,
+          "clicks": 52
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 2,
+          "clicks": 32
+        }
+      ]
+    },
+    {
+      "name": "La Cueva Moto Nieve",
+      "msgs": 289,
+      "clicks": 1878,
+      "brands": [
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 289,
+          "clicks": 1878
+        }
+      ]
+    },
+    {
+      "name": "Rafting Gral",
+      "msgs": 251,
+      "clicks": 2273,
+      "brands": [
+        {
+          "name": "Centro de Reservas",
+          "msgs": 250,
+          "clicks": 2268
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 1,
+          "clicks": 5
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 0,
+          "clicks": 0
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 0,
+          "clicks": 0
+        }
+      ]
+    },
+    {
+      "name": "San Martn",
+      "msgs": 227,
+      "clicks": 2244,
+      "brands": [
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 122,
+          "clicks": 632
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 105,
+          "clicks": 1612
+        }
+      ]
+    },
+    {
+      "name": "La Cueva Nocturna",
+      "msgs": 223,
+      "clicks": 3690,
+      "brands": [
+        {
+          "name": "Centro de Reservas",
+          "msgs": 198,
+          "clicks": 3394
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 15,
+          "clicks": 171
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 5,
+          "clicks": 19
+        },
+        {
+          "name": "Tur Central",
+          "msgs": 3,
+          "clicks": 30
+        },
+        {
+          "name": "Adventure Center",
+          "msgs": 2,
+          "clicks": 76
+        }
+      ]
+    },
+    {
+      "name": "Winter Night",
+      "msgs": 196,
+      "clicks": 1582,
+      "brands": [
+        {
+          "name": "Adventure Center",
+          "msgs": 91,
+          "clicks": 849
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 70,
+          "clicks": 359
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 15,
+          "clicks": 135
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 9,
+          "clicks": 120
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 6,
+          "clicks": 39
+        },
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 3,
+          "clicks": 27
+        },
+        {
+          "name": "Tur Central",
+          "msgs": 2,
+          "clicks": 28
+        },
+        {
+          "name": "Centro de Reservas",
+          "msgs": 0,
+          "clicks": 25
+        }
+      ]
+    },
+    {
+      "name": "Winterpark",
+      "msgs": 178,
+      "clicks": 1446,
+      "brands": [
+        {
+          "name": "Patagonia Booking",
+          "msgs": 166,
+          "clicks": 1322
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 11,
+          "clicks": 106
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 1,
+          "clicks": 13
+        },
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 0,
+          "clicks": 5
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 0,
+          "clicks": 0
+        }
+      ]
+    },
+    {
+      "name": "Traslado Cerro Catedral",
+      "msgs": 178,
+      "clicks": 1205,
+      "brands": [
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 178,
+          "clicks": 1205
+        }
+      ]
+    },
+    {
+      "name": "Cerro Lopez Culipatin",
+      "msgs": 167,
+      "clicks": 2514,
+      "brands": [
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 123,
+          "clicks": 1963
+        },
+        {
+          "name": "Centro de Reservas",
+          "msgs": 38,
+          "clicks": 405
+        },
+        {
+          "name": "Tur Central",
+          "msgs": 3,
+          "clicks": 22
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 3,
+          "clicks": 124
+        }
+      ]
+    },
+    {
+      "name": "01 Rafting",
+      "msgs": 162,
+      "clicks": 3785,
+      "brands": [
+        {
+          "name": "Adventure Center",
+          "msgs": 162,
+          "clicks": 3785
+        }
+      ]
+    },
+    {
+      "name": "Canopy",
+      "msgs": 116,
+      "clicks": 1080,
+      "brands": [
+        {
+          "name": "Adventure Center",
+          "msgs": 77,
+          "clicks": 769
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 22,
+          "clicks": 162
+        },
+        {
+          "name": "Tur Central",
+          "msgs": 15,
+          "clicks": 123
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 2,
+          "clicks": 26
+        }
+      ]
+    },
+    {
+      "name": "Rafting por El Ro Manso",
+      "msgs": 113,
+      "clicks": 1137,
+      "brands": [
+        {
+          "name": "Rafting",
+          "msgs": 113,
+          "clicks": 1137
+        }
+      ]
+    },
+    {
+      "name": "La Cueva Afterski",
+      "msgs": 108,
+      "clicks": 723,
+      "brands": [
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 66,
+          "clicks": 362
+        },
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 34,
+          "clicks": 256
+        },
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 7,
+          "clicks": 85
+        },
+        {
+          "name": "Patagonia Booking",
+          "msgs": 1,
+          "clicks": 20
+        }
+      ]
+    },
+    {
+      "name": "Cena Nrdica",
+      "msgs": 103,
+      "clicks": 361,
+      "brands": [
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 103,
+          "clicks": 361
+        }
+      ]
+    },
+    {
+      "name": "Nieve Encantada",
+      "msgs": 47,
+      "clicks": 470,
+      "brands": [
+        {
+          "name": "Turismo Bariloche",
+          "msgs": 33,
+          "clicks": 361
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 14,
+          "clicks": 109
+        }
+      ]
+    },
+    {
+      "name": "Traslado Villa",
+      "msgs": 28,
+      "clicks": 390,
+      "brands": [
+        {
+          "name": "Tur Central",
+          "msgs": 28,
+          "clicks": 390
+        }
+      ]
+    },
+    {
+      "name": "La Cueva- Moto Nieve Diurno",
+      "msgs": 25,
+      "clicks": 207,
+      "brands": [
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 25,
+          "clicks": 207
+        }
+      ]
+    },
+    {
+      "name": "05 Rafting",
+      "msgs": 11,
+      "clicks": 117,
+      "brands": [
+        {
+          "name": "Adventure Center",
+          "msgs": 11,
+          "clicks": 117
+        }
+      ]
+    },
+    {
+      "name": "Cerrro Bayo + Villa",
+      "msgs": 8,
+      "clicks": 22,
+      "brands": [
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 8,
+          "clicks": 22
+        }
+      ]
+    },
+    {
+      "name": "0301 Al Lmite",
+      "msgs": 4,
+      "clicks": 41,
+      "brands": [
+        {
+          "name": "Adventure Center",
+          "msgs": 4,
+          "clicks": 41
+        }
+      ]
+    },
+    {
+      "name": "Traslado Villa La Angostura",
+      "msgs": 2,
+      "clicks": 11,
+      "brands": [
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 2,
+          "clicks": 11
+        }
+      ]
+    },
+    {
+      "name": "Circuito Grande",
+      "msgs": 1,
+      "clicks": 39,
+      "brands": [
+        {
+          "name": "General",
+          "msgs": 1,
+          "clicks": 10
+        },
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 0,
+          "clicks": 29
+        }
+      ]
+    },
+    {
+      "name": "03 Rafting",
+      "msgs": 1,
+      "clicks": 10,
+      "brands": [
+        {
+          "name": "Adventure Center",
+          "msgs": 1,
+          "clicks": 10
+        }
+      ]
+    },
+    {
+      "name": "Roca Negra",
+      "msgs": 0,
+      "clicks": 5,
+      "brands": [
+        {
+          "name": "Patagonia Booking",
+          "msgs": 0,
+          "clicks": 5
+        },
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 0,
+          "clicks": 0
+        }
+      ]
+    },
+    {
+      "name": "Trineo Piedras Blancas",
+      "msgs": 0,
+      "clicks": 4,
+      "brands": [
+        {
+          "name": "Turismo Patagonia",
+          "msgs": 0,
+          "clicks": 4
+        }
+      ]
+    },
+    {
+      "name": "Rafting Lmite",
+      "msgs": 0,
+      "clicks": 2,
+      "brands": [
+        {
+          "name": "Bariloche Excursiones",
+          "msgs": 0,
+          "clicks": 2
+        }
+      ]
+    },
+    {
+      "name": "Trfico",
+      "msgs": 0,
+      "clicks": 0,
+      "brands": [
+        {
+          "name": "Rafting",
+          "msgs": 0,
+          "clicks": 0
+        }
+      ]
+    },
+    {
+      "name": "Traslado Cerro Bayo",
+      "msgs": 0,
+      "clicks": 8,
+      "brands": [
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 0,
+          "clicks": 8
+        }
+      ]
+    },
+    {
+      "name": "Flyer Bsqueda",
+      "msgs": 0,
+      "clicks": 0,
+      "brands": [
+        {
+          "name": "Passeios Bariloche",
+          "msgs": 0,
+          "clicks": 0
+        }
+      ]
+    }
+  ],
+  "by_brand": [
+    {
+      "name": "Centro de Reservas",
+      "msgs": 137830,
+      "clicks": 34017,
+      "impressions": 2857401,
+      "excursions": [
+        {
+          "name": "Circuito Chico",
+          "msgs": 75365,
+          "clicks": 10255
+        },
+        {
+          "name": "Isla Victoria",
+          "msgs": 53108,
+          "clicks": 8680
+        },
+        {
+          "name": "Kayak",
+          "msgs": 8448,
+          "clicks": 1871
+        },
+        {
+          "name": "Cerro Tronador",
+          "msgs": 388,
+          "clicks": 5295
+        },
+        {
+          "name": "Rafting Gral",
+          "msgs": 250,
+          "clicks": 2268
+        },
+        {
+          "name": "La Cueva Nocturna",
+          "msgs": 198,
+          "clicks": 3394
+        },
+        {
+          "name": "Cerro Lopez Culipatin",
+          "msgs": 38,
+          "clicks": 405
+        },
+        {
+          "name": "Bautismo de Ski",
+          "msgs": 10,
+          "clicks": 76
+        },
+        {
+          "name": "Piedras Blancas Culipatin",
+          "msgs": 10,
+          "clicks": 68
+        },
+        {
+          "name": "San Martin 7 Lagos",
+          "msgs": 8,
+          "clicks": 1624
+        },
+        {
+          "name": "Rafting Light",
+          "msgs": 4,
+          "clicks": 15
+        },
+        {
+          "name": "La Cueva Diurno",
+          "msgs": 2,
+          "clicks": 35
+        },
+        {
+          "name": "Rafting Al Limite",
+          "msgs": 1,
+          "clicks": 6
+        },
+        {
+          "name": "Winter Night",
+          "msgs": 0,
+          "clicks": 25
+        }
+      ]
+    },
+    {
+      "name": "Turismo Bariloche",
+      "msgs": 9007,
+      "clicks": 106945,
+      "impressions": 4576879,
+      "excursions": [
+        {
+          "name": "Paquete 3 Excursiones",
+          "msgs": 4481,
+          "clicks": 73147
+        },
+        {
+          "name": "General Terrestres",
+          "msgs": 3433,
+          "clicks": 26011
+        },
+        {
+          "name": "Piedras Blancas",
+          "msgs": 554,
+          "clicks": 4188
+        },
+        {
+          "name": "Cabalgatas",
+          "msgs": 390,
+          "clicks": 1996
+        },
+        {
+          "name": "Laguna Congelada",
+          "msgs": 41,
+          "clicks": 541
+        },
+        {
+          "name": "Nieve Encantada",
+          "msgs": 33,
+          "clicks": 361
+        },
+        {
+          "name": "Canopy",
+          "msgs": 22,
+          "clicks": 162
+        },
+        {
+          "name": "Circuito Chico",
+          "msgs": 19,
+          "clicks": 176
+        },
+        {
+          "name": "Winter Night",
+          "msgs": 9,
+          "clicks": 120
+        },
+        {
+          "name": "Bautismo de Ski",
+          "msgs": 9,
+          "clicks": 47
+        },
+        {
+          "name": "La Cueva Afterski",
+          "msgs": 7,
+          "clicks": 85
+        },
+        {
+          "name": "San Martin 7 Lagos",
+          "msgs": 4,
+          "clicks": 46
+        },
+        {
+          "name": "Cerro Tronador",
+          "msgs": 1,
+          "clicks": 40
+        },
+        {
+          "name": "Winterpark",
+          "msgs": 1,
+          "clicks": 13
+        },
+        {
+          "name": "Rafting Light",
+          "msgs": 1,
+          "clicks": 5
+        },
+        {
+          "name": "Rafting Al Limite",
+          "msgs": 1,
+          "clicks": 2
+        },
+        {
+          "name": "Rafting Gral",
+          "msgs": 1,
+          "clicks": 5
+        }
+      ]
+    },
+    {
+      "name": "Adventure Center",
+      "msgs": 8952,
+      "clicks": 97858,
+      "impressions": 7244351,
+      "excursions": [
+        {
+          "name": "Paquete",
+          "msgs": 2882,
+          "clicks": 24613
+        },
+        {
+          "name": "Puerto Blest",
+          "msgs": 1247,
+          "clicks": 18521
+        },
+        {
+          "name": "Isla Victoria",
+          "msgs": 1199,
+          "clicks": 10761
+        },
+        {
+          "name": "Kayak",
+          "msgs": 858,
+          "clicks": 6714
+        },
+        {
+          "name": "Rafting Al Limite",
+          "msgs": 835,
+          "clicks": 14289
+        },
+        {
+          "name": "Bautismo de Ski",
+          "msgs": 524,
+          "clicks": 2423
+        },
+        {
+          "name": "0301 Rafting",
+          "msgs": 509,
+          "clicks": 9647
+        },
+        {
+          "name": "Piedras Blancas",
+          "msgs": 275,
+          "clicks": 1454
+        },
+        {
+          "name": "Cerro Tronador",
+          "msgs": 175,
+          "clicks": 2250
+        },
+        {
+          "name": "01 Rafting",
+          "msgs": 162,
+          "clicks": 3785
+        },
+        {
+          "name": "Winter Night",
+          "msgs": 91,
+          "clicks": 849
+        },
+        {
+          "name": "Canopy",
+          "msgs": 77,
+          "clicks": 769
+        },
+        {
+          "name": "Rafting Light",
+          "msgs": 42,
+          "clicks": 715
+        },
+        {
+          "name": "Circuito Chico",
+          "msgs": 39,
+          "clicks": 646
+        },
+        {
+          "name": "San Martin 7 Lagos",
+          "msgs": 17,
+          "clicks": 146
+        },
+        {
+          "name": "05 Rafting",
+          "msgs": 11,
+          "clicks": 117
+        },
+        {
+          "name": "0301 Al Lmite",
+          "msgs": 4,
+          "clicks": 41
+        },
+        {
+          "name": "La Cueva Nocturna",
+          "msgs": 2,
+          "clicks": 76
+        },
+        {
+          "name": "Laguna Congelada",
+          "msgs": 2,
+          "clicks": 32
+        },
+        {
+          "name": "03 Rafting",
+          "msgs": 1,
+          "clicks": 10
+        },
+        {
+          "name": "Rafting Gral",
+          "msgs": 0,
+          "clicks": 0
+        }
+      ]
+    },
+    {
+      "name": "Passeios Bariloche",
+      "msgs": 5446,
+      "clicks": 38972,
+      "impressions": 2950570,
+      "excursions": [
+        {
+          "name": "Paquete",
+          "msgs": 3284,
+          "clicks": 24075
+        },
+        {
+          "name": "Bautismo de Ski",
+          "msgs": 382,
+          "clicks": 2312
+        },
+        {
+          "name": "Circuito Chico",
+          "msgs": 377,
+          "clicks": 2398
+        },
+        {
+          "name": "La Cueva Diurno",
+          "msgs": 324,
+          "clicks": 2031
+        },
+        {
+          "name": "Traslado Cerro Catedral",
+          "msgs": 178,
+          "clicks": 1205
+        },
+        {
+          "name": "San Martin 7 Lagos",
+          "msgs": 141,
+          "clicks": 1047
+        },
+        {
+          "name": "Piedras Blancas Culipatin",
+          "msgs": 128,
+          "clicks": 1022
+        },
+        {
+          "name": "Cerro Lopez Culipatin",
+          "msgs": 123,
+          "clicks": 1963
+        },
+        {
+          "name": "San Martn",
+          "msgs": 122,
+          "clicks": 632
+        },
+        {
+          "name": "Piedras Blancas",
+          "msgs": 105,
+          "clicks": 502
+        },
+        {
+          "name": "Winter Night",
+          "msgs": 70,
+          "clicks": 359
+        },
+        {
+          "name": "La Cueva Afterski",
+          "msgs": 66,
+          "clicks": 362
+        },
+        {
+          "name": "General",
+          "msgs": 49,
+          "clicks": 367
+        },
+        {
+          "name": "Cerro Tronador",
+          "msgs": 37,
+          "clicks": 259
+        },
+        {
+          "name": "Nieve Encantada",
+          "msgs": 14,
+          "clicks": 109
+        },
+        {
+          "name": "Isla Victoria",
+          "msgs": 11,
+          "clicks": 85
+        },
+        {
+          "name": "Winterpark",
+          "msgs": 11,
+          "clicks": 106
+        },
+        {
+          "name": "Cerrro Bayo + Villa",
+          "msgs": 8,
+          "clicks": 22
+        },
+        {
+          "name": "Laguna Congelada",
+          "msgs": 7,
+          "clicks": 52
+        },
+        {
+          "name": "La Cueva Nocturna",
+          "msgs": 5,
+          "clicks": 19
+        },
+        {
+          "name": "Traslado Villa La Angostura",
+          "msgs": 2,
+          "clicks": 11
+        },
+        {
+          "name": "Canopy",
+          "msgs": 2,
+          "clicks": 26
+        },
+        {
+          "name": "Traslado Cerro Bayo",
+          "msgs": 0,
+          "clicks": 8
+        },
+        {
+          "name": "Roca Negra",
+          "msgs": 0,
+          "clicks": 0
+        },
+        {
+          "name": "Flyer Bsqueda",
+          "msgs": 0,
+          "clicks": 0
+        }
+      ]
+    },
+    {
+      "name": "Bariloche Excursiones",
+      "msgs": 5047,
+      "clicks": 71544,
+      "impressions": 3446667,
+      "excursions": [
+        {
+          "name": "Paquete",
+          "msgs": 2265,
+          "clicks": 36840
+        },
+        {
+          "name": "Circuito Chico",
+          "msgs": 1414,
+          "clicks": 22684
+        },
+        {
+          "name": "Cabalgatas",
+          "msgs": 327,
+          "clicks": 3049
+        },
+        {
+          "name": "Piedras Blancas Culipatin",
+          "msgs": 300,
+          "clicks": 2642
+        },
+        {
+          "name": "La Cueva Moto Nieve",
+          "msgs": 289,
+          "clicks": 1878
+        },
+        {
+          "name": "Cena Nrdica",
+          "msgs": 103,
+          "clicks": 361
+        },
+        {
+          "name": "Kayak",
+          "msgs": 103,
+          "clicks": 955
+        },
+        {
+          "name": "San Martin 7 Lagos",
+          "msgs": 68,
+          "clicks": 1621
+        },
+        {
+          "name": "Bautismo de Ski",
+          "msgs": 56,
+          "clicks": 303
+        },
+        {
+          "name": "Cerro Tronador",
+          "msgs": 38,
+          "clicks": 513
+        },
+        {
+          "name": "La Cueva Afterski",
+          "msgs": 34,
+          "clicks": 256
+        },
+        {
+          "name": "La Cueva- Moto Nieve Diurno",
+          "msgs": 25,
+          "clicks": 207
+        },
+        {
+          "name": "Winter Night",
+          "msgs": 15,
+          "clicks": 135
+        },
+        {
+          "name": "Laguna Congelada",
+          "msgs": 10,
+          "clicks": 98
+        },
+        {
+          "name": "Winterpark",
+          "msgs": 0,
+          "clicks": 0
+        },
+        {
+          "name": "Rafting Lmite",
+          "msgs": 0,
+          "clicks": 2
+        },
+        {
+          "name": "Rafting Gral",
+          "msgs": 0,
+          "clicks": 0
+        },
+        {
+          "name": "Isla Victoria",
+          "msgs": 0,
+          "clicks": 0
+        }
+      ]
+    },
+    {
+      "name": "General",
+      "msgs": 5034,
+      "clicks": 52569,
+      "impressions": 4679219,
+      "excursions": [
+        {
+          "name": "Cabalgatas",
+          "msgs": 2562,
+          "clicks": 28976
+        },
+        {
+          "name": "Rafting Light",
+          "msgs": 1597,
+          "clicks": 16166
+        },
+        {
+          "name": "Kayak",
+          "msgs": 352,
+          "clicks": 2774
+        },
+        {
+          "name": "General",
+          "msgs": 277,
+          "clicks": 2833
+        },
+        {
+          "name": "Rafting Al Limite",
+          "msgs": 159,
+          "clicks": 1154
+        },
+        {
+          "name": "Cerro Tronador",
+          "msgs": 63,
+          "clicks": 482
+        },
+        {
+          "name": "Circuito Chico",
+          "msgs": 17,
+          "clicks": 130
+        },
+        {
+          "name": "San Martin 7 Lagos",
+          "msgs": 6,
+          "clicks": 44
+        },
+        {
+          "name": "Circuito Grande",
+          "msgs": 1,
+          "clicks": 10
+        }
+      ]
+    },
+    {
+      "name": "Turismo Patagonia",
+      "msgs": 2244,
+      "clicks": 20505,
+      "impressions": 1155216,
+      "excursions": [
+        {
+          "name": "San Martin 7 Lagos",
+          "msgs": 1828,
+          "clicks": 16147
+        },
+        {
+          "name": "Laguna Congelada",
+          "msgs": 233,
+          "clicks": 3261
+        },
+        {
+          "name": "Bautismo de Ski",
+          "msgs": 103,
+          "clicks": 542
+        },
+        {
+          "name": "Cerro Tronador",
+          "msgs": 39,
+          "clicks": 288
+        },
+        {
+          "name": "Cabalgatas",
+          "msgs": 26,
+          "clicks": 146
+        },
+        {
+          "name": "Isla Victoria",
+          "msgs": 7,
+          "clicks": 31
+        },
+        {
+          "name": "La Cueva Diurno",
+          "msgs": 4,
+          "clicks": 22
+        },
+        {
+          "name": "Winter Night",
+          "msgs": 3,
+          "clicks": 27
+        },
+        {
+          "name": "Kayak",
+          "msgs": 1,
+          "clicks": 3
+        },
+        {
+          "name": "Winterpark",
+          "msgs": 0,
+          "clicks": 5
+        },
+        {
+          "name": "Circuito Grande",
+          "msgs": 0,
+          "clicks": 29
+        },
+        {
+          "name": "Trineo Piedras Blancas",
+          "msgs": 0,
+          "clicks": 4
+        }
+      ]
+    },
+    {
+      "name": "Patagonia Booking",
+      "msgs": 1556,
+      "clicks": 16650,
+      "impressions": 1944876,
+      "excursions": [
+        {
+          "name": "Cabalgatas",
+          "msgs": 390,
+          "clicks": 3349
+        },
+        {
+          "name": "Piedras Blancas",
+          "msgs": 260,
+          "clicks": 3080
+        },
+        {
+          "name": "Isla Victoria",
+          "msgs": 252,
+          "clicks": 3703
+        },
+        {
+          "name": "Paquete",
+          "msgs": 251,
+          "clicks": 1289
+        },
+        {
+          "name": "Winterpark",
+          "msgs": 166,
+          "clicks": 1322
+        },
+        {
+          "name": "San Martn",
+          "msgs": 105,
+          "clicks": 1612
+        },
+        {
+          "name": "Cerro Tronador",
+          "msgs": 54,
+          "clicks": 1191
+        },
+        {
+          "name": "La Cueva Diurno",
+          "msgs": 31,
+          "clicks": 354
+        },
+        {
+          "name": "Circuito Chico",
+          "msgs": 18,
+          "clicks": 326
+        },
+        {
+          "name": "La Cueva Nocturna",
+          "msgs": 15,
+          "clicks": 171
+        },
+        {
+          "name": "Winter Night",
+          "msgs": 6,
+          "clicks": 39
+        },
+        {
+          "name": "San Martin 7 Lagos",
+          "msgs": 4,
+          "clicks": 32
+        },
+        {
+          "name": "Cerro Lopez Culipatin",
+          "msgs": 3,
+          "clicks": 124
+        },
+        {
+          "name": "La Cueva Afterski",
+          "msgs": 1,
+          "clicks": 20
+        },
+        {
+          "name": "Bautismo de Ski",
+          "msgs": 0,
+          "clicks": 30
+        },
+        {
+          "name": "Roca Negra",
+          "msgs": 0,
+          "clicks": 5
+        },
+        {
+          "name": "General",
+          "msgs": 0,
+          "clicks": 3
+        }
+      ]
+    },
+    {
+      "name": "Rafting",
+      "msgs": 1263,
+      "clicks": 13539,
+      "impressions": 2628611,
+      "excursions": [
+        {
+          "name": "Rafting Al Limite",
+          "msgs": 729,
+          "clicks": 7555
+        },
+        {
+          "name": "Rafting Light",
+          "msgs": 363,
+          "clicks": 3730
+        },
+        {
+          "name": "Rafting por El Ro Manso",
+          "msgs": 113,
+          "clicks": 1137
+        },
+        {
+          "name": "General",
+          "msgs": 58,
+          "clicks": 1117
+        },
+        {
+          "name": "Trfico",
+          "msgs": 0,
+          "clicks": 0
+        }
+      ]
+    },
+    {
+      "name": "Cabalgatas",
+      "msgs": 883,
+      "clicks": 8243,
+      "impressions": 647314,
+      "excursions": [
+        {
+          "name": "Cerro Lopez",
+          "msgs": 568,
+          "clicks": 4403
+        },
+        {
+          "name": "General",
+          "msgs": 315,
+          "clicks": 3840
+        }
+      ]
+    },
+    {
+      "name": "Tur Central",
+      "msgs": 233,
+      "clicks": 3312,
+      "impressions": 141099,
+      "excursions": [
+        {
+          "name": "Cerro Tronador",
+          "msgs": 133,
+          "clicks": 1900
+        },
+        {
+          "name": "Traslado Villa",
+          "msgs": 28,
+          "clicks": 390
+        },
+        {
+          "name": "San Martin 7 Lagos",
+          "msgs": 22,
+          "clicks": 602
+        },
+        {
+          "name": "La Cueva Diurno",
+          "msgs": 18,
+          "clicks": 143
+        },
+        {
+          "name": "Canopy",
+          "msgs": 15,
+          "clicks": 123
+        },
+        {
+          "name": "Bautismo de Ski",
+          "msgs": 6,
+          "clicks": 45
+        },
+        {
+          "name": "La Cueva Nocturna",
+          "msgs": 3,
+          "clicks": 30
+        },
+        {
+          "name": "Cerro Lopez Culipatin",
+          "msgs": 3,
+          "clicks": 22
+        },
+        {
+          "name": "Winter Night",
+          "msgs": 2,
+          "clicks": 28
+        },
+        {
+          "name": "Piedras Blancas",
+          "msgs": 2,
+          "clicks": 20
+        },
+        {
+          "name": "Circuito Chico",
+          "msgs": 1,
+          "clicks": 9
+        }
+      ]
+    }
+  ]
+}

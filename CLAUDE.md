@@ -1,4 +1,4 @@
-# CLAUDE.md — Ecosistema TM / Adventure Center
+# CLAUDE.md — Ecosistema Adventure Center
 
 Este archivo es la base del workspace. Se carga automáticamente al inicio de cada sesión. Refleja el estado actual del ecosistema y cómo navegarlo.
 
@@ -15,9 +15,14 @@ Este archivo es la base del workspace. Se carga automáticamente al inicio de ca
 
 ## Qué Es Este Workspace
 
-Un ecosistema estructurado para gestionar **todo el área TM (Telemarketing & Marketing) de Adventure Center** (Bariloche, Patagonia Argentina). Incluye desarrollo de productos digitales, estrategia de redes sociales, gestión de campañas publicitarias y automatizaciones.
+Un ecosistema estructurado para gestionar el trabajo de Cielo en **Adventure Center** (Bariloche, Patagonia Argentina), que abarca dos áreas distintas de la empresa:
 
-**Operadora:** Cielo — Líder del Área TM. Detalles en `contexto/info-personal.md`.
+- **Área TM (Telemarketing & Marketing)** — el área que Cielo lidera formalmente. Desarrollo de productos digitales, estrategia de redes sociales, gestión de campañas publicitarias (Meta Ads), motor de contenido y automatizaciones de marketing. Es el foco histórico y más desarrollado de este workspace.
+- **Área SX** — división interna de operaciones/infraestructura: Pb2 (ERP, Strapi), Magda (agente IA de WhatsApp), Chatwoot (CRM de mensajería), Evolution API, y los sitios web WordPress de las marcas. Cielo también trabaja en temas de esta área aunque no sea su rol principal — el workspace recién empezó a documentarla en profundidad (2026-07-21).
+
+**Operadora:** Cielo — Líder del Área TM, también interviene en temas de SX. Detalles en `contexto/info-personal.md`.
+
+**Regla al agregar contexto nuevo:** todo lo que sea específico de un área va en `contexto/tm/` o `contexto/sx/` según corresponda — no en la raíz de `contexto/` (que queda solo para lo que aplica a ambas áreas, como `info-personal.md`). Ver "Cómo Agregar Contexto a un Área Nueva" más abajo.
 
 ---
 
@@ -45,20 +50,30 @@ Cualquier texto que comience con `/` es un comando definido en `.claude/commands
 ├── CLAUDE.md                          # Este archivo — mapa del ecosistema
 │
 ├── contexto/                          # Todo el contexto del negocio y trabajo
-│   ├── info-personal.md               # Rol, equipo y responsabilidades de Cielo
-│   ├── estrategia.md                  # Prioridades estratégicas actuales
-│   ├── negocio/                       # Contexto del negocio y marcas
-│   │   ├── info-negocio.md            # Descripción de la empresa y área TM
-│   │   ├── brand_profiles.md          # Perfiles, tonos y públicos de las 14 marcas
-│   │   ├── copy_protocol.md           # Protocolo de copy y lenguaje por marca
-│   │   ├── catalog_*.md               # Catálogos de excursiones (invierno, verano, año)
-│   │   ├── Excursiones todo el año.md # Lista completa de excursiones
-│   │   └── logos_marcas/              # Logos de las marcas
-│   ├── proyectos/                     # Estado actual de proyectos
-│   │   ├── datos-actuales.md          # Estado de cada proyecto activo
-│   │   └── proyectos.md               # Lista y backlog de proyectos
-│   ├── meta-ads/                      # (en construcción) Contexto de campañas
-│   └── redes-sociales/                # (en construcción) Contexto de RRSS
+│   ├── info-personal.md               # Rol, equipo y responsabilidades de Cielo (aplica a ambas áreas)
+│   │
+│   ├── tm/                            # ÁREA TM — Telemarketing & Marketing
+│   │   ├── estrategia.md              # Prioridades estratégicas actuales
+│   │   ├── negocio/                   # Contexto del negocio y marcas
+│   │   │   ├── info-negocio.md        # Descripción de la empresa y área TM
+│   │   │   ├── brand_profiles.md      # Perfiles, tonos y públicos de las 14 marcas
+│   │   │   ├── copy_protocol.md       # Protocolo de copy y lenguaje por marca
+│   │   │   ├── catalog_*.md           # Catálogos de excursiones (invierno, verano, año)
+│   │   │   ├── Excursiones todo el año.md # Lista completa de excursiones
+│   │   │   └── logos_marcas/          # Logos de las marcas
+│   │   ├── proyectos/                 # Estado actual de proyectos TM
+│   │   │   ├── datos-actuales.md      # Estado de cada proyecto activo
+│   │   │   └── proyectos.md           # Lista y backlog de proyectos
+│   │   └── meta-ads/                  # Contexto de campañas Meta Ads
+│   │
+│   ├── sx/                            # ÁREA SX — operaciones/infraestructura (en construcción, 2026-07-21)
+│   │   ├── chatwoot/                  # Arquitectura de Chatwoot (CRM de mensajería)
+│   │   ├── n8n-magda/                 # Arquitectura y workflows del agente Magda (WhatsApp IA)
+│   │   ├── wordpress-webs/            # Multisitio Hostinger + Adventure Center — accesos y automatización de precios/disponibilidad
+│   │   └── proyectos/
+│   │       └── migracion-sx-errores.md # Errores/soluciones de la migración iadventurecenter.com → iadventurecentersx.com
+│   │
+│   └── redes-sociales/                # (en construcción) Contexto de RRSS — TM
 │
 ├── .claude/
 │   ├── commands/                      # Comandos de sesión
@@ -152,19 +167,26 @@ Cualquier texto que comience con `/` es un comando definido en `.claude/commands
 │
 ├── planes/                            # Planes de implementación con fecha
 ├── salidas/                           # Proyectos activos (cada uno con repo propio)
-│   ├── app-invierno/                  # ✅ Completada — https://c1.iadventurecenter.com/
-│   ├── app-capacitacion-gral/         # 🔄 En desarrollo — rediseño + Notion + Vercel
-│   ├── crm-equipo-tm/                 # 🔄 En desarrollo
-│   └── crm-meta-ads/                  # 🔄 En desarrollo
+│   ├── app-invierno/                  # [TM] ✅ Completada — https://c1.iadventurecenter.com/
+│   ├── capacitacion-tm/               # [TM] 🔄 En desarrollo — reemplaza a app-capacitacion-gral
+│   ├── crm-cm/                        # [TM] 🔄 Content Command Center (dashboard mock para CM Luciana)
+│   ├── crm-equipo-tm/                 # [TM] 🔄 En desarrollo
+│   ├── crm-meta-ads/                  # [TM] 🔄 En desarrollo
+│   ├── tm-platform/                   # [TM] 🔄 Fusión de crm-cm + crm-meta-ads en una sola app
+│   ├── Pb2/                           # [SX] ⛔ ERP (Strapi) — se trabaja en instancia separada, NO tocar desde acá
+│   ├── Chatwoot#3/                    # [SX] docker-compose de una instancia local de Chatwoot
+│   └── N8N ORIGINAL/                  # [SX] Exports JSON de workflows de Magda (backup)
 ├── referencia/                        # Plantillas, flujos n8n, materiales de apoyo
 └── scripts/                           # Scripts de automatización auxiliares
 ```
+
+Cada carpeta de `salidas/` es un repo independiente con su propio stack, `package.json`/README y ciclo de vida — no hay comandos de build/lint/test centralizados a nivel workspace. Para trabajar en uno, entrar a esa carpeta y revisar su `package.json`. La mayoría (`app-invierno`, `crm-cm`, `crm-equipo-tm`, `crm-meta-ads`) solo tiene `dev`/`build`/`lint`, sin tests. `capacitacion-tm` usa **pnpm** y agrega `pnpm typecheck` (react-router typegen + tsc) y `pnpm lint --max-warnings 0`.
 
 ---
 
 ## Las 14 Marcas
 
-Siempre leer `contexto/negocio/brand_profiles.md` antes de trabajar con cualquier marca. Existe brandbook con paletas de colores definidas.
+Siempre leer `contexto/tm/negocio/brand_profiles.md` antes de trabajar con cualquier marca. Existe brandbook con paletas de colores definidas.
 
 **Activas (9):** Adventure Center, Bariloche Excursiones, Turismo Bariloche, Centro de Reservas, Turismo Patagonia, Tur Central, Patagonia Booking, TB Brasil, Passeios Bariloche.
 **Rafting (5 — inactivas en invierno):** Rafting Adventure, Rafting Bariloche, Rafting Villegas, Rafting Patagonia, Rafting Valle del Manso.
@@ -197,10 +219,10 @@ Siempre leer `contexto/negocio/brand_profiles.md` antes de trabajar con cualquie
 
 ## Cómo Agregar Contexto a un Área Nueva
 
-Cuando se empieza a trabajar en profundidad en un área:
-1. Crear archivos `.md` en la subcarpeta de `contexto/` correspondiente (ej: `contexto/meta-ads/campanas-activas.md`)
+Cuando se empieza a trabajar en profundidad en un tema:
+1. Ubicar primero de qué **área** es (TM o SX) — crear archivos `.md` en `contexto/tm/[subcarpeta]/` o `contexto/sx/[subcarpeta]/` según corresponda (ej: `contexto/tm/meta-ads/campanas-activas.md`, `contexto/sx/pb2/notas.md`). No crear subcarpetas nuevas directo en la raíz de `contexto/`.
 2. Crear la skill en `.claude/skills/[nombre]/SKILL.md` — siempre 1 nivel de profundidad
-3. Actualizar este CLAUDE.md con la nueva estructura y documentar el área
+3. Actualizar este CLAUDE.md con la nueva estructura y documentar el área (usar la etiqueta `[TM]` o `[SX]` según corresponda)
 
 ---
 
@@ -210,7 +232,7 @@ Cuando se empieza a trabajar en profundidad en un área:
 2. Trabajar con comandos o instrucciones directas
 3. `/crear-plan` — antes de cambios significativos
 4. `/implementar` — ejecutar planes
-5. Claude actualiza CLAUDE.md y `contexto/proyectos/datos-actuales.md` al finalizar
+5. Claude actualiza CLAUDE.md y `contexto/tm/proyectos/datos-actuales.md` al finalizar
 
 ---
 

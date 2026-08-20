@@ -7,9 +7,24 @@
         "Authorization": "Bearer br-fdPErHHYdizntyTdtaZHAWVh2-s69GI52PakMnEg"
       }
     },
+    "n8n-mcp": {
+      "type": "http",
+      "url": "https://n8n.iadventurecentersx.online/mcp-server/http",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhNGFiOTQyNC1iYWFiLTQyZGUtYjQ1Yy01M2ZhOTc3MWY4NmEiLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6IjczODg0YzA1LTRkNzctNDRmYi1hNzBhLWJiYWRlZjBjOTM2YSIsImlhdCI6MTc4NDIwNzAzOH0.42Qm9UO2KZAMSk3YVrRNmPruWN0pn0ZRglgA3VaMfL0"
+      }
+    },
     "playwright": {
       "command": "npx",
       "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "mcp-gsheets": {
+      "command": "npx",
+      "args": ["-y", "mcp-gsheets@latest"],
+      "env": {
+        "GOOGLE_PROJECT_ID": "n8n-conexion-466115",
+        "GOOGLE_APPLICATION_CREDENTIALS": "d:\\Desktop\\Espacio-trabajo-TM\\.credentials\\google-sheets-service-account.json"
+      }
     },
     "taskmaster-ai": {
       "command": "npx",

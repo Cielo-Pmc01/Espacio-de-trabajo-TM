@@ -1,0 +1,4 @@
+Total messages: 2 (Errors: 0, Warnings: 0)
+
+[DEBUG] [vite] connecting... @ http://localhost:5173/@vite/client:494
+[DEBUG] [vite] connected. @ http://localhost:5173/@vite/client:617

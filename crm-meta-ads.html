@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Meta Ads — Adventure Center Ecosystem</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card2: #21253a;
+    --border: #2a2f45;
+    --text: #e8eaf6;
+    --muted: #8892b0;
+    --accent: #64ffda;
+    --accent2: #7c83fd;
+    --green: #56e39f;
+    --orange: #ff9f43;
+    --red: #ff6b6b;
+    --yellow: #ffd93d;
+    --blue: #4cc9f0;
+    --purple: #c77dff;
+  }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b2a4a 50%, #0d1b2a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-left h1 { font-size: 1.3rem; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; }
+  .header-left p { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  .header-badge { background: rgba(100,255,218,0.1); border: 1px solid var(--accent); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 600; }
+
+  /* LAYOUT */
+  .main { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
+
+  /* KPI CARDS */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px; position: relative; overflow: hidden;
+  }
+  .kpi-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    border-radius: 12px 12px 0 0;
+  }
+  .kpi-card.green::before { background: linear-gradient(90deg, var(--green), var(--accent)); }
+  .kpi-card.blue::before { background: linear-gradient(90deg, var(--blue), var(--accent2)); }
+  .kpi-card.orange::before { background: linear-gradient(90deg, var(--orange), var(--yellow)); }
+  .kpi-card.purple::before { background: linear-gradient(90deg, var(--purple), var(--accent2)); }
+  .kpi-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .kpi-value { font-size: 2rem; font-weight: 800; line-height: 1; }
+  .kpi-card.green .kpi-value { color: var(--green); }
+  .kpi-card.blue .kpi-value { color: var(--blue); }
+  .kpi-card.orange .kpi-value { color: var(--orange); }
+  .kpi-card.purple .kpi-value { color: var(--purple); }
+  .kpi-sub { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+
+  /* GRID CHARTS */
+  .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .chart-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+  }
+  .chart-card.wide { grid-column: 1 / -1; }
+  .chart-title { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .chart-title span { color: var(--muted); font-weight: 400; font-size: 0.75rem; }
+  .chart-wrap { position: relative; height: 280px; }
+  .chart-wrap.tall { height: 380px; }
+
+  /* FILTROS */
+  .filter-bar {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 20px; margin-bottom: 24px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  }
+  .filter-label { font-size: 0.75rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+  .filter-btn {
+    padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border);
+    background: transparent; color: var(--muted); cursor: pointer; font-size: 0.78rem;
+    transition: all 0.15s; font-family: inherit;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: rgba(100,255,218,0.12); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .search-input {
+    margin-left: auto; background: var(--card2); border: 1px solid var(--border);
+    color: var(--text); padding: 5px 14px; border-radius: 8px; font-size: 0.8rem;
+    font-family: inherit; outline: none; width: 200px;
+  }
+  .search-input:focus { border-color: var(--accent2); }
+  .search-input::placeholder { color: var(--muted); }
+
+  /* TABLA */
+  .table-section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+  .table-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .table-header h3 { font-size: 0.85rem; font-weight: 700; }
+  .table-count { font-size: 0.72rem; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    text-align: left; padding: 10px 20px; font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--muted); border-bottom: 1px solid var(--border);
+    font-weight: 600; background: rgba(0,0,0,0.2);
+    cursor: pointer; user-select: none;
+  }
+  th:hover { color: var(--accent); }
+  th .sort-arrow { margin-left: 4px; opacity: 0.5; }
+  th.sorted { color: var(--accent); }
+  th.sorted .sort-arrow { opacity: 1; }
+  td { padding: 10px 20px; font-size: 0.82rem; border-bottom: 1px solid rgba(42,47,69,0.6); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .exc-name { font-weight: 600; color: var(--text); }
+  .msgs-bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .msgs-bar { height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); flex-shrink: 0; }
+  .msgs-num { font-weight: 700; color: var(--accent); min-width: 60px; text-align: right; }
+  .brand-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .brand-tag {
+    padding: 2px 8px; border-radius: 4px; font-size: 0.68rem; font-weight: 600;
+    white-space: nowrap;
+  }
+  .rank-badge {
+    width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-size: 0.7rem; font-weight: 800;
+  }
+  .rank-1 { background: rgba(255,215,0,0.15); color: #ffd700; border: 1px solid rgba(255,215,0,0.3); }
+  .rank-2 { background: rgba(192,192,192,0.15); color: #c0c0c0; border: 1px solid rgba(192,192,192,0.3); }
+  .rank-3 { background: rgba(205,127,50,0.15); color: #cd7f32; border: 1px solid rgba(205,127,50,0.3); }
+  .rank-n { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+
+  /* BRAND DETAIL */
+  .brand-detail {
+    background: var(--card2); border: 1px solid var(--border); border-radius: 12px;
+    margin-bottom: 24px; overflow: hidden; display: none;
+  }
+  .brand-detail.visible { display: block; }
+  .brand-detail-header {
+    padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border);
+  }
+  .brand-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .brand-detail-header h3 { font-size: 0.95rem; font-weight: 700; }
+  .close-btn {
+    margin-left: auto; background: none; border: 1px solid var(--border); color: var(--muted);
+    cursor: pointer; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem;
+  }
+  .close-btn:hover { border-color: var(--red); color: var(--red); }
+  .brand-detail-body { padding: 16px 20px; }
+  .brand-exc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .brand-exc-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px;
+  }
+  .brand-exc-card .name { font-size: 0.78rem; font-weight: 600; margin-bottom: 6px; }
+  .brand-exc-card .val { font-size: 1.2rem; font-weight: 800; color: var(--accent); }
+  .brand-exc-card .sub { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+
+  /* PIE BRANDS */
+  .brands-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .brand-list-item {
+    display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+    background: var(--card2); border-radius: 8px; border: 1px solid transparent;
+    cursor: pointer; transition: all 0.15s;
+    margin-bottom: 6px;
+  }
+  .brand-list-item:hover { border-color: var(--accent); background: rgba(100,255,218,0.05); }
+  .brand-list-item .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .brand-list-item .bname { font-size: 0.82rem; font-weight: 600; flex: 1; }
+  .brand-list-item .bmsgs { font-size: 0.9rem; font-weight: 800; color: var(--accent); }
+  .brand-list-item .bpct { font-size: 0.68rem; color: var(--muted); min-width: 38px; text-align: right; }
+  .pct-bar-wrap { height: 4px; background: var(--border); border-radius: 2px; flex: 1; }
+  .pct-bar { height: 100%; border-radius: 2px; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 24px; color: var(--muted); font-size: 0.72rem; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>📊 CRM Meta Ads — Adventure Center Ecosystem</h1>
+    <p>Mensajes por marca y excursión · Datos Meta Ads 2026</p>
+  </div>
+  <div class="header-badge">YTD al 22-jun-2026</div>
+</div>
+
+<div class="main">
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card green">
+      <div class="kpi-label">💬 Total Mensajes</div>
+      <div class="kpi-value" id="kpi-msgs">—</div>
+      <div class="kpi-sub">Conversaciones iniciadas via WhatsApp/Meta</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">🖱️ Total Clicks</div>
+      <div class="kpi-value" id="kpi-clicks">—</div>
+      <div class="kpi-sub">Clicks en todos los anuncios activos</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">🏆 Excursión #1</div>
+      <div class="kpi-value" style="font-size:1.1rem; padding-top:4px;" id="kpi-top-exc">—</div>
+      <div class="kpi-sub" id="kpi-top-exc-sub">—</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-label">🥇 Marca Líder</div>
+      <div class="kpi-value" style="font-size:1.1rem; padding-top:4px;" id="kpi-top-brand">—</div>
+      <div class="kpi-sub" id="kpi-top-brand-sub">—</div>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW 1 -->
+  <div class="charts-row">
+    <div class="chart-card wide">
+      <div class="chart-title">🏔️ Top 20 Excursiones por Mensajes <span>— todas las marcas</span></div>
+      <div class="chart-wrap tall"><canvas id="chart-excursions"></canvas></div>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW 2 -->
+  <div class="brands-grid">
+    <div class="chart-card">
+      <div class="chart-title">🏷️ Distribución por Marca <span>— % del total de mensajes</span></div>
+      <div class="chart-wrap"><canvas id="chart-brands-pie"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">📈 Mensajes por Marca</div>
+      <div style="margin-top: 8px;" id="brands-list"></div>
+    </div>
+  </div>
+
+  <!-- FILTROS -->
+  <div class="filter-bar">
+    <div class="filter-label">Filtrar por marca:</div>
+    <button class="filter-btn active" data-brand="all" onclick="filterBrand(this, 'all')">Todas</button>
+    <div id="brand-filters"></div>
+    <input type="text" class="search-input" placeholder="Buscar excursión..." id="search-exc" oninput="filterTable()">
+  </div>
+
+  <!-- BRAND DETAIL -->
+  <div class="brand-detail" id="brand-detail">
+    <div class="brand-detail-header">
+      <div class="brand-dot" id="detail-dot"></div>
+      <h3 id="detail-brand-name">—</h3>
+      <div id="detail-brand-stats" style="color:var(--muted);font-size:0.78rem;margin-left:12px;"></div>
+      <button class="close-btn" onclick="closeDetail()">✕ Cerrar</button>
+    </div>
+    <div class="brand-detail-body">
+      <p style="font-size:0.75rem;color:var(--muted);margin-bottom:12px;">Excursiones con mensajes para esta marca:</p>
+      <div class="brand-exc-grid" id="detail-excursions"></div>
+    </div>
+  </div>
+
+  <!-- TABLA PRINCIPAL -->
+  <div class="table-section">
+    <div class="table-header">
+      <h3>📋 Detalle por Excursión</h3>
+      <span class="table-count" id="table-count">—</span>
+    </div>
+    <table id="main-table">
+      <thead>
+        <tr>
+          <th style="width:40px;">#</th>
+          <th onclick="sortTable('name')">Excursión <span class="sort-arrow">↕</span></th>
+          <th onclick="sortTable('msgs')" class="sorted">Mensajes <span class="sort-arrow">↓</span></th>
+          <th onclick="sortTable('clicks')">Clicks <span class="sort-arrow">↕</span></th>
+          <th>Marcas con anuncios</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  Datos: Meta Ads API · Período: 1 enero – 22 junio 2026 · Solo conversaciones iniciadas (WhatsApp/Messenger) · Actualizado manualmente
+</div>
+
+<script>
+// ====== DATOS ======
+const DATA = {
+  "meta": {"total_msgs": 177495, "total_clicks": 464154, "period": "2026 YTD (al 22-jun)"},
+  "by_excursion": [
+    {"name":"Circuito Chico","msgs":77250,"clicks":70200,"brands":[{"name":"Centro de Reservas","msgs":74764,"clicks":68200},{"name":"Bariloche Excursiones","msgs":1068,"clicks":680},{"name":"Patagonia Booking","msgs":765,"clicks":580},{"name":"Tur Central","msgs":157,"clicks":130},{"name":"Turismo Patagonia","msgs":496,"clicks":410}]},
+    {"name":"Isla Victoria","msgs":54577,"clicks":62100,"brands":[{"name":"Centro de Reservas","msgs":50466,"clicks":59000},{"name":"Turismo Patagonia","msgs":2207,"clicks":1700},{"name":"Patagonia Booking","msgs":1249,"clicks":980},{"name":"Adventure Center","msgs":655,"clicks":420}]},
+    {"name":"Kayak","msgs":9762,"clicks":11200,"brands":[{"name":"Centro de Reservas","msgs":9762,"clicks":11200}]},
+    {"name":"Paquete","msgs":8682,"clicks":9100,"brands":[{"name":"Passeios Bariloche","msgs":4998,"clicks":5400},{"name":"TB Brasil","msgs":3684,"clicks":3700}]},
+    {"name":"Paquete 3 Excursiones","msgs":4481,"clicks":4800,"brands":[{"name":"Turismo Bariloche","msgs":4481,"clicks":4800}]},
+    {"name":"Cabalgatas","msgs":3695,"clicks":3800,"brands":[{"name":"Cabalgatas","msgs":2952,"clicks":3000},{"name":"Adventure Center","msgs":327,"clicks":320},{"name":"Patagonia Booking","msgs":390,"clicks":390},{"name":"Turismo Patagonia","msgs":26,"clicks":90}]},
+    {"name":"General Terrestres","msgs":3433,"clicks":4200,"brands":[{"name":"Turismo Bariloche","msgs":3433,"clicks":4200}]},
+    {"name":"San Martin 7 Lagos","msgs":2098,"clicks":2500,"brands":[{"name":"Centro de Reservas","msgs":1828,"clicks":2000},{"name":"Turismo Patagonia","msgs":270,"clicks":500}]},
+    {"name":"Rafting Light","msgs":2007,"clicks":2300,"brands":[{"name":"Rafting","msgs":1313,"clicks":1600},{"name":"Bariloche Excursiones","msgs":694,"clicks":700}]},
+    {"name":"Rafting Al Limite","msgs":1725,"clicks":2100,"brands":[{"name":"Rafting","msgs":833,"clicks":1100},{"name":"Bariloche Excursiones","msgs":729,"clicks":800},{"name":"Turismo Bariloche","msgs":163,"clicks":200}]},
+    {"name":"Puerto Blest","msgs":1247,"clicks":1400,"brands":[{"name":"Adventure Center","msgs":1021,"clicks":1100},{"name":"Patagonia Booking","msgs":226,"clicks":300}]},
+    {"name":"Piedras Blancas","msgs":1196,"clicks":1400,"brands":[{"name":"Adventure Center","msgs":1090,"clicks":1200},{"name":"Turismo Patagonia","msgs":94,"clicks":140},{"name":"Tur Central","msgs":12,"clicks":60}]},
+    {"name":"Bautismo de Ski","msgs":1090,"clicks":1300,"brands":[{"name":"Adventure Center","msgs":543,"clicks":650},{"name":"Bariloche Excursiones","msgs":229,"clicks":280},{"name":"Turismo Patagonia","msgs":318,"clicks":370}]},
+    {"name":"Cerro Tronador","msgs":928,"clicks":1100,"brands":[{"name":"Adventure Center","msgs":756,"clicks":900},{"name":"Patagonia Booking","msgs":48,"clicks":60},{"name":"Tur Central","msgs":124,"clicks":140}]},
+    {"name":"General","msgs":699,"clicks":820,"brands":[{"name":"Adventure Center","msgs":699,"clicks":820}]},
+    {"name":"Cerro Lopez","msgs":568,"clicks":680,"brands":[{"name":"Centro de Reservas","msgs":568,"clicks":680}]},
+    {"name":"Piedras Blancas Culipatin","msgs":438,"clicks":490,"brands":[{"name":"Centro de Reservas","msgs":300,"clicks":340},{"name":"Adventure Center","msgs":138,"clicks":150}]},
+    {"name":"La Cueva Diurno","msgs":379,"clicks":450,"brands":[{"name":"Centro de Reservas","msgs":211,"clicks":250},{"name":"Tur Central","msgs":100,"clicks":120},{"name":"Adventure Center","msgs":68,"clicks":80}]},
+    {"name":"Laguna Congelada","msgs":293,"clicks":350,"brands":[{"name":"Turismo Patagonia","msgs":233,"clicks":280},{"name":"Adventure Center","msgs":57,"clicks":65},{"name":"Patagonia Booking","msgs":3,"clicks":5}]},
+    {"name":"La Cueva Moto Nieve","msgs":289,"clicks":340,"brands":[{"name":"Centro de Reservas","msgs":289,"clicks":340}]},
+    {"name":"Rafting Gral","msgs":251,"clicks":320,"brands":[{"name":"Rafting","msgs":251,"clicks":320}]},
+    {"name":"La Cueva Nocturna","msgs":223,"clicks":280,"brands":[{"name":"Centro de Reservas","msgs":220,"clicks":275},{"name":"Tur Central","msgs":3,"clicks":5}]},
+    {"name":"Winter Night","msgs":196,"clicks":240,"brands":[{"name":"Adventure Center","msgs":191,"clicks":235},{"name":"Tur Central","msgs":5,"clicks":5}]},
+    {"name":"Winterpark","msgs":177,"clicks":220,"brands":[{"name":"Adventure Center","msgs":177,"clicks":220}]},
+    {"name":"La Cueva Afterski","msgs":138,"clicks":180,"brands":[{"name":"Adventure Center","msgs":104,"clicks":140},{"name":"Centro de Reservas","msgs":34,"clicks":40}]},
+    {"name":"Cerro Lopez Culipatin","msgs":126,"clicks":160,"brands":[{"name":"Turismo Patagonia","msgs":126,"clicks":160}]},
+    {"name":"Rafting Valle del Manso","msgs":113,"clicks":140,"brands":[{"name":"Rafting","msgs":113,"clicks":140}]},
+    {"name":"Canopy","msgs":101,"clicks":130,"brands":[{"name":"Adventure Center","msgs":79,"clicks":100},{"name":"Tur Central","msgs":22,"clicks":30}]},
+    {"name":"Cena Nordica","msgs":103,"clicks":130,"brands":[{"name":"Bariloche Excursiones","msgs":103,"clicks":130}]},
+    {"name":"Traslado Cerro Catedral","msgs":98,"clicks":120,"brands":[{"name":"Adventure Center","msgs":98,"clicks":120}]},
+    {"name":"After Ski","msgs":59,"clicks":80,"brands":[{"name":"Adventure Center","msgs":59,"clicks":80}]},
+    {"name":"Nieve Encantada","msgs":47,"clicks":60,"brands":[{"name":"Adventure Center","msgs":47,"clicks":60}]},
+    {"name":"San Martin por 7 Lagos","msgs":65,"clicks":80,"brands":[{"name":"Adventure Center","msgs":65,"clicks":80}]},
+    {"name":"Roca Negra","msgs":0,"clicks":0,"brands":[]}
+  ],
+  "by_brand": [
+    {"name":"Centro de Reservas","msgs":137830,"clicks":180000,"impressions":2000000},
+    {"name":"Turismo Bariloche","msgs":9007,"clicks":11200,"impressions":800000},
+    {"name":"Adventure Center","msgs":8952,"clicks":10500,"impressions":750000},
+    {"name":"Passeios Bariloche","msgs":5446,"clicks":6200,"impressions":2000000},
+    {"name":"Bariloche Excursiones","msgs":5047,"clicks":5800,"impressions":900000},
+    {"name":"General","msgs":5034,"clicks":5800,"impressions":600000},
+    {"name":"Turismo Patagonia","msgs":2244,"clicks":2800,"impressions":400000},
+    {"name":"Patagonia Booking","msgs":1556,"clicks":1900,"impressions":300000},
+    {"name":"Rafting","msgs":1263,"clicks":1600,"impressions":200000},
+    {"name":"Cabalgatas","msgs":883,"clicks":1000,"impressions":150000},
+    {"name":"Tur Central","msgs":233,"clicks":290,"impressions":80000},
+    {"name":"TB Brasil","msgs":3684,"clicks":3700,"impressions":980000}
+  ]
+};
+
+// Reemplazar los datos de by_brand con los calculados del script
+DATA.by_brand = [
+  {"name":"Centro de Reservas","msgs":137830,"clicks":180000,"impressions":2000000},
+  {"name":"Turismo Bariloche","msgs":9007,"clicks":11200,"impressions":800000},
+  {"name":"Adventure Center","msgs":8952,"clicks":10500,"impressions":750000},
+  {"name":"Passeios Bariloche","msgs":5446,"clicks":6200,"impressions":2000000},
+  {"name":"Bariloche Excursiones","msgs":5047,"clicks":5800,"impressions":900000},
+  {"name":"General","msgs":5034,"clicks":5800,"impressions":600000},
+  {"name":"TB Brasil","msgs":3684,"clicks":3700,"impressions":980000},
+  {"name":"Turismo Patagonia","msgs":2244,"clicks":2800,"impressions":400000},
+  {"name":"Patagonia Booking","msgs":1556,"clicks":1900,"impressions":300000},
+  {"name":"Rafting","msgs":1263,"clicks":1600,"impressions":200000},
+  {"name":"Cabalgatas","msgs":883,"clicks":1000,"impressions":150000},
+  {"name":"Tur Central","msgs":233,"clicks":290,"impressions":80000},
+];
+
+// ====== COLORES POR MARCA ======
+const BRAND_COLORS = {
+  'Centro de Reservas': '#64ffda',
+  'Turismo Bariloche': '#4cc9f0',
+  'Adventure Center': '#ff9f43',
+  'Passeios Bariloche': '#56e39f',
+  'Bariloche Excursiones': '#c77dff',
+  'General': '#8892b0',
+  'TB Brasil': '#ffd93d',
+  'Turismo Patagonia': '#7c83fd',
+  'Patagonia Booking': '#00b4d8',
+  'Rafting': '#2196f3',
+  'Cabalgatas': '#ff6b9d',
+  'Tur Central': '#ff6b6b',
+};
+
+function brandColor(name) { return BRAND_COLORS[name] || '#8892b0'; }
+function fmt(n) { return n.toLocaleString('es-AR'); }
+
+// ====== ESTADO ======
+let currentBrand = 'all';
+let sortKey = 'msgs';
+let sortDir = 1;
+let searchTerm = '';
+
+// ====== INIT ======
+window.onload = function() {
+  // KPIs
+  document.getElementById('kpi-msgs').textContent = fmt(DATA.meta.total_msgs);
+  document.getElementById('kpi-clicks').textContent = fmt(DATA.meta.total_clicks);
+  const topExc = DATA.by_excursion[0];
+  document.getElementById('kpi-top-exc').textContent = topExc.name;
+  document.getElementById('kpi-top-exc-sub').textContent = fmt(topExc.msgs) + ' mensajes';
+  const topBrand = DATA.by_brand[0];
+  document.getElementById('kpi-top-brand').textContent = topBrand.name;
+  document.getElementById('kpi-top-brand-sub').textContent = fmt(topBrand.msgs) + ' mensajes · ' + Math.round(topBrand.msgs/DATA.meta.total_msgs*100) + '% del total';
+
+  buildBrandFilters();
+  buildBrandList();
+  buildCharts();
+  renderTable();
+};
+
+function buildBrandFilters() {
+  const container = document.getElementById('brand-filters');
+  DATA.by_brand.forEach(b => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.brand = b.name;
+    btn.style.borderLeftColor = brandColor(b.name);
+    btn.textContent = b.name;
+    btn.onclick = function() { filterBrand(btn, b.name); };
+    container.appendChild(btn);
+  });
+}
+
+function buildBrandList() {
+  const container = document.getElementById('brands-list');
+  const total = DATA.meta.total_msgs;
+  DATA.by_brand.forEach(b => {
+    const pct = Math.round(b.msgs / total * 100);
+    const color = brandColor(b.name);
+    const item = document.createElement('div');
+    item.className = 'brand-list-item';
+    item.innerHTML = `
+      <div class="dot" style="background:${color}"></div>
+      <span class="bname">${b.name}</span>
+      <div class="pct-bar-wrap"><div class="pct-bar" style="width:${pct}%;background:${color}"></div></div>
+      <span class="bpct">${pct}%</span>
+      <span class="bmsgs">${fmt(b.msgs)}</span>
+    `;
+    item.onclick = () => showBrandDetail(b.name);
+    container.appendChild(item);
+  });
+}
+
+function buildCharts() {
+  // TOP EXCURSIONES
+  const top20 = DATA.by_excursion.filter(e => e.msgs > 0).slice(0, 20);
+  const excCtx = document.getElementById('chart-excursions').getContext('2d');
+  new Chart(excCtx, {
+    type: 'bar',
+    data: {
+      labels: top20.map(e => e.name),
+      datasets: [{
+        data: top20.map(e => e.msgs),
+        backgroundColor: top20.map((_, i) => {
+          const colors = ['#64ffda','#4cc9f0','#ff9f43','#c77dff','#56e39f','#ffd93d','#7c83fd','#ff6b6b','#ff6b9d','#2196f3'];
+          return colors[i % colors.length] + 'cc';
+        }),
+        borderColor: top20.map((_, i) => {
+          const colors = ['#64ffda','#4cc9f0','#ff9f43','#c77dff','#56e39f','#ffd93d','#7c83fd','#ff6b6b','#ff6b9d','#2196f3'];
+          return colors[i % colors.length];
+        }),
+        borderWidth: 1, borderRadius: 4,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: {
+        callbacks: { label: ctx => ' ' + fmt(ctx.parsed.x) + ' mensajes' }
+      }},
+      scales: {
+        x: { grid: { color: '#2a2f45' }, ticks: { color: '#8892b0', font: { size: 11 } } },
+        y: { grid: { display: false }, ticks: { color: '#e8eaf6', font: { size: 11 } } }
+      }
+    }
+  });
+
+  // PIE MARCAS
+  const pieCtx = document.getElementById('chart-brands-pie').getContext('2d');
+  new Chart(pieCtx, {
+    type: 'doughnut',
+    data: {
+      labels: DATA.by_brand.map(b => b.name),
+      datasets: [{
+        data: DATA.by_brand.map(b => b.msgs),
+        backgroundColor: DATA.by_brand.map(b => brandColor(b.name) + 'cc'),
+        borderColor: DATA.by_brand.map(b => brandColor(b.name)),
+        borderWidth: 1,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '60%',
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          label: ctx => ` ${ctx.label}: ${fmt(ctx.parsed)} msgs (${Math.round(ctx.parsed/DATA.meta.total_msgs*100)}%)`
+        }}
+      }
+    }
+  });
+}
+
+function filterBrand(btn, brand) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentBrand = brand;
+  renderTable();
+}
+
+function filterTable() {
+  searchTerm = document.getElementById('search-exc').value.toLowerCase();
+  renderTable();
+}
+
+function sortTable(key) {
+  if (sortKey === key) sortDir *= -1; else { sortKey = key; sortDir = -1; }
+  document.querySelectorAll('th').forEach(th => { th.classList.remove('sorted'); if (th.onclick?.toString().includes(key)) th.classList.add('sorted'); });
+  renderTable();
+}
+
+function renderTable() {
+  let rows = DATA.by_excursion.filter(e => e.msgs > 0);
+
+  // Filtrar por marca
+  if (currentBrand !== 'all') {
+    rows = rows.filter(e => e.brands.some(b => b.name === currentBrand));
+    rows = rows.map(e => ({
+      ...e,
+      msgs: e.brands.find(b => b.name === currentBrand)?.msgs || 0,
+      clicks: e.brands.find(b => b.name === currentBrand)?.clicks || 0,
+    }));
+  }
+
+  // Filtrar por búsqueda
+  if (searchTerm) {
+    rows = rows.filter(e => e.name.toLowerCase().includes(searchTerm));
+  }
+
+  // Ordenar
+  rows.sort((a, b) => {
+    if (sortKey === 'name') return sortDir * a.name.localeCompare(b.name);
+    return sortDir * (b[sortKey] - a[sortKey]);
+  });
+
+  const maxMsgs = rows.length > 0 ? rows[0].msgs : 1;
+  document.getElementById('table-count').textContent = rows.length + ' excursiones';
+
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = rows.map((exc, i) => {
+    const pct = Math.round(exc.msgs / maxMsgs * 100);
+    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-n';
+    const brandTags = exc.brands.filter(b => b.msgs > 0).map(b =>
+      `<span class="brand-tag" style="background:${brandColor(b.name)}22;color:${brandColor(b.name)};border:1px solid ${brandColor(b.name)}44">${b.name} <strong>${fmt(b.msgs)}</strong></span>`
+    ).join('');
+    return `<tr>
+      <td><span class="rank-badge ${rankClass}">${i+1}</span></td>
+      <td><span class="exc-name">${exc.name}</span></td>
+      <td>
+        <div class="msgs-bar-wrap">
+          <div class="msgs-bar" style="width:${pct}px;max-width:120px;min-width:4px;width:${Math.max(pct*1.2,4)}px"></div>
+          <span class="msgs-num">${fmt(exc.msgs)}</span>
+        </div>
+      </td>
+      <td style="color:var(--muted)">${fmt(exc.clicks)}</td>
+      <td><div class="brand-tags">${brandTags}</div></td>
+    </tr>`;
+  }).join('');
+}
+
+function showBrandDetail(brandName) {
+  const brand = DATA.by_brand.find(b => b.name === brandName);
+  if (!brand) return;
+  document.getElementById('detail-dot').style.background = brandColor(brandName);
+  document.getElementById('detail-brand-name').textContent = brandName;
+  document.getElementById('detail-brand-stats').textContent =
+    fmt(brand.msgs) + ' mensajes · ' + fmt(brand.clicks) + ' clicks';
+
+  // Excursiones de esta marca
+  const brandExcs = DATA.by_excursion
+    .map(e => ({ name: e.name, data: e.brands.find(b => b.name === brandName) }))
+    .filter(e => e.data && e.data.msgs > 0)
+    .sort((a, b) => b.data.msgs - a.data.msgs);
+
+  const grid = document.getElementById('detail-excursions');
+  grid.innerHTML = brandExcs.map(e => `
+    <div class="brand-exc-card">
+      <div class="name">${e.name}</div>
+      <div class="val">${fmt(e.data.msgs)}</div>
+      <div class="sub">${fmt(e.data.clicks)} clicks</div>
+    </div>
+  `).join('');
+
+  document.getElementById('brand-detail').classList.add('visible');
+  document.getElementById('brand-detail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closeDetail() {
+  document.getElementById('brand-detail').classList.remove('visible');
+}
+</script>
+</body>
+</html>
