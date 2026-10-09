@@ -1,0 +1,58 @@
+Hola Luciano! Te paso lo del webhook de n8n para avisar las compras confirmadas de TB 🙌
+
+*Qué hay que hacer*
+Cada vez que un pedido pasa a *confirmado* (pago aprobado), mandar un POST con un JSON a esta dirección. n8n se encarga del resto (armar el evento y avisarle a Meta). Pb2 no necesita hablar con Meta ni guardar ningún token.
+
+*URL*
+https://n8n.iadventurecentersx.online/webhook/tb-compra-confirmada
+
+*Método y encabezados*
+POST
+Content-Type: application/json
+X-TB-Secret: (el secreto te lo paso por separado)
+
+⚠️ No guardes el secreto en el repositorio.
+
+*Campos obligatorios*
+• pedido (texto): ID único del pedido. El mismo que se usa como transaction_id en el dataLayer
+• importe (número): lo realmente cobrado
+• moneda (texto): "ARS"
+
+*Campos recomendados (cuantos más, mejor se asocia la venta al anuncio)*
+• email, telefono (con código de país), nombre, apellido: en claro, n8n los protege
+• pais: "AR"
+• confirmado_en: fecha ISO, ej. "2026-10-08T15:00:00Z" (máx. 7 días de antigüedad)
+• items: [{"sku":"CIRCUITO-CHICO","cantidad":2,"precio":92500.25}]
+• fbp y fbc: las cookies _fbp y _fbc, guardadas al crear el pedido
+• ip y user_agent: los del comprador al crear el pedido
+• consentimiento_publicidad: true/false (si aceptó las cookies de publicidad). Si no es true, no se envía a Meta
+
+Tip: fbp, fbc, ip, user_agent y consentimiento hay que leerlos de la petición que crea el pedido y guardarlos con el pedido; se mandan recién cuando se confirma.
+
+*Ejemplo*
+```{
+  "pedido": "12345",
+  "importe": 185000.5,
+  "moneda": "ARS",
+  "email": "cliente@example.com",
+  "telefono": "+54 9 294 495-7959",
+  "nombre": "María",
+  "apellido": "Gómez",
+  "pais": "AR",
+  "confirmado_en": "2026-10-08T15:00:00Z",
+  "consentimiento_publicidad": true
+}```
+
+*Respuestas*
+• 200 {"ok":true,"estado":"recibido"}: ok, procesado
+• 200 con estado "omitido_sin_consentimiento": válido pero no se envía a Meta. No es error, no reintentar
+• 400: falta pedido/importe/moneda o son inválidos. Corregir y reenviar
+• 403: falta o es incorrecto el X-TB-Secret
+
+*Reglas*
+• Reenviar el mismo pedido es seguro, no se duplica. Si no recibís 200, reintentá con espera (1 min, 5 min, 30 min)
+• Mandar solo con pago confirmado, nunca pendiente, rechazado o cancelado
+• No incluir contraseñas, tokens ni datos de tarjeta
+
+*Pruebas*
+Por ahora está en modo simulación: n8n recibe y valida pero NO envía nada a Meta. Podés probar con pedidos inventados sin problema. Avisame cuando pruebes y activamos el envío real.

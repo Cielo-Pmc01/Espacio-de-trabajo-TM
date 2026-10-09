@@ -117,6 +117,7 @@ Cualquier texto que comience con `/` es un comando definido en `.claude/commands
 │       ├── redteam-plugin-development/ # [QA] Desarrollo de plugins de red team para PromptFoo
 │       ├── search-params/             # [QA] Manejo de search params en evaluaciones PromptFoo
 │       ├── meta-ads/                  # [Área] En construcción
+│       ├── meta-ads-developer/        # [TM/SX] Especialista técnico Meta (Business, Pixel/CAPI, Developers, Graph API, tokens, diagnóstico, WhatsApp API registro/estados, plantillas, catálogos, Instagram) — 19 referencias (00–18 + 99), probada en casos reales 2026-10-08/09; agente: .claude/agents/meta-technical-architect.md
 │       ├── redes-sociales/            # [Área] En construcción
 │       │
 │       │   # Skills de Marketing (from coreyhaines31/marketingskills)
