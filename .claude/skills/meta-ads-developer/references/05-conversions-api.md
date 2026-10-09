@@ -83,3 +83,19 @@ Nodo HTTP Request POST a Graph API; hashing SHA-256 con nodo Crypto o Code; `eve
 
 ## Diagnóstico rápido
 Ver `12-arboles-diagnostico.md` → "Purchase en WooCommerce pero no en Meta" y "Eventos duplicados".
+
+## Dataset Quality API — medir la calidad de los eventos ✅ (doc oficial leída 2026-10-09)
+**Para qué:** después de enviar eventos por CAPI, comprobar con datos (no a ojo) si Meta los está asociando bien. Es **solo lectura (GET)**. Útil para el caso TB: verificar que la señal se recuperó.
+- **Endpoint:** `GET https://graph.facebook.com/{API_VERSION}/dataset_quality` (la doc muestra v25.0 en el texto y `<LATEST_VERSION>` en el ejemplo; usar la versión fijada en `00`).
+- **Parámetros:** `dataset_id` (obligatorio; es el ID del Pixel/Dataset), `access_token` (obligatorio; la doc recomienda token de **System User de larga duración**), `agent_name` (opcional, minúsculas; filtra eventos enviados con `partner_agent`), `fields` (ej. `web{event_match_quality,event_name}`).
+- **Permisos:** usuario con *Acceso parcial → Usar el dataset de eventos*; app con `ads_read` **y** (`ads_management` **o** `business_management`). Con acceso avanzado: `ads_management` avanzado + función *Marketing API Access Tier* (puede requerir App Review).
+- **Ejemplo:** `curl -G -d 'fields=web{event_match_quality,event_name}' -d 'dataset_id=<DATASET_ID>' -d 'access_token=<TOKEN>' https://graph.facebook.com/{API_VERSION}/dataset_quality`
+- **Qué devuelve (por evento, bajo `web`):**
+  - `event_match_quality`: `composite_score` (0–10; "cuán bien la información del cliente enviada desde el servidor puede asociar el evento a una cuenta de Meta"), `match_key_feedback[]` (por parámetro: `identifier`, `coverage.percentage`, `potential_aly_acr_increase`) y `diagnostics[]` (`name`, `description`, `solution`, `percentage`, `affected_event_count`, `total_event_count`). **Se calcula en tiempo real** y **solo existe para eventos web** (offline, app y leads: consultar con Meta).
+  - **ACR (Additional Conversions Reported):** estimación de cuántas conversiones se miden gracias a la integración CAPI; variantes por evento, por parámetro y por cobertura (promedios de 7 días).
+  - **Event Coverage:** promedio de 7 días del % de eventos del Pixel que también llegan por CAPI **y comparten clave de deduplicación**; objetivo de la doc: **75 %**.
+  - **Deduplicación (`dedupe_key_feedback[]`):** por clave (`dedupe_key`), % de eventos de navegador y de servidor que la traen y cobertura global. Compartir la clave en **todos** los eventos.
+  - **Data Freshness:** `upload_frequency` (`real_time`, `hourly`…) = demora entre el hecho y la recepción en Meta; enviar en tiempo real o lo más cerca posible.
+- **Notas:** métricas ACR/Coverage/Dedupe/Freshness/Diagnostics agregadas el 28/5/2025. Hay una versión **beta** para *offline events*. Con acceso Full Tier la cuota bajó de 1.500 a **500 llamadas a Marketing API en 15 días** → no consultarla en bucle (ver regla de no insistir contra la API).
+- **Cómo aplicarlo a TB (cuando se active el envío real):** (1) consultar `Purchase` y ver `composite_score` y `diagnostics`; (2) revisar `match_key_feedback` para ver qué parámetros faltan (típicamente `fbp`, `fbc`, `email`, `client_ip_address`, `client_user_agent`); (3) en `dedupe_key_feedback` confirmar que Pixel (GTM) y CAPI (n8n) traen el mismo `event_id` = N° de pedido; (4) si `Event Coverage` < 75 %, falta el evento de navegador o la clave compartida. Alternativa sin API: *Events Manager → Dataset → Resumen/Calidad de coincidencia de eventos*.
+- ⚠️ **No verificado:** los valores exactos de `diagnostics.name`, el comportamiento con datasets recién creados (sin tráfico suficiente) y si el token de n8n actual alcanza (permisos del token de CAPI vs. los que pide esta API).
