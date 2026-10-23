@@ -113,7 +113,7 @@ Contenido e información de protocolos cargados. Backend: Supabase.
 
 | Ítem | Estado |
 |------|--------|
-| Equipo completo (4 personas) | ✅ |
+| Equipo del área | Cielo sola (desde oct-2026; ya no están Mariano, Jonatan ni Luciana) |
 | 14 marcas activas en Meta Ads | ✅ |
 | Procesos documentados | ❌ Pendiente |
 | Métricas definidas y visibles | ❌ Pendiente |
