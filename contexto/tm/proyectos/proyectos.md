@@ -19,12 +19,16 @@
 | IArturo (Sofía IA) en n8n | Workflow n8n en paralelo (instancia nueva, separada de Magda) para IArturo: suma Notion como fuente de datos + permite ajustar prompt sin deploy. Plan: `planes/2026-07-02-iarturo-n8n-workflow-paralelo.md`. PR creado, pendiente de merge. | ALTA |
 | Sync Precios/Horarios Docs → Capacitación TM | Los Docs maestros 3 (Invierno) y 4 (Todo el Año) actualizan solos el catálogo de excursiones en `capacitacion-tm` (precio y horario) vía notificación push de Google Drive + workflow n8n, sin edición manual. Requiere tabla nueva `excursion_precios` (desacoplada del Tiptap de la lección) y verificación de dominio en Google Search Console. Plan: `planes/2026-07-27-sync-precios-horarios-docs-capacitacion-tm.md`. | ALTA |
 | Dashboard de Ventas — Equipo Comercial | Ranking de vendedores, objetivos vs. realizado, ticket promedio (AOV), ventas por programa/servicio, con datos de Chatwoot. Primera etapa de la iniciativa de 2 dashboards (Ventas + RRHH). Plan: `planes/2026-07-06-dashboard-ventas-equipo.md`. | ALTA |
+| Reportes Unificados Multi-Fuente | Cruza Meta Ads + Google Ads + Pb2 (descartado) + WooCommerce para reportes de ventas reales por marca, extiende `crm-meta-ads`/`tm-platform` con una vista nueva separada. Bloqueado parcialmente: Google Ads esperando propagación de passkey (~19/09), WooCommerce TB bloqueado por seguridad de Hostinger. Plan: `planes/2026-09-17-reportes-unificados-multi-fuente.md`. | ALTA |
+
+| Agente Meta Ads por WhatsApp (evo-mk) | Agente en WhatsApp (número 294 499-5727) que trabaja campañas y anuncios de Meta con el MCP oficial y la skill `meta-ads-developer`. Base: evo-mk de Markco adaptado a Adventure Center, en el VPS A, con la cuenta de Claude de la empresa. Node ya actualizado a 24.22.1. Plan: `planes/2026-10-22-agente-meta-whatsapp-evo-mk.md`. | ALTA |
 
 ## Completados
 
 | Proyecto | Descripción | URL / Ubicación |
 |----------|-------------|-----------------|
 | App Capacitación Invierno | App web para vendedores — Módulo 1 (excursiones), Módulo 2 (protocolos), Módulo 3 (evaluación 20 preguntas). Contenido y protocolos cargados. Backend: Supabase. | https://c1.iadventurecenter.com/ |
+| Reporte Meta Ads — PDF prolijo | Workflow n8n "MetaAds - Reporte Bajo Demanda" (ID `Uo9iqt70pkvs9NOc`) entrega PDF con diseño (identidad neutra TM, Gotenberg self-hosteado en Dokploy) en vez de texto plano — excursiones más consultadas, campañas con mejor respuesta, presupuesto mal aprovechado, y filtro por marca. Probado de punta a punta con datos reales. Plan: `planes/2026-09-01-reporte-meta-ads-pdf.md`. | Workflow n8n `Uo9iqt70pkvs9NOc` |
 
 ---
 
@@ -35,7 +39,6 @@
 | Rediseño del Editor del Admin | Hacer que el panel de administración sea sumamente intuitivo, visual, profesional y fácil de rellenar para el usuario (reemplazar la edición manual de HTML por campos específicos para links, textos y videos). |
 | Videos avatar Sofía | Crear videos con HeyGen u otra IA para el avatar de la app |
 | Agente auditor de videos | Flujo n8n que revisa y reporta videos del equipo automáticamente |
-| Reporte automático de campañas | Dashboard o reporte semanal de Meta Ads generado por n8n |
 | Dashboard de RRHH — Equipo | Headcount por área, rendimiento, ausentismo, rotación, costo de contratación, evolución mensual. Segunda etapa de la iniciativa de dashboards — requiere definir primero de dónde salen los datos (hoy no existe ninguna fuente armada). |
 
 ---

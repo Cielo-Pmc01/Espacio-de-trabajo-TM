@@ -17,7 +17,7 @@
 
 Adventure center — empresa de turismo en Patagonia Argentina.
 Vende excursiones y experiencias turísticas a través de un equipo de vendedores internos.
-Opera con múltiples marcas (14 en total) bajo la misma estructura.
+Opera con múltiples marcas bajo la misma estructura: **39 reales** (33 activas — 32 publicando en Instagram + Turismo Bariloche BR — y 6 por desarrollar), no 14. Lista vigente en `marcas_reales.md`; las tablas de abajo describen solo las 14 originales.
 
 ## Productos / Servicios / Áreas de Enfoque
 
@@ -40,10 +40,9 @@ Responsabilidades de TM:
 
 ## Equipo TM
 
-- Cielo → Liderazgo, estrategia, IA y automatizaciones
-- Mariano → Diseño gráfico y audiovisual
-- Jonatan → Generación de contenido en campo
-- Luciana → Community Manager (gestiona 6 marcas)
+- Cielo → única persona del área hoy: liderazgo, estrategia, IA, automatizaciones y también diseño, contenido, community y campañas
+
+_Actualizado 2026-10-22: Mariano (diseño), Jonatan (contenido en campo) y Luciana (community manager) ya no están en la empresa._
 
 ## Stack de Herramientas
 
@@ -73,8 +72,8 @@ Responsabilidades de TM:
 | TB BR | Turismo Bariloche BR | Versión adaptada para brasileños. Clara, cálida y explicativa. | Circuito Chico, experiencias simples de nieve. | Turistas brasileños, primer viaje a Bariloche. |
 | PBRS | Passeios Bariloche | Pensada para Brasil. Cercana, amigable y explicativa. | Catedral (nieve), experiencias guiadas, tips prácticos. | Brasileños, primer viaje, necesita orientación. |
 
-### Marcas de Rafting (5) — 🔒 Temporadamente inactivas
-> **Nota:** Las marcas de rafting están fuera de temporada (otoño/invierno). Se reactivan en la próxima temporada de rafting.
+### Marcas de Rafting (5 originales) — ✅ Activas (temporada primavera/verano)
+> **Nota (2026-10-22):** el rafting ya está activo: arrancó la temporada de primavera/verano y hay **12 cuentas de rafting** publicando (ver `marcas_reales.md`). Esta tabla muestra solo las 5 originales.
 
 | Nomenclatura | Marca | Descripción | Excursiones | Público Objetivo |
 |--------------|-------|-------------|-------------|------------------|

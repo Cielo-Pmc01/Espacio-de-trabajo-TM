@@ -25,7 +25,7 @@ Nota: Patagonia Booking (PB) es una de las 14 marcas de Adventure Center, y tamb
 - Liderar el área TM: publicidad paga, redes sociales, contenido y análisis
 - Gestionar campañas de Meta Ads para 14 marcas de la empresa
 - Ordenar y documentar los procesos del área para hacerlos medibles
-- Supervisar al equipo: Mariano (diseño), Jonatan (contenido), Luciana (community)
+- Hoy sos la única persona del Área TM (desde oct-2026 Mariano, Jonatan y Luciana ya no están en la empresa): diseño, contenido, community, campañas y automatizaciones quedan a tu cargo
 - Desarrollar e implementar automatizaciones con IA y n8n
 - Crear y mantener la app de capacitación interna para vendedores
 - Capacitarme constantemente en IA y automatizaciones

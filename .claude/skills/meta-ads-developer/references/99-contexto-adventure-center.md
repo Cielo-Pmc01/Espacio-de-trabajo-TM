@@ -73,3 +73,7 @@ Page de Facebook Argentina de TB sin dueño → bloquea anuncios/catálogo/CAPI 
 - Campañas se crean en PAUSED; Cielo publica. Nunca push directo a main.
 - Cuidado con llamadas repetidas a Meta (`feedback_cuidado_llamadas_meta_api`).
 - Los documentos de identidad pueden hacerse públicos en la Biblioteca de Anuncios: confirmar con la persona.
+
+## 🏢 2026-10-14 — Fuente de gasto por campaña y límite de Windsor
+- **Windsor.ai (plan gratis, 1 cuenta) tiene las lecturas PAUSADAS** porque hay 5 cuentas conectadas (4 de Meta Ads + 1 GA4). En ese estado `get_data` devuelve `spend: 0` como relleno: NO leerlo como gasto real. La cuenta `2019411605622000` (portafolio Turismo Patagonia) no está conectada a Windsor.
+- **Fuente confiable de gasto/estado por campaña:** Supabase "Plataforma ecosistema meta" (`jvudavpopxsguiemtrkk`), tabla `meta_ads.metrics_daily` (columnas: `metric_date`, `account_id`, `account_name`, `campaign_name`, `campaign_status`, `brand`, `spend`, `messages`, `account_status_label`, `account_currency`, `synced_at`). Se sincroniza desde n8n (última sync verificada 2026-10-14 19:01 UTC). OJO: la columna `brand` está en NULL en varias campañas (ej. "R VDM", "Patagonia Booking", "Turismo Patagonia mensajes", "Rafting Bariloche") → mapear por `campaign_name`, no solo por `brand`.

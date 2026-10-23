@@ -40,6 +40,7 @@ Cualquier texto que comience con `/` es un comando definido en `.claude/commands
 | `/crear-plan [pedido]` | Crear plan de implementación detallado en `planes/` |
 | `/implementar [ruta]` | Ejecutar un plan paso a paso |
 | `/cerrar` | Cerrar sesión actualizando la memoria persistente con lo trabajado |
+| `/subir-obsidian` | Sincronizar el workspace al vault de Obsidian (`scripts/sync-obsidian.ps1`, robocopy /E) |
 
 ---
 
@@ -56,7 +57,8 @@ Cualquier texto que comience con `/` es un comando definido en `.claude/commands
 │   │   ├── estrategia.md              # Prioridades estratégicas actuales
 │   │   ├── negocio/                   # Contexto del negocio y marcas
 │   │   │   ├── info-negocio.md        # Descripción de la empresa y área TM
-│   │   │   ├── brand_profiles.md      # Perfiles, tonos y públicos de las 14 marcas
+│   │   │   ├── marcas_reales.md       # LISTA VIGENTE de las 39 marcas (33 activas + 6 por desarrollar): Instagram, web, WhatsApp API, Facebook y pendientes
+│   │   │   ├── brand_profiles.md      # Perfiles, tonos y públicos de las 14 marcas originales
 │   │   │   ├── copy_protocol.md       # Protocolo de copy y lenguaje por marca
 │   │   │   ├── catalog_*.md           # Catálogos de excursiones (invierno, verano, año)
 │   │   │   ├── Excursiones todo el año.md # Lista completa de excursiones
@@ -65,6 +67,7 @@ Cualquier texto que comience con `/` es un comando definido en `.claude/commands
 │   │   │   ├── datos-actuales.md      # Estado de cada proyecto activo
 │   │   │   └── proyectos.md           # Lista y backlog de proyectos
 │   │   └── meta-ads/                  # Contexto de campañas Meta Ads
+│   │       └── agente-campanas/       # Entorno diario del agente de campañas: README, playbook (reglas), activos (cuentas/Páginas), bitácora
 │   │
 │   ├── sx/                            # ÁREA SX — operaciones/infraestructura (en construcción, 2026-07-21)
 │   │   ├── chatwoot/                  # Arquitectura de Chatwoot (CRM de mensajería)
@@ -73,13 +76,20 @@ Cualquier texto que comience con `/` es un comando definido en `.claude/commands
 │   │   └── proyectos/
 │   │       └── migracion-sx-errores.md # Errores/soluciones de la migración iadventurecenter.com → iadventurecentersx.com
 │   │
+│   ├── ecosistema-ia/                 # Brief de IA + automatización para las webs (brief-ia-webs-automatizacion.md)
+│   │
 │   └── redes-sociales/                # (en construcción) Contexto de RRSS — TM
 │
 ├── .claude/
 │   ├── commands/                      # Comandos de sesión
 │   │   ├── iniciar.md
 │   │   ├── crear-plan.md
-│   │   └── implementar.md
+│   │   ├── implementar.md
+│   │   ├── cerrar.md
+│   │   └── subir-obsidian.md
+│   ├── agents/                        # Subagentes propios
+│   │   ├── meta-technical-architect.md # [TM/SX] Especialista Meta; lee la skill meta-ads-developer
+│   │   └── meta-campaign-builder.md   # [TM] Arma/edita campañas con el MCP oficial de Meta Ads; se construye día a día (contexto en contexto/tm/meta-ads/agente-campanas/)
 │   └── skills/                        # Skills activas (1 nivel — limitación del harness)
 │       ├── turismo-design-expert/     # [TM] Diseño premium para las 14 marcas
 │       ├── senior-architect-tm-protocol/ # [TM] Arquitectura 6 fases para proyectos TM
@@ -170,29 +180,35 @@ Cualquier texto que comience con `/` es un comando definido en `.claude/commands
 ├── salidas/                           # Proyectos activos (cada uno con repo propio)
 │   ├── app-invierno/                  # [TM] ✅ Completada — https://c1.iadventurecenter.com/
 │   ├── capacitacion-tm/               # [TM] 🔄 En desarrollo — reemplaza a app-capacitacion-gral
-│   ├── crm-cm/                        # [TM] 🔄 Content Command Center (dashboard mock para CM Luciana)
+│   ├── crm-cm/                        # [TM] 🔄 Content Command Center (dashboard mock pensado para la CM Luciana, que ya no está en la empresa)
 │   ├── crm-equipo-tm/                 # [TM] 🔄 En desarrollo
 │   ├── crm-meta-ads/                  # [TM] 🔄 En desarrollo
 │   ├── tm-platform/                   # [TM] 🔄 Fusión de crm-cm + crm-meta-ads en una sola app
 │   ├── Pb2/                           # [SX] ⛔ ERP (Strapi) — se trabaja en instancia separada, NO tocar desde acá
 │   ├── Chatwoot#3/                    # [SX] docker-compose de una instancia local de Chatwoot
-│   └── N8N ORIGINAL/                  # [SX] Exports JSON de workflows de Magda (backup)
+│   ├── N8N ORIGINAL/                  # [SX] Exports JSON de workflows de Magda (backup)
+│   ├── front-pb2-pb3/                 # [SX] Frontend interno de Pb2 (Next.js + Supabase) — remoto = repo del workspace
+│   ├── pb-backend-main/               # [SX] Backend de Pb2 (Strapi 5, repo backend-pb3) — ver aviso de Pb2 arriba
+│   ├── artemis/                       # [Ext] Clon de google/artemis (IA que maneja un celular Android) — código ajeno, no es del workspace
+│   ├── rea/                           # [Ext] Clon de morluto/rea ("Reverse Engineer Anything": MCP/CLI de ingeniería inversa de software) — código ajeno, solo clonado (22/10), NO instalado ni ejecutado; no es de Meta Ads
+│   └── reports/                       # Planillas de cruce de datos (ej. Cruce_Nombres_y_Precios_Excursiones.xlsx) — remoto = repo del workspace
 ├── referencia/                        # Plantillas, flujos n8n, materiales de apoyo
 └── scripts/                           # Scripts de automatización auxiliares
 ```
 
-Cada carpeta de `salidas/` es un repo independiente con su propio stack, `package.json`/README y ciclo de vida — no hay comandos de build/lint/test centralizados a nivel workspace. Para trabajar en uno, entrar a esa carpeta y revisar su `package.json`. La mayoría (`app-invierno`, `crm-cm`, `crm-equipo-tm`, `crm-meta-ads`) solo tiene `dev`/`build`/`lint`, sin tests. `capacitacion-tm` usa **pnpm** y agrega `pnpm typecheck` (react-router typegen + tsc) y `pnpm lint --max-warnings 0`.
+Cada carpeta de `salidas/` es un repo independiente con su propio stack (excepciones: `front-pb2-pb3` y `reports` cuelgan del repo del workspace; `artemis` y `rea` son clones de repos ajenos), `package.json`/README y ciclo de vida — no hay comandos de build/lint/test centralizados a nivel workspace. Para trabajar en uno, entrar a esa carpeta y revisar su `package.json`. La mayoría (`app-invierno`, `crm-cm`, `crm-equipo-tm`, `crm-meta-ads`) solo tiene `dev`/`build`/`lint`, sin tests. `capacitacion-tm` usa **pnpm** y agrega `pnpm typecheck` (react-router typegen + tsc) y `pnpm lint --max-warnings 0`.
 
 ---
 
-## Las 14 Marcas
+## Las Marcas (39 reales, no 14)
 
-Siempre leer `contexto/tm/negocio/brand_profiles.md` antes de trabajar con cualquier marca. Existe brandbook con paletas de colores definidas.
+**La lista vigente y su estado están en `contexto/tm/negocio/marcas_reales.md`** (fuente: Informe general de marcas del Drive "generales", 2026-10-22): **33 activas** (32 publicando en Instagram + Turismo Bariloche BR) + **6 por desarrollar**. Logos y manuales de cada marca: carpeta "generales" del Drive (enlace en ese archivo). El "14 marcas" que aparece en documentos y memorias viejas es el conteo original, desactualizado.
 
-**Activas (9):** Adventure Center, Bariloche Excursiones, Turismo Bariloche, Centro de Reservas, Turismo Patagonia, Tur Central, Patagonia Booking, TB Brasil, Passeios Bariloche.
-**Rafting (5 — inactivas en invierno):** Rafting Adventure, Rafting Bariloche, Rafting Villegas, Rafting Patagonia, Rafting Valle del Manso.
+Antes de trabajar con una marca, leer `contexto/tm/negocio/brand_profiles.md` (perfiles, tonos y públicos solo de las **14 originales**; las marcas nuevas no tienen perfil escrito). Existe brandbook con paletas de colores definidas.
 
-**CM Luciana gestiona:** TB, Passeios Bariloche, TP, Adventure Center, Bariloche Excursiones, Centro de Reservas, Tur Central, Patagonia Booking.
+**Resumen:** 9 marcas generales (Adventure Center, Bariloche Excursiones, Centro de Reservas, Passeios Bariloche, Patagonia Booking, Tur Central, Turismo Bariloche, Turismo Bariloche BR, Turismo Patagonia), 12 de Rafting, 3 de Cabalgatas, 4 de Navegación, 2 de Traslados y 3 más (Buceo, Excursiones Bariloche, Velero). TikTok: solo Bariloche Excursiones y Rafting Bariloche. Por desarrollar: Canopy Patagonia, Navegación Patagonia, Rafting Río Manso, Ski Bariloche Center, Bariloche Booking y Kayak Travesía Bariloche.
+
+**Equipo TM:** desde oct-2026 Cielo es la única persona del área (Mariano, Jonatan y Luciana ya no están en la empresa). Las redes de estas marcas las gestionaba la CM Luciana y hoy quedan a cargo de Cielo: TB, Passeios Bariloche, TP, Adventure Center, Bariloche Excursiones, Centro de Reservas, Tur Central, Patagonia Booking.
 
 ---
 
